@@ -1,4 +1,4 @@
-package org.odk.collect.android.widgets.base;
+package com.redrosecps.collect.android.widgets.base;
 
 import androidx.annotation.NonNull;
 
@@ -7,7 +7,7 @@ import net.bytebuddy.utility.RandomString;
 import org.javarosa.core.model.data.StringData;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.odk.collect.android.widgets.interfaces.FileWidget;
+import com.redrosecps.collect.android.widgets.interfaces.FileWidget;
 
 import java.io.File;
 

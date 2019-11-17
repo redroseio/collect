@@ -1,11 +1,11 @@
-package org.odk.collect.android.espressoutils.pages;
+package com.redrosecps.collect.android.espressoutils.pages;
 
 import androidx.test.espresso.Espresso;
 import androidx.test.rule.ActivityTestRule;
 
-import org.odk.collect.android.R;
-import org.odk.collect.android.provider.FormsProviderAPI;
-import org.odk.collect.android.support.ActivityHelpers;
+import com.redrosecps.collect.android.R;
+import com.redrosecps.collect.android.provider.FormsProviderAPI;
+import com.redrosecps.collect.android.support.ActivityHelpers;
 
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;

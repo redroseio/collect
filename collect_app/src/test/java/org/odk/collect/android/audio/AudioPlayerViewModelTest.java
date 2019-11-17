@@ -1,4 +1,4 @@
-package org.odk.collect.android.audio;
+package com.redrosecps.collect.android.audio;
 
 import android.media.MediaPlayer;
 
@@ -11,9 +11,9 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
-import org.odk.collect.android.R;
-import org.odk.collect.android.support.FakeScheduler;
-import org.odk.collect.android.support.LiveDataTester;
+import com.redrosecps.collect.android.R;
+import com.redrosecps.collect.android.support.FakeScheduler;
+import com.redrosecps.collect.android.support.LiveDataTester;
 import org.robolectric.RobolectricTestRunner;
 
 import java.io.IOException;

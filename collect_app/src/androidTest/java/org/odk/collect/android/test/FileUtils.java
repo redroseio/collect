@@ -1,4 +1,4 @@
-package org.odk.collect.android.test;
+package com.redrosecps.collect.android.test;
 
 import android.content.res.AssetManager;
 

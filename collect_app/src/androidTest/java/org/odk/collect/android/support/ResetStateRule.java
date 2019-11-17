@@ -1,4 +1,4 @@
-package org.odk.collect.android.support;
+package com.redrosecps.collect.android.support;
 
 import android.content.Context;
 
@@ -7,7 +7,7 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
-import org.odk.collect.android.utilities.ResetUtility;
+import com.redrosecps.collect.android.utilities.ResetUtility;
 
 import java.util.Arrays;
 import java.util.List;

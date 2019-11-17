@@ -1,4 +1,4 @@
-package org.odk.collect.android.regression;
+package com.redrosecps.collect.android.regression;
 
 import android.Manifest;
 import android.widget.FrameLayout;
@@ -11,17 +11,17 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
 import org.junit.runner.RunWith;
-import org.odk.collect.android.R;
-import org.odk.collect.android.activities.FormEntryActivity;
-import org.odk.collect.android.espressoutils.pages.BlankFormSearchPage;
-import org.odk.collect.android.espressoutils.pages.ExitFormDialog;
-import org.odk.collect.android.espressoutils.pages.FillBlankFormPage;
-import org.odk.collect.android.espressoutils.pages.FormEntryPage;
-import org.odk.collect.android.espressoutils.pages.GeneralSettingsPage;
-import org.odk.collect.android.espressoutils.pages.MainMenuPage;
-import org.odk.collect.android.support.ActivityHelpers;
-import org.odk.collect.android.support.CopyFormRule;
-import org.odk.collect.android.support.ResetStateRule;
+import com.redrosecps.collect.android.R;
+import com.redrosecps.collect.android.activities.FormEntryActivity;
+import com.redrosecps.collect.android.espressoutils.pages.BlankFormSearchPage;
+import com.redrosecps.collect.android.espressoutils.pages.ExitFormDialog;
+import com.redrosecps.collect.android.espressoutils.pages.FillBlankFormPage;
+import com.redrosecps.collect.android.espressoutils.pages.FormEntryPage;
+import com.redrosecps.collect.android.espressoutils.pages.GeneralSettingsPage;
+import com.redrosecps.collect.android.espressoutils.pages.MainMenuPage;
+import com.redrosecps.collect.android.support.ActivityHelpers;
+import com.redrosecps.collect.android.support.CopyFormRule;
+import com.redrosecps.collect.android.support.ResetStateRule;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,8 +32,8 @@ import static androidx.test.espresso.Espresso.pressBack;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static junit.framework.TestCase.assertNotSame;
-import static org.odk.collect.android.support.matchers.DrawableMatcher.withImageDrawable;
-import static org.odk.collect.android.support.matchers.RecyclerViewMatcher.withRecyclerView;
+import static com.redrosecps.collect.android.support.matchers.DrawableMatcher.withImageDrawable;
+import static com.redrosecps.collect.android.support.matchers.RecyclerViewMatcher.withRecyclerView;
 
 //Issue NODK-244
 @RunWith(AndroidJUnit4.class)

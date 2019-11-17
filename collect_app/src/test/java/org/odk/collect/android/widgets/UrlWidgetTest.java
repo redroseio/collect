@@ -1,12 +1,12 @@
-package org.odk.collect.android.widgets;
+package com.redrosecps.collect.android.widgets;
 
 import androidx.annotation.NonNull;
 
 import net.bytebuddy.utility.RandomString;
 
 import org.javarosa.core.model.data.StringData;
-import org.odk.collect.android.formentry.questions.QuestionDetails;
-import org.odk.collect.android.widgets.base.QuestionWidgetTest;
+import com.redrosecps.collect.android.formentry.questions.QuestionDetails;
+import com.redrosecps.collect.android.widgets.base.QuestionWidgetTest;
 
 /**
  * @author James Knight

@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package org.odk.collect.android.utilities;
+package com.redrosecps.collect.android.utilities;
 
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.odk.collect.android.logic.DatePickerDetails;
+import com.redrosecps.collect.android.logic.DatePickerDetails;
 import org.robolectric.RobolectricTestRunner;
 
 import java.util.TimeZone;

@@ -1,4 +1,4 @@
-package org.odk.collect.android.widgets;
+package com.redrosecps.collect.android.widgets;
 
 import android.content.Intent;
 import androidx.annotation.NonNull;
@@ -7,11 +7,11 @@ import org.javarosa.core.model.data.GeoPointData;
 import org.javarosa.core.model.data.StringData;
 import org.junit.Before;
 import org.junit.Test;
-import org.odk.collect.android.R;
-import org.odk.collect.android.ShadowPlayServicesUtil;
-import org.odk.collect.android.activities.GeoPolyActivity;
-import org.odk.collect.android.formentry.questions.QuestionDetails;
-import org.odk.collect.android.widgets.base.BinaryWidgetTest;
+import com.redrosecps.collect.android.R;
+import com.redrosecps.collect.android.ShadowPlayServicesUtil;
+import com.redrosecps.collect.android.activities.GeoPolyActivity;
+import com.redrosecps.collect.android.formentry.questions.QuestionDetails;
+import com.redrosecps.collect.android.widgets.base.BinaryWidgetTest;
 import org.robolectric.annotation.Config;
 
 import java.util.ArrayList;

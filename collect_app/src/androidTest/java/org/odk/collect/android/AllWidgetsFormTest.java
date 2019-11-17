@@ -1,4 +1,4 @@
-package org.odk.collect.android;
+package com.redrosecps.collect.android;
 
 import android.Manifest;
 import android.app.Instrumentation.ActivityResult;
@@ -26,11 +26,11 @@ import org.junit.Test;
 import org.junit.rules.RuleChain;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
-import org.odk.collect.android.injection.config.AppDependencyModule;
-import org.odk.collect.android.support.CopyFormRule;
-import org.odk.collect.android.support.ResetStateRule;
-import org.odk.collect.android.test.FormActivityTestRule;
-import org.odk.collect.android.utilities.ActivityAvailability;
+import com.redrosecps.collect.android.injection.config.AppDependencyModule;
+import com.redrosecps.collect.android.support.CopyFormRule;
+import com.redrosecps.collect.android.support.ResetStateRule;
+import com.redrosecps.collect.android.test.FormActivityTestRule;
+import com.redrosecps.collect.android.utilities.ActivityAvailability;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -66,9 +66,9 @@ import static org.hamcrest.Matchers.startsWith;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.odk.collect.android.support.CollectHelpers.overrideAppDependencyModule;
-import static org.odk.collect.android.test.CustomMatchers.withProgress;
-import static org.odk.collect.android.test.FormLoadingUtils.ALL_WIDGETS_FORM;
+import static com.redrosecps.collect.android.support.CollectHelpers.overrideAppDependencyModule;
+import static com.redrosecps.collect.android.test.CustomMatchers.withProgress;
+import static com.redrosecps.collect.android.test.FormLoadingUtils.ALL_WIDGETS_FORM;
 
 /**
  * Integration test that runs through a form with all question types.

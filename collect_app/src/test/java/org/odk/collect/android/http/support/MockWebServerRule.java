@@ -1,4 +1,4 @@
-package org.odk.collect.android.http.support;
+package com.redrosecps.collect.android.http.support;
 
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;

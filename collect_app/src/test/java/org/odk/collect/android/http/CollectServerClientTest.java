@@ -1,12 +1,12 @@
-package org.odk.collect.android.http;
+package com.redrosecps.collect.android.http;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.odk.collect.android.http.stub.StubOpenRosaHttpInterface;
-import org.odk.collect.android.http.stub.StubOpenRosaHttpInterfaceError;
-import org.odk.collect.android.utilities.DocumentFetchResult;
-import org.odk.collect.android.utilities.WebCredentialsUtils;
+import com.redrosecps.collect.android.http.stub.StubOpenRosaHttpInterface;
+import com.redrosecps.collect.android.http.stub.StubOpenRosaHttpInterfaceError;
+import com.redrosecps.collect.android.utilities.DocumentFetchResult;
+import com.redrosecps.collect.android.utilities.WebCredentialsUtils;
 import org.robolectric.RobolectricTestRunner;
 
 import static junit.framework.Assert.assertEquals;

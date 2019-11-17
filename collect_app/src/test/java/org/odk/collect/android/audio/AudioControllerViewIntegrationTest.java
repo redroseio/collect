@@ -1,4 +1,4 @@
-package org.odk.collect.android.audio;
+package com.redrosecps.collect.android.audio;
 
 import android.media.MediaPlayer;
 import android.view.View;
@@ -12,11 +12,11 @@ import org.jetbrains.annotations.NotNull;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.odk.collect.android.R;
-import org.odk.collect.android.support.FakeLifecycleOwner;
-import org.odk.collect.android.support.FakeScheduler;
-import org.odk.collect.android.support.RobolectricHelpers;
-import org.odk.collect.android.support.SwipableParentActivity;
+import com.redrosecps.collect.android.R;
+import com.redrosecps.collect.android.support.FakeLifecycleOwner;
+import com.redrosecps.collect.android.support.FakeScheduler;
+import com.redrosecps.collect.android.support.RobolectricHelpers;
+import com.redrosecps.collect.android.support.SwipableParentActivity;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowMediaPlayer;
 import org.robolectric.shadows.util.DataSource;
@@ -26,8 +26,8 @@ import java.io.IOException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.odk.collect.android.support.RobolectricHelpers.getCreatedFromResId;
-import static org.odk.collect.android.support.RobolectricHelpers.setupMediaPlayerDataSource;
+import static com.redrosecps.collect.android.support.RobolectricHelpers.getCreatedFromResId;
+import static com.redrosecps.collect.android.support.RobolectricHelpers.setupMediaPlayerDataSource;
 import static org.robolectric.Shadows.shadowOf;
 import static org.robolectric.shadows.ShadowView.innerText;
 

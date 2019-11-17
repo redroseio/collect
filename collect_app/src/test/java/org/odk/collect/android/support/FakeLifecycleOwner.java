@@ -1,4 +1,4 @@
-package org.odk.collect.android.support;
+package com.redrosecps.collect.android.support;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Lifecycle;

@@ -1,4 +1,4 @@
-package org.odk.collect.android.widgets.base;
+package com.redrosecps.collect.android.widgets.base;
 
 import androidx.annotation.NonNull;
 
@@ -9,7 +9,7 @@ import org.javarosa.core.model.data.SelectMultiData;
 import org.javarosa.core.model.data.helper.Selection;
 import org.junit.Before;
 import org.junit.Test;
-import org.odk.collect.android.widgets.interfaces.MultiChoiceWidget;
+import com.redrosecps.collect.android.widgets.interfaces.MultiChoiceWidget;
 
 import java.util.ArrayList;
 import java.util.List;

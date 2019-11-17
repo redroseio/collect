@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.odk.collect.android.utilities;
+package com.redrosecps.collect.android.utilities;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -23,7 +23,7 @@ import androidx.test.runner.AndroidJUnit4;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.odk.collect.android.application.Collect;
+import com.redrosecps.collect.android.application.Collect;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;

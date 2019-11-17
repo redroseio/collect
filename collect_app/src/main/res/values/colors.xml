@@ -39,4 +39,9 @@ the License.
     <color name="mapPointCircle">#ffff0000</color>
     <color name="mapPointFill">#ffffffff</color>
     <color name="mapLine">#ffff0000</color>
+    <drawable name="white">#ffffffff</drawable>
+    <drawable name="black">#ff000000</drawable>
+    <color name="background">#ffeaebeb</color>
+    <color name="green_text">#ff21a04d</color>
+    <color name="hoki">#617D8A</color>
 </resources>

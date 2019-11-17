@@ -1,8 +1,8 @@
-package org.odk.collect.android.espressoutils.pages;
+package com.redrosecps.collect.android.espressoutils.pages;
 
 import androidx.test.rule.ActivityTestRule;
 
-import org.odk.collect.android.R;
+import com.redrosecps.collect.android.R;
 
 public class ExitFormDialog extends Page<ExitFormDialog> {
 

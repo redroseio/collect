@@ -1,4 +1,4 @@
-package org.odk.collect.android.utilities;
+package com.redrosecps.collect.android.utilities;
 
 import android.graphics.Bitmap;
 
@@ -10,9 +10,9 @@ import com.google.zxing.WriterException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.preferences.AdminSharedPreferences;
-import org.odk.collect.android.preferences.GeneralSharedPreferences;
+import com.redrosecps.collect.android.application.Collect;
+import com.redrosecps.collect.android.preferences.AdminSharedPreferences;
+import com.redrosecps.collect.android.preferences.GeneralSharedPreferences;
 import org.robolectric.RobolectricTestRunner;
 
 import java.io.File;
@@ -30,8 +30,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.odk.collect.android.utilities.QRCodeUtils.MD5_CACHE_PATH;
-import static org.odk.collect.android.utilities.QRCodeUtils.QR_CODE_FILEPATH;
+import static com.redrosecps.collect.android.utilities.QRCodeUtils.MD5_CACHE_PATH;
+import static com.redrosecps.collect.android.utilities.QRCodeUtils.QR_CODE_FILEPATH;
 
 @RunWith(RobolectricTestRunner.class)
 public class QRCodeUtilsTest {

@@ -1,8 +1,8 @@
-package org.odk.collect.android.espressoutils.pages;
+package com.redrosecps.collect.android.espressoutils.pages;
 
 import androidx.test.rule.ActivityTestRule;
 
-import org.odk.collect.android.R;
+import com.redrosecps.collect.android.R;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -10,7 +10,7 @@ import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static org.odk.collect.android.test.CustomMatchers.withIndex;
+import static com.redrosecps.collect.android.test.CustomMatchers.withIndex;
 
 public class FillBlankFormPage extends Page<FillBlankFormPage> {
 

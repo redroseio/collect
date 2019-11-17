@@ -1,4 +1,4 @@
-package org.odk.collect.android.formentry;
+package com.redrosecps.collect.android.formentry;
 
 import android.Manifest;
 
@@ -8,13 +8,13 @@ import androidx.test.rule.GrantPermissionRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
-import org.odk.collect.android.R;
-import org.odk.collect.android.activities.FormEntryActivity;
-import org.odk.collect.android.espressoutils.pages.FormEntryPage;
-import org.odk.collect.android.support.CopyFormRule;
-import org.odk.collect.android.support.ResetStateRule;
-import org.odk.collect.android.support.matchers.RecyclerViewMatcher;
-import org.odk.collect.android.test.FormLoadingUtils;
+import com.redrosecps.collect.android.R;
+import com.redrosecps.collect.android.activities.FormEntryActivity;
+import com.redrosecps.collect.android.espressoutils.pages.FormEntryPage;
+import com.redrosecps.collect.android.support.CopyFormRule;
+import com.redrosecps.collect.android.support.ResetStateRule;
+import com.redrosecps.collect.android.support.matchers.RecyclerViewMatcher;
+import com.redrosecps.collect.android.test.FormLoadingUtils;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;

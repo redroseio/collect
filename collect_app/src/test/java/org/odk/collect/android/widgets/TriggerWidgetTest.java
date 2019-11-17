@@ -1,4 +1,4 @@
-package org.odk.collect.android.widgets;
+package com.redrosecps.collect.android.widgets;
 
 import androidx.annotation.NonNull;
 import android.widget.CheckBox;
@@ -6,8 +6,8 @@ import android.widget.CheckBox;
 import org.javarosa.core.model.data.IAnswerData;
 import org.javarosa.core.model.data.StringData;
 import org.junit.Test;
-import org.odk.collect.android.formentry.questions.QuestionDetails;
-import org.odk.collect.android.widgets.base.QuestionWidgetTest;
+import com.redrosecps.collect.android.formentry.questions.QuestionDetails;
+import com.redrosecps.collect.android.widgets.base.QuestionWidgetTest;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

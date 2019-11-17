@@ -1,4 +1,4 @@
-package org.odk.collect.android.location.client;
+package com.redrosecps.collect.android.location.client;
 
 import android.location.Location;
 import android.os.Looper;
@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.odk.collect.android.location.LocationTestUtils.createLocation;
+import static com.redrosecps.collect.android.location.LocationTestUtils.createLocation;
 import static org.robolectric.Shadows.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)

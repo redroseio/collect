@@ -1,4 +1,4 @@
-package org.odk.collect.android.utilities;
+package com.redrosecps.collect.android.utilities;
 
 import org.junit.Assert;
 import org.junit.Test;

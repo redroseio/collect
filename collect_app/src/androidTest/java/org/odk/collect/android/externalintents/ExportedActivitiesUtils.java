@@ -1,4 +1,4 @@
-package org.odk.collect.android.externalintents;
+package com.redrosecps.collect.android.externalintents;
 
 import junit.framework.Assert;
 
@@ -6,12 +6,12 @@ import java.io.File;
 
 import timber.log.Timber;
 
-import static org.odk.collect.android.application.Collect.CACHE_PATH;
-import static org.odk.collect.android.application.Collect.FORMS_PATH;
-import static org.odk.collect.android.application.Collect.INSTANCES_PATH;
-import static org.odk.collect.android.application.Collect.METADATA_PATH;
-import static org.odk.collect.android.application.Collect.ODK_ROOT;
-import static org.odk.collect.android.application.Collect.OFFLINE_LAYERS;
+import static com.redrosecps.collect.android.application.Collect.CACHE_PATH;
+import static com.redrosecps.collect.android.application.Collect.FORMS_PATH;
+import static com.redrosecps.collect.android.application.Collect.INSTANCES_PATH;
+import static com.redrosecps.collect.android.application.Collect.METADATA_PATH;
+import static com.redrosecps.collect.android.application.Collect.ODK_ROOT;
+import static com.redrosecps.collect.android.application.Collect.OFFLINE_LAYERS;
 
 class ExportedActivitiesUtils {
 

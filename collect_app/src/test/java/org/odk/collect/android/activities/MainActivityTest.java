@@ -1,4 +1,4 @@
-package org.odk.collect.android.activities;
+package com.redrosecps.collect.android.activities;
 
 import android.content.Intent;
 import androidx.appcompat.widget.Toolbar;
@@ -9,8 +9,8 @@ import android.widget.Button;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.odk.collect.android.R;
-import org.odk.collect.android.preferences.PreferencesActivity;
+import com.redrosecps.collect.android.R;
+import com.redrosecps.collect.android.preferences.PreferencesActivity;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowActivity;

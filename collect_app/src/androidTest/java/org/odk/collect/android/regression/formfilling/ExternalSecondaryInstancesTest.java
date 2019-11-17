@@ -1,4 +1,4 @@
-package org.odk.collect.android.regression.formfilling;
+package com.redrosecps.collect.android.regression.formfilling;
 
 import android.Manifest;
 
@@ -9,10 +9,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
 import org.junit.runner.RunWith;
-import org.odk.collect.android.espressoutils.pages.MainMenuPage;
-import org.odk.collect.android.regression.BaseRegressionTest;
-import org.odk.collect.android.support.CopyFormRule;
-import org.odk.collect.android.support.ResetStateRule;
+import com.redrosecps.collect.android.espressoutils.pages.MainMenuPage;
+import com.redrosecps.collect.android.regression.BaseRegressionTest;
+import com.redrosecps.collect.android.support.CopyFormRule;
+import com.redrosecps.collect.android.support.ResetStateRule;
 
 import java.util.Collections;
 

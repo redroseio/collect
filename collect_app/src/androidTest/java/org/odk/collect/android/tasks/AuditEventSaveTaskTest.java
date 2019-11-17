@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.odk.collect.android.tasks;
+package com.redrosecps.collect.android.tasks;
 
 import android.os.Environment;
 
@@ -28,7 +28,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.odk.collect.android.logic.AuditEvent;
+import com.redrosecps.collect.android.logic.AuditEvent;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,18 +37,18 @@ import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
 import static org.junit.Assert.assertEquals;
-import static org.odk.collect.android.logic.AuditEvent.AuditEventType.END_OF_FORM;
-import static org.odk.collect.android.logic.AuditEvent.AuditEventType.FORM_EXIT;
-import static org.odk.collect.android.logic.AuditEvent.AuditEventType.FORM_FINALIZE;
-import static org.odk.collect.android.logic.AuditEvent.AuditEventType.FORM_RESUME;
-import static org.odk.collect.android.logic.AuditEvent.AuditEventType.FORM_SAVE;
-import static org.odk.collect.android.logic.AuditEvent.AuditEventType.FORM_START;
-import static org.odk.collect.android.logic.AuditEvent.AuditEventType.HIERARCHY;
-import static org.odk.collect.android.logic.AuditEvent.AuditEventType.LOCATION_PERMISSIONS_GRANTED;
-import static org.odk.collect.android.logic.AuditEvent.AuditEventType.LOCATION_PROVIDERS_ENABLED;
-import static org.odk.collect.android.logic.AuditEvent.AuditEventType.LOCATION_TRACKING_ENABLED;
-import static org.odk.collect.android.logic.AuditEvent.AuditEventType.PROMPT_NEW_REPEAT;
-import static org.odk.collect.android.logic.AuditEvent.AuditEventType.QUESTION;
+import static com.redrosecps.collect.android.logic.AuditEvent.AuditEventType.END_OF_FORM;
+import static com.redrosecps.collect.android.logic.AuditEvent.AuditEventType.FORM_EXIT;
+import static com.redrosecps.collect.android.logic.AuditEvent.AuditEventType.FORM_FINALIZE;
+import static com.redrosecps.collect.android.logic.AuditEvent.AuditEventType.FORM_RESUME;
+import static com.redrosecps.collect.android.logic.AuditEvent.AuditEventType.FORM_SAVE;
+import static com.redrosecps.collect.android.logic.AuditEvent.AuditEventType.FORM_START;
+import static com.redrosecps.collect.android.logic.AuditEvent.AuditEventType.HIERARCHY;
+import static com.redrosecps.collect.android.logic.AuditEvent.AuditEventType.LOCATION_PERMISSIONS_GRANTED;
+import static com.redrosecps.collect.android.logic.AuditEvent.AuditEventType.LOCATION_PROVIDERS_ENABLED;
+import static com.redrosecps.collect.android.logic.AuditEvent.AuditEventType.LOCATION_TRACKING_ENABLED;
+import static com.redrosecps.collect.android.logic.AuditEvent.AuditEventType.PROMPT_NEW_REPEAT;
+import static com.redrosecps.collect.android.logic.AuditEvent.AuditEventType.QUESTION;
 
 @RunWith(AndroidJUnit4.class)
 public class AuditEventSaveTaskTest {

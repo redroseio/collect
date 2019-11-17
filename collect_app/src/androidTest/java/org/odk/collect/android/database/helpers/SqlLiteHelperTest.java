@@ -1,4 +1,4 @@
-package org.odk.collect.android.database.helpers;
+package com.redrosecps.collect.android.database.helpers;
 
 import android.database.sqlite.SQLiteOpenHelper;
 

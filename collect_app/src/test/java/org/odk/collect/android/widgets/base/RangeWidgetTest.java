@@ -1,4 +1,4 @@
-package org.odk.collect.android.widgets.base;
+package com.redrosecps.collect.android.widgets.base;
 
 import org.javarosa.core.model.RangeQuestion;
 import org.javarosa.core.model.data.DecimalData;
@@ -6,7 +6,7 @@ import org.javarosa.core.model.data.IAnswerData;
 import org.javarosa.core.model.data.IntegerData;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.odk.collect.android.widgets.RangeWidget;
+import com.redrosecps.collect.android.widgets.RangeWidget;
 
 import java.math.BigDecimal;
 

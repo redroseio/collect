@@ -1,4 +1,4 @@
-package org.odk.collect.android.test;
+package com.redrosecps.collect.android.test;
 
 import android.os.Environment;
 import androidx.test.espresso.PerformException;
@@ -9,9 +9,9 @@ import androidx.test.espresso.util.TreeIterables;
 import android.view.View;
 
 import org.hamcrest.Matcher;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.preferences.GeneralSharedPreferences;
-import org.odk.collect.android.provider.InstanceProviderAPI;
+import com.redrosecps.collect.android.application.Collect;
+import com.redrosecps.collect.android.preferences.GeneralSharedPreferences;
+import com.redrosecps.collect.android.provider.InstanceProviderAPI;
 
 import java.io.Closeable;
 import java.io.File;

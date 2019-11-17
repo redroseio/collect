@@ -1,9 +1,9 @@
-package org.odk.collect.android.externalintents;
+package com.redrosecps.collect.android.externalintents;
 
 import android.app.Activity;
 import androidx.test.rule.ActivityTestRule;
 
-import static org.odk.collect.android.externalintents.ExportedActivitiesUtils.clearDirectories;
+import static com.redrosecps.collect.android.externalintents.ExportedActivitiesUtils.clearDirectories;
 
 class ExportedActivityTestRule<A extends Activity> extends ActivityTestRule<A> {
 

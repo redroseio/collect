@@ -1,4 +1,4 @@
-package org.odk.collect.android.widgets.base;
+package com.redrosecps.collect.android.widgets.base;
 
 import android.app.Activity;
 
@@ -9,9 +9,9 @@ import org.javarosa.core.model.data.IAnswerData;
 import org.javarosa.core.model.data.SelectOneData;
 import org.javarosa.core.model.data.helper.Selection;
 import org.junit.Test;
-import org.odk.collect.android.support.RobolectricHelpers;
-import org.odk.collect.android.support.TestScreenContextActivity;
-import org.odk.collect.android.widgets.interfaces.MultiChoiceWidget;
+import com.redrosecps.collect.android.support.RobolectricHelpers;
+import com.redrosecps.collect.android.support.TestScreenContextActivity;
+import com.redrosecps.collect.android.widgets.interfaces.MultiChoiceWidget;
 
 import java.util.List;
 

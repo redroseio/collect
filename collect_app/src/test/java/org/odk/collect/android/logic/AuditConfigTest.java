@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.odk.collect.android.logic;
+package com.redrosecps.collect.android.logic;
 
 import org.junit.Test;
 
@@ -22,10 +22,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.odk.collect.android.location.client.LocationClient.Priority.PRIORITY_BALANCED_POWER_ACCURACY;
-import static org.odk.collect.android.location.client.LocationClient.Priority.PRIORITY_HIGH_ACCURACY;
-import static org.odk.collect.android.location.client.LocationClient.Priority.PRIORITY_LOW_POWER;
-import static org.odk.collect.android.location.client.LocationClient.Priority.PRIORITY_NO_POWER;
+import static com.redrosecps.collect.android.location.client.LocationClient.Priority.PRIORITY_BALANCED_POWER_ACCURACY;
+import static com.redrosecps.collect.android.location.client.LocationClient.Priority.PRIORITY_HIGH_ACCURACY;
+import static com.redrosecps.collect.android.location.client.LocationClient.Priority.PRIORITY_LOW_POWER;
+import static com.redrosecps.collect.android.location.client.LocationClient.Priority.PRIORITY_NO_POWER;
 
 public class AuditConfigTest {
 

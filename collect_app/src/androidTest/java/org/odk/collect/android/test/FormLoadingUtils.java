@@ -14,25 +14,25 @@
  * limitations under the License.
  */
 
-package org.odk.collect.android.test;
+package com.redrosecps.collect.android.test;
 
 import android.content.ContentValues;
 
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 
-import org.odk.collect.android.activities.FormEntryActivity;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.dao.FormsDao;
-import org.odk.collect.android.provider.FormsProviderAPI;
-import org.odk.collect.android.tasks.FormLoaderTask;
-import org.odk.collect.android.utilities.FileUtils;
+import com.redrosecps.collect.android.activities.FormEntryActivity;
+import com.redrosecps.collect.android.application.Collect;
+import com.redrosecps.collect.android.dao.FormsDao;
+import com.redrosecps.collect.android.provider.FormsProviderAPI;
+import com.redrosecps.collect.android.tasks.FormLoaderTask;
+import com.redrosecps.collect.android.utilities.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import static org.odk.collect.android.test.FileUtils.copyFileFromAssets;
+import static com.redrosecps.collect.android.test.FileUtils.copyFileFromAssets;
 
 public class FormLoadingUtils {
 

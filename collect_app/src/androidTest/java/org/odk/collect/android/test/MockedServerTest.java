@@ -1,4 +1,4 @@
-package org.odk.collect.android.test;
+package com.redrosecps.collect.android.test;
 
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
@@ -8,15 +8,15 @@ import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
 import org.junit.Before;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.preferences.GeneralKeys;
+import com.redrosecps.collect.android.application.Collect;
+import com.redrosecps.collect.android.preferences.GeneralKeys;
 
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
 
-import static org.odk.collect.android.test.TestUtils.backupPreferences;
-import static org.odk.collect.android.test.TestUtils.restorePreferences;
+import static com.redrosecps.collect.android.test.TestUtils.backupPreferences;
+import static com.redrosecps.collect.android.test.TestUtils.restorePreferences;
 
 public abstract class MockedServerTest {
     private Map<String, ?> prefsBackup;

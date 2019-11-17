@@ -1,16 +1,16 @@
-package org.odk.collect.android.preferences.utilities;
+package com.redrosecps.collect.android.preferences.utilities;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.odk.collect.android.R;
-import org.odk.collect.android.preferences.GeneralSharedPreferences;
+import com.redrosecps.collect.android.R;
+import com.redrosecps.collect.android.preferences.GeneralSharedPreferences;
 
 import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
-import static org.odk.collect.android.preferences.utilities.ChangingServerUrlUtils.KNOWN_URL_LIST;
+import static com.redrosecps.collect.android.preferences.utilities.ChangingServerUrlUtils.KNOWN_URL_LIST;
 
 public class ChangingServerUrlUtilsTest {
 

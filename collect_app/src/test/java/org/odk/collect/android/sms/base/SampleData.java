@@ -1,11 +1,11 @@
-package org.odk.collect.android.sms.base;
+package com.redrosecps.collect.android.sms.base;
 
 import android.app.Activity;
 import android.telephony.SmsManager;
 
-import org.odk.collect.android.tasks.sms.SmsService;
-import org.odk.collect.android.tasks.sms.models.Message;
-import org.odk.collect.android.tasks.sms.models.SmsSubmission;
+import com.redrosecps.collect.android.tasks.sms.SmsService;
+import com.redrosecps.collect.android.tasks.sms.models.Message;
+import com.redrosecps.collect.android.tasks.sms.models.SmsSubmission;
 
 import java.util.ArrayList;
 import java.util.Date;

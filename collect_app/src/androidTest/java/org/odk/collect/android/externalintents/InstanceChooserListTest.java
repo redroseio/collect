@@ -1,4 +1,4 @@
-package org.odk.collect.android.externalintents;
+package com.redrosecps.collect.android.externalintents;
 
 import androidx.test.filters.Suppress;
 import androidx.test.rule.ActivityTestRule;
@@ -7,11 +7,11 @@ import androidx.test.runner.AndroidJUnit4;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.odk.collect.android.activities.InstanceChooserList;
+import com.redrosecps.collect.android.activities.InstanceChooserList;
 
 import java.io.IOException;
 
-import static org.odk.collect.android.externalintents.ExportedActivitiesUtils.testDirectories;
+import static com.redrosecps.collect.android.externalintents.ExportedActivitiesUtils.testDirectories;
 
 @Suppress
 // Frequent failures: https://github.com/opendatakit/collect/issues/796

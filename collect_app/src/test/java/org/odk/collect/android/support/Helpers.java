@@ -1,4 +1,4 @@
-package org.odk.collect.android.support;
+package com.redrosecps.collect.android.support;
 
 import org.javarosa.core.reference.InvalidReferenceException;
 import org.javarosa.core.reference.Reference;

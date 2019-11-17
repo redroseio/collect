@@ -1,4 +1,4 @@
-package org.odk.collect.android.support;
+package com.redrosecps.collect.android.support;
 
 import android.graphics.drawable.Drawable;
 import android.media.MediaMetadataRetriever;
@@ -6,11 +6,11 @@ import android.widget.ImageButton;
 
 import androidx.fragment.app.FragmentActivity;
 
-import org.odk.collect.android.R;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.injection.config.AppDependencyComponent;
-import org.odk.collect.android.injection.config.AppDependencyModule;
-import org.odk.collect.android.injection.config.DaggerAppDependencyComponent;
+import com.redrosecps.collect.android.R;
+import com.redrosecps.collect.android.application.Collect;
+import com.redrosecps.collect.android.injection.config.AppDependencyComponent;
+import com.redrosecps.collect.android.injection.config.AppDependencyModule;
+import com.redrosecps.collect.android.injection.config.DaggerAppDependencyComponent;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;

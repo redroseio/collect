@@ -1,17 +1,17 @@
-package org.odk.collect.android.preferences;
+package com.redrosecps.collect.android.preferences;
 
 import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.odk.collect.android.listeners.ActionListener;
+import com.redrosecps.collect.android.listeners.ActionListener;
 import org.robolectric.RobolectricTestRunner;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
-import static org.odk.collect.android.preferences.GeneralKeys.KEY_PASSWORD;
-import static org.odk.collect.android.preferences.GeneralKeys.KEY_SERVER_URL;
+import static com.redrosecps.collect.android.preferences.GeneralKeys.KEY_PASSWORD;
+import static com.redrosecps.collect.android.preferences.GeneralKeys.KEY_SERVER_URL;
 
 @RunWith(RobolectricTestRunner.class)
 public class PreferenceSaverTest {

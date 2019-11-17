@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.odk.collect.android;
+package com.redrosecps.collect.android;
 
 import android.os.Environment;
 
@@ -23,10 +23,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.odk.collect.android.listeners.FormLoaderListener;
-import org.odk.collect.android.logic.FormController;
-import org.odk.collect.android.tasks.FormLoaderTask;
-import org.odk.collect.android.test.FormLoadingUtils;
+import com.redrosecps.collect.android.listeners.FormLoaderListener;
+import com.redrosecps.collect.android.logic.FormController;
+import com.redrosecps.collect.android.tasks.FormLoaderTask;
+import com.redrosecps.collect.android.test.FormLoadingUtils;
 
 import java.io.IOException;
 import java.util.Arrays;

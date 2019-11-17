@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.odk.collect.android.utilities;
+package com.redrosecps.collect.android.utilities;
 
 import android.location.Location;
 
@@ -22,7 +22,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
-import org.odk.collect.android.logic.AuditConfig;
+import com.redrosecps.collect.android.logic.AuditConfig;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -34,29 +34,29 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.odk.collect.android.logic.AuditEvent.AuditEventType.BEGINNING_OF_FORM;
-import static org.odk.collect.android.logic.AuditEvent.AuditEventType.CONSTRAINT_ERROR;
-import static org.odk.collect.android.logic.AuditEvent.AuditEventType.DELETE_REPEAT;
-import static org.odk.collect.android.logic.AuditEvent.AuditEventType.END_OF_FORM;
-import static org.odk.collect.android.logic.AuditEvent.AuditEventType.FINALIZE_ERROR;
-import static org.odk.collect.android.logic.AuditEvent.AuditEventType.FORM_FINALIZE;
-import static org.odk.collect.android.logic.AuditEvent.AuditEventType.FORM_RESUME;
-import static org.odk.collect.android.logic.AuditEvent.AuditEventType.FORM_SAVE;
-import static org.odk.collect.android.logic.AuditEvent.AuditEventType.FORM_START;
-import static org.odk.collect.android.logic.AuditEvent.AuditEventType.GOOGLE_PLAY_SERVICES_NOT_AVAILABLE;
-import static org.odk.collect.android.logic.AuditEvent.AuditEventType.GROUP;
-import static org.odk.collect.android.logic.AuditEvent.AuditEventType.HIERARCHY;
-import static org.odk.collect.android.logic.AuditEvent.AuditEventType.LOCATION_PERMISSIONS_GRANTED;
-import static org.odk.collect.android.logic.AuditEvent.AuditEventType.LOCATION_PERMISSIONS_NOT_GRANTED;
-import static org.odk.collect.android.logic.AuditEvent.AuditEventType.LOCATION_PROVIDERS_DISABLED;
-import static org.odk.collect.android.logic.AuditEvent.AuditEventType.LOCATION_PROVIDERS_ENABLED;
-import static org.odk.collect.android.logic.AuditEvent.AuditEventType.LOCATION_TRACKING_DISABLED;
-import static org.odk.collect.android.logic.AuditEvent.AuditEventType.LOCATION_TRACKING_ENABLED;
-import static org.odk.collect.android.logic.AuditEvent.AuditEventType.PROMPT_NEW_REPEAT;
-import static org.odk.collect.android.logic.AuditEvent.AuditEventType.QUESTION;
-import static org.odk.collect.android.logic.AuditEvent.AuditEventType.REPEAT;
-import static org.odk.collect.android.logic.AuditEvent.AuditEventType.SAVE_ERROR;
-import static org.odk.collect.android.logic.AuditEvent.AuditEventType.UNKNOWN_EVENT_TYPE;
+import static com.redrosecps.collect.android.logic.AuditEvent.AuditEventType.BEGINNING_OF_FORM;
+import static com.redrosecps.collect.android.logic.AuditEvent.AuditEventType.CONSTRAINT_ERROR;
+import static com.redrosecps.collect.android.logic.AuditEvent.AuditEventType.DELETE_REPEAT;
+import static com.redrosecps.collect.android.logic.AuditEvent.AuditEventType.END_OF_FORM;
+import static com.redrosecps.collect.android.logic.AuditEvent.AuditEventType.FINALIZE_ERROR;
+import static com.redrosecps.collect.android.logic.AuditEvent.AuditEventType.FORM_FINALIZE;
+import static com.redrosecps.collect.android.logic.AuditEvent.AuditEventType.FORM_RESUME;
+import static com.redrosecps.collect.android.logic.AuditEvent.AuditEventType.FORM_SAVE;
+import static com.redrosecps.collect.android.logic.AuditEvent.AuditEventType.FORM_START;
+import static com.redrosecps.collect.android.logic.AuditEvent.AuditEventType.GOOGLE_PLAY_SERVICES_NOT_AVAILABLE;
+import static com.redrosecps.collect.android.logic.AuditEvent.AuditEventType.GROUP;
+import static com.redrosecps.collect.android.logic.AuditEvent.AuditEventType.HIERARCHY;
+import static com.redrosecps.collect.android.logic.AuditEvent.AuditEventType.LOCATION_PERMISSIONS_GRANTED;
+import static com.redrosecps.collect.android.logic.AuditEvent.AuditEventType.LOCATION_PERMISSIONS_NOT_GRANTED;
+import static com.redrosecps.collect.android.logic.AuditEvent.AuditEventType.LOCATION_PROVIDERS_DISABLED;
+import static com.redrosecps.collect.android.logic.AuditEvent.AuditEventType.LOCATION_PROVIDERS_ENABLED;
+import static com.redrosecps.collect.android.logic.AuditEvent.AuditEventType.LOCATION_TRACKING_DISABLED;
+import static com.redrosecps.collect.android.logic.AuditEvent.AuditEventType.LOCATION_TRACKING_ENABLED;
+import static com.redrosecps.collect.android.logic.AuditEvent.AuditEventType.PROMPT_NEW_REPEAT;
+import static com.redrosecps.collect.android.logic.AuditEvent.AuditEventType.QUESTION;
+import static com.redrosecps.collect.android.logic.AuditEvent.AuditEventType.REPEAT;
+import static com.redrosecps.collect.android.logic.AuditEvent.AuditEventType.SAVE_ERROR;
+import static com.redrosecps.collect.android.logic.AuditEvent.AuditEventType.UNKNOWN_EVENT_TYPE;
 
 @PrepareForTest(AuditEventLogger.class)
 @RunWith(PowerMockRunner.class)

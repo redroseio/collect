@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.odk.collect.android;
+package com.redrosecps.collect.android;
 
 import android.Manifest;
 import android.content.ContentValues;
@@ -30,12 +30,12 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.preferences.AdminKeys;
-import org.odk.collect.android.preferences.GeneralKeys;
-import org.odk.collect.android.provider.FormsProviderAPI;
-import org.odk.collect.android.provider.InstanceProviderAPI;
-import org.odk.collect.android.utilities.ResetUtility;
+import com.redrosecps.collect.android.application.Collect;
+import com.redrosecps.collect.android.preferences.AdminKeys;
+import com.redrosecps.collect.android.preferences.GeneralKeys;
+import com.redrosecps.collect.android.provider.FormsProviderAPI;
+import com.redrosecps.collect.android.provider.InstanceProviderAPI;
+import com.redrosecps.collect.android.utilities.ResetUtility;
 import org.osmdroid.config.Configuration;
 
 import java.io.File;

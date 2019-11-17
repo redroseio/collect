@@ -1,4 +1,4 @@
-package org.odk.collect.android.formentry;
+package com.redrosecps.collect.android.formentry;
 
 import android.Manifest;
 
@@ -8,10 +8,10 @@ import androidx.test.rule.GrantPermissionRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
-import org.odk.collect.android.activities.FormEntryActivity;
-import org.odk.collect.android.support.CopyFormRule;
-import org.odk.collect.android.support.ResetStateRule;
-import org.odk.collect.android.test.FormLoadingUtils;
+import com.redrosecps.collect.android.activities.FormEntryActivity;
+import com.redrosecps.collect.android.support.CopyFormRule;
+import com.redrosecps.collect.android.support.ResetStateRule;
+import com.redrosecps.collect.android.test.FormLoadingUtils;
 
 import java.util.Collections;
 

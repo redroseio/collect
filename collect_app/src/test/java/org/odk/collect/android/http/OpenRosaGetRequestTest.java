@@ -1,13 +1,13 @@
-package org.odk.collect.android.http;
+package com.redrosecps.collect.android.http;
 
 import org.apache.commons.io.IOUtils;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.odk.collect.android.http.openrosa.HttpGetResult;
-import org.odk.collect.android.http.openrosa.OpenRosaHttpInterface;
-import org.odk.collect.android.http.support.MockWebServerRule;
-import org.odk.collect.android.utilities.FileUtils;
+import com.redrosecps.collect.android.http.openrosa.HttpGetResult;
+import com.redrosecps.collect.android.http.openrosa.OpenRosaHttpInterface;
+import com.redrosecps.collect.android.http.support.MockWebServerRule;
+import com.redrosecps.collect.android.utilities.FileUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

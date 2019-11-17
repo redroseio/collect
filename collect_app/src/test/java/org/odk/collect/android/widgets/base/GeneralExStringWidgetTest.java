@@ -1,7 +1,7 @@
-package org.odk.collect.android.widgets.base;
+package com.redrosecps.collect.android.widgets.base;
 
 import org.javarosa.core.model.data.IAnswerData;
-import org.odk.collect.android.widgets.ExStringWidget;
+import com.redrosecps.collect.android.widgets.ExStringWidget;
 
 /**
  * @author James Knight

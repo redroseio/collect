@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.odk.collect.android.formentry;
+package com.redrosecps.collect.android.formentry;
 
 import android.Manifest;
 import android.app.Activity;
@@ -31,15 +31,15 @@ import androidx.test.rule.GrantPermissionRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
-import org.odk.collect.android.R;
-import org.odk.collect.android.activities.FormEntryActivity;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.preferences.GeneralKeys;
-import org.odk.collect.android.preferences.GeneralSharedPreferences;
-import org.odk.collect.android.preferences.GuidanceHint;
-import org.odk.collect.android.support.CopyFormRule;
-import org.odk.collect.android.support.ResetStateRule;
-import org.odk.collect.android.test.FormLoadingUtils;
+import com.redrosecps.collect.android.R;
+import com.redrosecps.collect.android.activities.FormEntryActivity;
+import com.redrosecps.collect.android.application.Collect;
+import com.redrosecps.collect.android.preferences.GeneralKeys;
+import com.redrosecps.collect.android.preferences.GeneralSharedPreferences;
+import com.redrosecps.collect.android.preferences.GuidanceHint;
+import com.redrosecps.collect.android.support.CopyFormRule;
+import com.redrosecps.collect.android.support.ResetStateRule;
+import com.redrosecps.collect.android.test.FormLoadingUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -71,7 +71,7 @@ import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.core.IsNot.not;
 import static org.hamcrest.core.StringStartsWith.startsWith;
-import static org.odk.collect.android.test.CustomMatchers.withIndex;
+import static com.redrosecps.collect.android.test.CustomMatchers.withIndex;
 
 public class FieldListUpdateTest {
     private static final String FIELD_LIST_TEST_FORM = "fieldlist-updates.xml";

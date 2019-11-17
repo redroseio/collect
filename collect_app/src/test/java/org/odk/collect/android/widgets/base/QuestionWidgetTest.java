@@ -1,4 +1,4 @@
-package org.odk.collect.android.widgets.base;
+package com.redrosecps.collect.android.widgets.base;
 
 import android.app.Activity;
 
@@ -9,12 +9,12 @@ import org.javarosa.core.model.data.IAnswerData;
 import org.javarosa.core.model.data.StringData;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.logic.FormController;
-import org.odk.collect.android.support.RobolectricHelpers;
-import org.odk.collect.android.support.TestScreenContextActivity;
-import org.odk.collect.android.widgets.ItemsetWidgetTest;
-import org.odk.collect.android.widgets.interfaces.Widget;
+import com.redrosecps.collect.android.application.Collect;
+import com.redrosecps.collect.android.logic.FormController;
+import com.redrosecps.collect.android.support.RobolectricHelpers;
+import com.redrosecps.collect.android.support.TestScreenContextActivity;
+import com.redrosecps.collect.android.widgets.ItemsetWidgetTest;
+import com.redrosecps.collect.android.widgets.interfaces.Widget;
 
 import java.util.Random;
 
@@ -52,7 +52,7 @@ public abstract class QuestionWidgetTest<W extends Widget, A extends IAnswerData
     /**
      * @return Real {@link Widget} object if present otherwise creates one
      * <p>
-     * This should be used for mutating the {@link org.odk.collect.android.widgets.QuestionWidget}
+     * This should be used for mutating the {@link com.redrosecps.collect.android.widgets.QuestionWidget}
      */
     public W getActualWidget() {
         if (actualWidget == null) {
@@ -65,7 +65,7 @@ public abstract class QuestionWidgetTest<W extends Widget, A extends IAnswerData
     /**
      * @return {@link org.mockito.Spy} of the {@link #actualWidget}
      * <p>
-     * This should be unless we want to mutate {@link org.odk.collect.android.widgets.QuestionWidget}
+     * This should be unless we want to mutate {@link com.redrosecps.collect.android.widgets.QuestionWidget}
      * This is because a spy is not the real object and changing it won't have any effect on the real object
      */
     public W getWidget() {

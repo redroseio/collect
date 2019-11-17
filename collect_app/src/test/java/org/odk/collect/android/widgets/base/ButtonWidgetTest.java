@@ -1,4 +1,4 @@
-package org.odk.collect.android.widgets.base;
+package com.redrosecps.collect.android.widgets.base;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -7,9 +7,9 @@ import android.content.Intent;
 import com.karumi.dexter.DexterActivity;
 
 import org.javarosa.core.model.data.IAnswerData;
-import org.odk.collect.android.fakes.FakePermissionUtils;
-import org.odk.collect.android.widgets.QuestionWidget;
-import org.odk.collect.android.widgets.interfaces.ButtonWidget;
+import com.redrosecps.collect.android.fakes.FakePermissionUtils;
+import com.redrosecps.collect.android.widgets.QuestionWidget;
+import com.redrosecps.collect.android.widgets.interfaces.ButtonWidget;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.odk.collect.android.settings;
+package com.redrosecps.collect.android.settings;
 
 import android.graphics.Bitmap;
 import androidx.test.runner.AndroidJUnit4;
@@ -27,10 +27,10 @@ import com.google.zxing.WriterException;
 import org.json.JSONException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.odk.collect.android.preferences.AdminSharedPreferences;
-import org.odk.collect.android.preferences.GeneralSharedPreferences;
-import org.odk.collect.android.preferences.PreferenceSaver;
-import org.odk.collect.android.utilities.QRCodeUtils;
+import com.redrosecps.collect.android.preferences.AdminSharedPreferences;
+import com.redrosecps.collect.android.preferences.GeneralSharedPreferences;
+import com.redrosecps.collect.android.preferences.PreferenceSaver;
+import com.redrosecps.collect.android.utilities.QRCodeUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -43,10 +43,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.odk.collect.android.preferences.GeneralKeys.GENERAL_KEYS;
-import static org.odk.collect.android.preferences.GeneralKeys.KEY_SELECTED_GOOGLE_ACCOUNT;
-import static org.odk.collect.android.preferences.GeneralKeys.KEY_SHOW_SPLASH;
-import static org.odk.collect.android.preferences.GeneralKeys.KEY_USERNAME;
+import static com.redrosecps.collect.android.preferences.GeneralKeys.GENERAL_KEYS;
+import static com.redrosecps.collect.android.preferences.GeneralKeys.KEY_SELECTED_GOOGLE_ACCOUNT;
+import static com.redrosecps.collect.android.preferences.GeneralKeys.KEY_SHOW_SPLASH;
+import static com.redrosecps.collect.android.preferences.GeneralKeys.KEY_USERNAME;
 
 @RunWith(AndroidJUnit4.class)
 public class QrCodeTest {

@@ -1,4 +1,4 @@
-package org.odk.collect.android;
+package com.redrosecps.collect.android;
 
 import android.app.Activity;
 
@@ -8,13 +8,13 @@ import android.text.format.Formatter;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
-import org.odk.collect.android.activities.FormEntryActivity;
-import org.odk.collect.android.tasks.sms.SmsService;
-import org.odk.collect.android.tasks.sms.SmsSubmissionManager;
-import org.odk.collect.android.tasks.sms.models.Message;
-import org.odk.collect.android.tasks.sms.models.SmsSubmission;
-import org.odk.collect.android.test.FormLoadingUtils;
-import org.odk.collect.android.utilities.ToastUtils;
+import com.redrosecps.collect.android.activities.FormEntryActivity;
+import com.redrosecps.collect.android.tasks.sms.SmsService;
+import com.redrosecps.collect.android.tasks.sms.SmsSubmissionManager;
+import com.redrosecps.collect.android.tasks.sms.models.Message;
+import com.redrosecps.collect.android.tasks.sms.models.SmsSubmission;
+import com.redrosecps.collect.android.test.FormLoadingUtils;
+import com.redrosecps.collect.android.utilities.ToastUtils;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ import timber.log.Timber;
 
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertNotNull;
-import static org.odk.collect.android.test.FormLoadingUtils.ALL_WIDGETS_FORM;
+import static com.redrosecps.collect.android.test.FormLoadingUtils.ALL_WIDGETS_FORM;
 
 /**
  * Generates submissions and then checks to see if the device runs out of memory

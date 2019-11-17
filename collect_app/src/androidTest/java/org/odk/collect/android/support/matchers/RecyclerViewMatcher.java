@@ -1,4 +1,4 @@
-package org.odk.collect.android.support.matchers;
+package com.redrosecps.collect.android.support.matchers;
 
 import android.content.res.Resources;
 import android.view.View;

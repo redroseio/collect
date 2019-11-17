@@ -1,10 +1,10 @@
-package org.odk.collect.android.http.stub;
+package com.redrosecps.collect.android.http.stub;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.odk.collect.android.http.openrosa.HttpCredentialsInterface;
-import org.odk.collect.android.http.openrosa.HttpGetResult;
+import com.redrosecps.collect.android.http.openrosa.HttpCredentialsInterface;
+import com.redrosecps.collect.android.http.openrosa.HttpGetResult;
 
 import java.net.URI;
 

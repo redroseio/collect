@@ -1,4 +1,4 @@
-package org.odk.collect.android.http;
+package com.redrosecps.collect.android.http;
 
 import android.webkit.MimeTypeMap;
 

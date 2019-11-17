@@ -1,4 +1,4 @@
-package org.odk.collect.android.formentry;
+package com.redrosecps.collect.android.formentry;
 
 import android.view.View;
 import android.widget.TextView;
@@ -10,12 +10,12 @@ import org.javarosa.core.reference.ReferenceManager;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.odk.collect.android.R;
-import org.odk.collect.android.audio.AudioHelper;
-import org.odk.collect.android.formentry.questions.AudioVideoImageTextLabel;
-import org.odk.collect.android.logic.FileReference;
-import org.odk.collect.android.support.RobolectricHelpers;
-import org.odk.collect.android.support.TestScreenContextActivity;
+import com.redrosecps.collect.android.R;
+import com.redrosecps.collect.android.audio.AudioHelper;
+import com.redrosecps.collect.android.formentry.questions.AudioVideoImageTextLabel;
+import com.redrosecps.collect.android.logic.FileReference;
+import com.redrosecps.collect.android.support.RobolectricHelpers;
+import com.redrosecps.collect.android.support.TestScreenContextActivity;
 import org.robolectric.ParameterizedRobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 

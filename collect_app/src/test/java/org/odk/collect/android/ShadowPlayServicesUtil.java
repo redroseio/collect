@@ -1,8 +1,8 @@
-package org.odk.collect.android;
+package com.redrosecps.collect.android;
 
 import android.content.Context;
 
-import org.odk.collect.android.utilities.PlayServicesUtil;
+import com.redrosecps.collect.android.utilities.PlayServicesUtil;
 import org.robolectric.annotation.Implementation;
 import org.robolectric.annotation.Implements;
 

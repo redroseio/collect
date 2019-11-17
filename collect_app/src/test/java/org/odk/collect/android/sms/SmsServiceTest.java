@@ -1,4 +1,4 @@
-package org.odk.collect.android.sms;
+package com.redrosecps.collect.android.sms;
 
 import android.content.Context;
 import android.telephony.SmsManager;
@@ -6,17 +6,17 @@ import android.telephony.SmsManager;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.odk.collect.android.dao.FormsDao;
-import org.odk.collect.android.dao.InstancesDao;
-import org.odk.collect.android.events.RxEventBus;
-import org.odk.collect.android.injection.config.AppDependencyModule;
-import org.odk.collect.android.logic.FormInfo;
-import org.odk.collect.android.sms.base.BaseSmsTest;
-import org.odk.collect.android.sms.base.SampleData;
-import org.odk.collect.android.tasks.sms.SmsSender;
-import org.odk.collect.android.tasks.sms.SmsService;
-import org.odk.collect.android.tasks.sms.contracts.SmsSubmissionManagerContract;
-import org.odk.collect.android.tasks.sms.models.SmsSubmission;
+import com.redrosecps.collect.android.dao.FormsDao;
+import com.redrosecps.collect.android.dao.InstancesDao;
+import com.redrosecps.collect.android.events.RxEventBus;
+import com.redrosecps.collect.android.injection.config.AppDependencyModule;
+import com.redrosecps.collect.android.logic.FormInfo;
+import com.redrosecps.collect.android.sms.base.BaseSmsTest;
+import com.redrosecps.collect.android.sms.base.SampleData;
+import com.redrosecps.collect.android.tasks.sms.SmsSender;
+import com.redrosecps.collect.android.tasks.sms.SmsService;
+import com.redrosecps.collect.android.tasks.sms.contracts.SmsSubmissionManagerContract;
+import com.redrosecps.collect.android.tasks.sms.models.SmsSubmission;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.shadows.ShadowSmsManager;
@@ -33,9 +33,9 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.odk.collect.android.support.RobolectricHelpers.getApplicationComponent;
-import static org.odk.collect.android.support.RobolectricHelpers.overrideAppDependencyModule;
-import static org.odk.collect.android.utilities.FileUtil.getSmsInstancePath;
+import static com.redrosecps.collect.android.support.RobolectricHelpers.getApplicationComponent;
+import static com.redrosecps.collect.android.support.RobolectricHelpers.overrideAppDependencyModule;
+import static com.redrosecps.collect.android.utilities.FileUtil.getSmsInstancePath;
 import static org.robolectric.Shadows.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
@@ -119,7 +119,7 @@ public class SmsServiceTest extends BaseSmsTest {
         }
     }
 
-    private static class AppDependencyModule extends org.odk.collect.android.injection.config.AppDependencyModule {
+    private static class AppDependencyModule extends com.redrosecps.collect.android.injection.config.AppDependencyModule {
 
         private final InstancesDao instancesDao;
         private final FormsDao formsDao;

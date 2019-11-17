@@ -1,4 +1,4 @@
-package org.odk.collect.android.regression;
+package com.redrosecps.collect.android.regression;
 
 import androidx.test.runner.AndroidJUnit4;
 
@@ -6,8 +6,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
 import org.junit.runner.RunWith;
-import org.odk.collect.android.espressoutils.pages.MainMenuPage;
-import org.odk.collect.android.support.ResetStateRule;
+import com.redrosecps.collect.android.espressoutils.pages.MainMenuPage;
+import com.redrosecps.collect.android.support.ResetStateRule;
 
 // Issue number NODK-235
 @RunWith(AndroidJUnit4.class)

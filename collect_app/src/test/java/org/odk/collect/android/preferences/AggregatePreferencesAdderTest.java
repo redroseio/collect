@@ -1,11 +1,11 @@
-package org.odk.collect.android.preferences;
+package com.redrosecps.collect.android.preferences;
 
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.odk.collect.android.R;
+import com.redrosecps.collect.android.R;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;

@@ -1,4 +1,4 @@
-package org.odk.collect.android.widgets;
+package com.redrosecps.collect.android.widgets;
 
 import android.content.Intent;
 import androidx.annotation.NonNull;
@@ -14,10 +14,10 @@ import org.javarosa.core.model.osm.OSMTag;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.odk.collect.android.R;
-import org.odk.collect.android.formentry.questions.QuestionDetails;
-import org.odk.collect.android.logic.FormController;
-import org.odk.collect.android.widgets.base.BinaryWidgetTest;
+import com.redrosecps.collect.android.R;
+import com.redrosecps.collect.android.formentry.questions.QuestionDetails;
+import com.redrosecps.collect.android.logic.FormController;
+import com.redrosecps.collect.android.widgets.base.BinaryWidgetTest;
 
 import java.io.File;
 

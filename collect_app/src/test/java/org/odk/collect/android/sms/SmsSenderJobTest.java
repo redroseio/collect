@@ -1,17 +1,17 @@
-package org.odk.collect.android.sms;
+package com.redrosecps.collect.android.sms;
 
 import android.telephony.SmsManager;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.odk.collect.android.injection.config.AppDependencyComponent;
-import org.odk.collect.android.sms.base.BaseSmsTest;
-import org.odk.collect.android.sms.base.SampleData;
-import org.odk.collect.android.tasks.sms.SmsSender;
-import org.odk.collect.android.tasks.sms.contracts.SmsSubmissionManagerContract;
-import org.odk.collect.android.tasks.sms.models.Message;
-import org.odk.collect.android.tasks.sms.models.SmsSubmission;
+import com.redrosecps.collect.android.injection.config.AppDependencyComponent;
+import com.redrosecps.collect.android.sms.base.BaseSmsTest;
+import com.redrosecps.collect.android.sms.base.SampleData;
+import com.redrosecps.collect.android.tasks.sms.SmsSender;
+import com.redrosecps.collect.android.tasks.sms.contracts.SmsSubmissionManagerContract;
+import com.redrosecps.collect.android.tasks.sms.models.Message;
+import com.redrosecps.collect.android.tasks.sms.models.SmsSubmission;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.shadows.ShadowSmsManager;
@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.odk.collect.android.support.RobolectricHelpers.getApplicationComponent;
+import static com.redrosecps.collect.android.support.RobolectricHelpers.getApplicationComponent;
 import static org.robolectric.Shadows.shadowOf;
 
 /**

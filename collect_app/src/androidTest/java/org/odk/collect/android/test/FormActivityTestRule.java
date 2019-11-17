@@ -1,14 +1,14 @@
-package org.odk.collect.android.test;
+package com.redrosecps.collect.android.test;
 
 import android.content.Intent;
 
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 
-import org.odk.collect.android.activities.FormEntryActivity;
-import org.odk.collect.android.application.Collect;
+import com.redrosecps.collect.android.activities.FormEntryActivity;
+import com.redrosecps.collect.android.application.Collect;
 
-import static org.odk.collect.android.activities.FormEntryActivity.EXTRA_TESTING_PATH;
+import static com.redrosecps.collect.android.activities.FormEntryActivity.EXTRA_TESTING_PATH;
 
 public class FormActivityTestRule extends IntentsTestRule<FormEntryActivity> {
 

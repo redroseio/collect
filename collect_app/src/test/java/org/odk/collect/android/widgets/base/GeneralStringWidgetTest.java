@@ -1,10 +1,10 @@
-package org.odk.collect.android.widgets.base;
+package com.redrosecps.collect.android.widgets.base;
 
 import org.javarosa.core.model.QuestionDef;
 import org.javarosa.core.model.data.IAnswerData;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.odk.collect.android.widgets.StringWidget;
+import com.redrosecps.collect.android.widgets.StringWidget;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;

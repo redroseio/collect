@@ -1,4 +1,4 @@
-package org.odk.collect.android.support;
+package com.redrosecps.collect.android.support;
 
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;

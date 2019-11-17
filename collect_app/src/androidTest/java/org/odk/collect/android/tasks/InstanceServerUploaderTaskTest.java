@@ -1,4 +1,4 @@
-package org.odk.collect.android.tasks;
+package com.redrosecps.collect.android.tasks;
 
 import android.net.Uri;
 
@@ -8,10 +8,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.odk.collect.android.dao.InstancesDao;
-import org.odk.collect.android.dto.Instance;
-import org.odk.collect.android.provider.InstanceProviderAPI;
-import org.odk.collect.android.test.MockedServerTest;
+import com.redrosecps.collect.android.dao.InstancesDao;
+import com.redrosecps.collect.android.dto.Instance;
+import com.redrosecps.collect.android.provider.InstanceProviderAPI;
+import com.redrosecps.collect.android.test.MockedServerTest;
 
 import java.io.File;
 
@@ -20,10 +20,10 @@ import okhttp3.mockwebserver.RecordedRequest;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.odk.collect.android.test.TestUtils.assertMatches;
-import static org.odk.collect.android.test.TestUtils.cleanUpTempFiles;
-import static org.odk.collect.android.test.TestUtils.createTempFile;
-import static org.odk.collect.android.test.TestUtils.resetInstancesContentProvider;
+import static com.redrosecps.collect.android.test.TestUtils.assertMatches;
+import static com.redrosecps.collect.android.test.TestUtils.cleanUpTempFiles;
+import static com.redrosecps.collect.android.test.TestUtils.createTempFile;
+import static com.redrosecps.collect.android.test.TestUtils.resetInstancesContentProvider;
 
 public class InstanceServerUploaderTaskTest extends MockedServerTest {
 
@@ -63,7 +63,7 @@ public class InstanceServerUploaderTaskTest extends MockedServerTest {
             RecordedRequest r = nextRequest();
             assertEquals("HEAD", r.getMethod());
             assertMatches("/submission\\?deviceID=\\w+%3A\\w+", r.getPath());
-            assertMatches("Dalvik/.* org.odk.collect.android/.*", r.getHeader("User-Agent"));
+            assertMatches("Dalvik/.* com.redrosecps.collect.android/.*", r.getHeader("User-Agent"));
             assertEquals("1.0", r.getHeader("X-OpenRosa-Version"));
             assertTrue(r.getHeader("Accept-Encoding").contains("gzip"));
         }
@@ -73,7 +73,7 @@ public class InstanceServerUploaderTaskTest extends MockedServerTest {
             RecordedRequest r = nextRequest();
             assertEquals("POST", r.getMethod());
             assertMatches("/submission\\?deviceID=\\w+%3A\\w+", r.getPath());
-            assertMatches("Dalvik/.* org.odk.collect.android/.*", r.getHeader("User-Agent"));
+            assertMatches("Dalvik/.* com.redrosecps.collect.android/.*", r.getHeader("User-Agent"));
             assertEquals("1.0", r.getHeader("X-OpenRosa-Version"));
             assertTrue(r.getHeader("Accept-Encoding").contains("gzip"));
             assertMatches("multipart/form-data; boundary=.*", r.getHeader("Content-Type"));

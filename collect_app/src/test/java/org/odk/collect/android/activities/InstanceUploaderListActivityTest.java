@@ -1,4 +1,4 @@
-package org.odk.collect.android.activities;
+package com.redrosecps.collect.android.activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -8,10 +8,10 @@ import androidx.annotation.NonNull;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.odk.collect.android.R;
-import org.odk.collect.android.analytics.Analytics;
-import org.odk.collect.android.listeners.PermissionListener;
-import org.odk.collect.android.utilities.PermissionUtils;
+import com.redrosecps.collect.android.R;
+import com.redrosecps.collect.android.analytics.Analytics;
+import com.redrosecps.collect.android.listeners.PermissionListener;
+import com.redrosecps.collect.android.utilities.PermissionUtils;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
@@ -23,7 +23,7 @@ import androidx.work.WorkManager;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.odk.collect.android.support.RobolectricHelpers.overrideAppDependencyModule;
+import static com.redrosecps.collect.android.support.RobolectricHelpers.overrideAppDependencyModule;
 import static org.robolectric.Shadows.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
@@ -53,7 +53,7 @@ public class InstanceUploaderListActivityTest {
         verify(analytics).logEvent("FilterSendForms", "SentAndUnsent");
     }
 
-    private static class AppDependencyModule extends org.odk.collect.android.injection.config.AppDependencyModule {
+    private static class AppDependencyModule extends com.redrosecps.collect.android.injection.config.AppDependencyModule {
 
         private final Analytics tracker;
         private final PermissionUtils permissionUtils;

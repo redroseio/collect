@@ -1,8 +1,8 @@
-package org.odk.collect.android.widgets.base;
+package com.redrosecps.collect.android.widgets.base;
 
 import org.javarosa.core.model.data.IAnswerData;
 import org.junit.Test;
-import org.odk.collect.android.widgets.interfaces.BinaryWidget;
+import com.redrosecps.collect.android.widgets.interfaces.BinaryWidget;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

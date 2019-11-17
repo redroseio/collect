@@ -1,4 +1,4 @@
-package org.odk.collect.android.widgets;
+package com.redrosecps.collect.android.widgets;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -11,11 +11,11 @@ import org.javarosa.core.model.data.StringData;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.odk.collect.android.R;
-import org.odk.collect.android.formentry.questions.QuestionDetails;
-import org.odk.collect.android.utilities.FileUtil;
-import org.odk.collect.android.utilities.MediaUtil;
-import org.odk.collect.android.widgets.base.FileWidgetTest;
+import com.redrosecps.collect.android.R;
+import com.redrosecps.collect.android.formentry.questions.QuestionDetails;
+import com.redrosecps.collect.android.utilities.FileUtil;
+import com.redrosecps.collect.android.utilities.MediaUtil;
+import com.redrosecps.collect.android.widgets.base.FileWidgetTest;
 
 import java.io.File;
 

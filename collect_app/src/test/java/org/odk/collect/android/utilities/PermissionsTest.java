@@ -1,4 +1,4 @@
-package org.odk.collect.android.utilities;
+package com.redrosecps.collect.android.utilities;
 
 import org.hamcrest.Description;
 import org.hamcrest.StringDescription;

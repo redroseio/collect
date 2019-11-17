@@ -1,12 +1,12 @@
-package org.odk.collect.android.http;
+package com.redrosecps.collect.android.http;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.odk.collect.android.http.openrosa.HttpCredentials;
-import org.odk.collect.android.http.openrosa.OpenRosaServerClient;
-import org.odk.collect.android.http.openrosa.OpenRosaServerClientProvider;
-import org.odk.collect.android.http.support.MockWebServerRule;
+import com.redrosecps.collect.android.http.openrosa.HttpCredentials;
+import com.redrosecps.collect.android.http.openrosa.OpenRosaServerClient;
+import com.redrosecps.collect.android.http.openrosa.OpenRosaServerClientProvider;
+import com.redrosecps.collect.android.http.support.MockWebServerRule;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,7 +21,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.isEmptyOrNullString;
 import static org.hamcrest.Matchers.startsWith;
 import static org.junit.Assert.assertThat;
-import static org.odk.collect.android.http.support.MockWebServerHelper.buildRequest;
+import static com.redrosecps.collect.android.http.support.MockWebServerHelper.buildRequest;
 
 public abstract class OpenRosaServerClientProviderTest {
 

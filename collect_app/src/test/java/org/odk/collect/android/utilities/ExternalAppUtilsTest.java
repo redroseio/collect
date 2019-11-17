@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package org.odk.collect.android.utilities;
+package com.redrosecps.collect.android.utilities;
 
 import org.junit.Test;
-import org.odk.collect.android.external.ExternalAppsUtils;
+import com.redrosecps.collect.android.external.ExternalAppsUtils;
 
 import java.util.Map;
 

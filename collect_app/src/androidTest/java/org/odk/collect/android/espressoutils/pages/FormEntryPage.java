@@ -1,10 +1,10 @@
-package org.odk.collect.android.espressoutils.pages;
+package com.redrosecps.collect.android.espressoutils.pages;
 
 import androidx.test.espresso.Espresso;
 import androidx.test.rule.ActivityTestRule;
 
-import org.odk.collect.android.R;
-import org.odk.collect.android.support.ActivityHelpers;
+import com.redrosecps.collect.android.R;
+import com.redrosecps.collect.android.support.ActivityHelpers;
 
 import timber.log.Timber;
 
@@ -23,7 +23,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.core.StringEndsWith.endsWith;
-import static org.odk.collect.android.test.CustomMatchers.withIndex;
+import static com.redrosecps.collect.android.test.CustomMatchers.withIndex;
 
 public class FormEntryPage extends Page<FormEntryPage> {
 

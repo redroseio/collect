@@ -1,4 +1,4 @@
-package org.odk.collect.android.preferences;
+package com.redrosecps.collect.android.preferences;
 
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
@@ -7,7 +7,7 @@ import android.preference.PreferenceManager;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.odk.collect.android.application.Collect;
+import com.redrosecps.collect.android.application.Collect;
 import org.robolectric.RobolectricTestRunner;
 
 import java.io.PrintStream;
@@ -19,14 +19,14 @@ import java.util.TreeMap;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.odk.collect.android.preferences.FormMetadataMigrator.SOURCE_TARGET_VALUE_PAIRS;
-import static org.odk.collect.android.preferences.FormMetadataMigrator.migrate;
-import static org.odk.collect.android.preferences.GeneralKeys.KEY_METADATA_EMAIL;
-import static org.odk.collect.android.preferences.GeneralKeys.KEY_METADATA_MIGRATED;
-import static org.odk.collect.android.preferences.GeneralKeys.KEY_METADATA_PHONENUMBER;
-import static org.odk.collect.android.preferences.GeneralKeys.KEY_METADATA_USERNAME;
-import static org.odk.collect.android.preferences.GeneralKeys.KEY_SELECTED_GOOGLE_ACCOUNT;
-import static org.odk.collect.android.preferences.GeneralKeys.KEY_USERNAME;
+import static com.redrosecps.collect.android.preferences.FormMetadataMigrator.SOURCE_TARGET_VALUE_PAIRS;
+import static com.redrosecps.collect.android.preferences.FormMetadataMigrator.migrate;
+import static com.redrosecps.collect.android.preferences.GeneralKeys.KEY_METADATA_EMAIL;
+import static com.redrosecps.collect.android.preferences.GeneralKeys.KEY_METADATA_MIGRATED;
+import static com.redrosecps.collect.android.preferences.GeneralKeys.KEY_METADATA_PHONENUMBER;
+import static com.redrosecps.collect.android.preferences.GeneralKeys.KEY_METADATA_USERNAME;
+import static com.redrosecps.collect.android.preferences.GeneralKeys.KEY_SELECTED_GOOGLE_ACCOUNT;
+import static com.redrosecps.collect.android.preferences.GeneralKeys.KEY_USERNAME;
 
 /** Tests the FormMetadataFragment */
 @RunWith(RobolectricTestRunner.class)

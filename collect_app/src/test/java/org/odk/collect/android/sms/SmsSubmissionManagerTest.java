@@ -1,15 +1,15 @@
-package org.odk.collect.android.sms;
+package com.redrosecps.collect.android.sms;
 
 import android.content.Context;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.odk.collect.android.sms.base.BaseSmsTest;
-import org.odk.collect.android.sms.base.SampleData;
-import org.odk.collect.android.tasks.sms.SmsSubmissionManager;
-import org.odk.collect.android.tasks.sms.models.Message;
-import org.odk.collect.android.tasks.sms.models.SmsSubmission;
+import com.redrosecps.collect.android.sms.base.BaseSmsTest;
+import com.redrosecps.collect.android.sms.base.SampleData;
+import com.redrosecps.collect.android.tasks.sms.SmsSubmissionManager;
+import com.redrosecps.collect.android.tasks.sms.models.Message;
+import com.redrosecps.collect.android.tasks.sms.models.SmsSubmission;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
@@ -18,7 +18,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.odk.collect.android.sms.base.SampleData.TEST_INSTANCE_ID;
+import static com.redrosecps.collect.android.sms.base.SampleData.TEST_INSTANCE_ID;
 
 @RunWith(RobolectricTestRunner.class)
 public class SmsSubmissionManagerTest extends BaseSmsTest {

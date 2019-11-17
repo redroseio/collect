@@ -1,10 +1,10 @@
-package org.odk.collect.android.utilities;
+package com.redrosecps.collect.android.utilities;
 
 import android.database.sqlite.SQLiteDatabase;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.odk.collect.android.application.Collect;
+import com.redrosecps.collect.android.application.Collect;
 import org.robolectric.RobolectricTestRunner;
 
 import static android.content.Context.MODE_PRIVATE;

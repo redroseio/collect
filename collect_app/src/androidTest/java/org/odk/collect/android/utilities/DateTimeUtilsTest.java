@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.odk.collect.android.utilities;
+package com.redrosecps.collect.android.utilities;
 
 import android.content.Context;
 import androidx.test.runner.AndroidJUnit4;
@@ -23,8 +23,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.logic.DatePickerDetails;
+import com.redrosecps.collect.android.application.Collect;
+import com.redrosecps.collect.android.logic.DatePickerDetails;
 
 import java.util.Calendar;
 import java.util.Date;

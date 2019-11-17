@@ -1,4 +1,4 @@
-package org.odk.collect.android.widgets;
+package com.redrosecps.collect.android.widgets;
 
 import android.app.Application;
 import android.content.Context;
@@ -15,23 +15,23 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
-import org.odk.collect.android.R;
-import org.odk.collect.android.analytics.Analytics;
-import org.odk.collect.android.audio.AudioButton;
-import org.odk.collect.android.audio.AudioHelper;
-import org.odk.collect.android.audio.Clip;
-import org.odk.collect.android.formentry.media.AudioHelperFactory;
-import org.odk.collect.android.formentry.questions.QuestionDetails;
-import org.odk.collect.android.injection.config.AppDependencyModule;
-import org.odk.collect.android.support.MockFormEntryPromptBuilder;
-import org.odk.collect.android.support.RobolectricHelpers;
-import org.odk.collect.android.support.TestScreenContextActivity;
+import com.redrosecps.collect.android.R;
+import com.redrosecps.collect.android.analytics.Analytics;
+import com.redrosecps.collect.android.audio.AudioButton;
+import com.redrosecps.collect.android.audio.AudioHelper;
+import com.redrosecps.collect.android.audio.Clip;
+import com.redrosecps.collect.android.formentry.media.AudioHelperFactory;
+import com.redrosecps.collect.android.formentry.questions.QuestionDetails;
+import com.redrosecps.collect.android.injection.config.AppDependencyModule;
+import com.redrosecps.collect.android.support.MockFormEntryPromptBuilder;
+import com.redrosecps.collect.android.support.RobolectricHelpers;
+import com.redrosecps.collect.android.support.TestScreenContextActivity;
 import org.robolectric.RobolectricTestRunner;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.odk.collect.android.support.Helpers.createMockReference;
+import static com.redrosecps.collect.android.support.Helpers.createMockReference;
 
 @RunWith(RobolectricTestRunner.class)
 public class QuestionWidgetTest {

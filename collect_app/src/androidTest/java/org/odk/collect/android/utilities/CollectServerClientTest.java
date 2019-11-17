@@ -1,10 +1,10 @@
-package org.odk.collect.android.utilities;
+package com.redrosecps.collect.android.utilities;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.http.CollectServerClient;
-import org.odk.collect.android.test.MockedServerTest;
+import com.redrosecps.collect.android.application.Collect;
+import com.redrosecps.collect.android.http.CollectServerClient;
+import com.redrosecps.collect.android.test.MockedServerTest;
 
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -12,7 +12,7 @@ import okhttp3.mockwebserver.RecordedRequest;
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.odk.collect.android.test.TestUtils.assertMatches;
+import static com.redrosecps.collect.android.test.TestUtils.assertMatches;
 
 public class CollectServerClientTest extends MockedServerTest {
 
@@ -33,7 +33,7 @@ public class CollectServerClientTest extends MockedServerTest {
             // then
             RecordedRequest r = nextRequest();
             assertEquals("GET /some-path HTTP/1.1", r.getRequestLine());
-            assertTrue(r.getHeader("User-Agent").matches("Dalvik/.* org.odk.collect.android/.*"));
+            assertTrue(r.getHeader("User-Agent").matches("Dalvik/.* com.redrosecps.collect.android/.*"));
         }
 
     @Test
@@ -44,7 +44,7 @@ public class CollectServerClientTest extends MockedServerTest {
         // then
         String header = nextRequest().getHeader("User-Agent");
 
-        assertMatches("Dalvik/.* org.odk.collect.android/.*", header);
+        assertMatches("Dalvik/.* com.redrosecps.collect.android/.*", header);
     }
 
     @Test

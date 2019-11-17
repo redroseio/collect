@@ -1,4 +1,4 @@
-package org.odk.collect.android.audio;
+package com.redrosecps.collect.android.audio;
 
 import android.app.Activity;
 
@@ -7,13 +7,13 @@ import androidx.fragment.app.FragmentActivity;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.odk.collect.android.R;
+import com.redrosecps.collect.android.R;
 import org.robolectric.RobolectricTestRunner;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.odk.collect.android.support.RobolectricHelpers.createThemedActivity;
-import static org.odk.collect.android.support.RobolectricHelpers.getCreatedFromResId;
+import static com.redrosecps.collect.android.support.RobolectricHelpers.createThemedActivity;
+import static com.redrosecps.collect.android.support.RobolectricHelpers.getCreatedFromResId;
 
 @RunWith(RobolectricTestRunner.class)
 public class AudioButtonTest {

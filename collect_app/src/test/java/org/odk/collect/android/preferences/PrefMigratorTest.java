@@ -1,4 +1,4 @@
-package org.odk.collect.android.preferences;
+package com.redrosecps.collect.android.preferences;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -9,8 +9,8 @@ import com.mapbox.mapboxsdk.maps.Style;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.preferences.PrefMigrator.Migration;
+import com.redrosecps.collect.android.application.Collect;
+import com.redrosecps.collect.android.preferences.PrefMigrator.Migration;
 import org.robolectric.RobolectricTestRunner;
 
 import static org.junit.Assert.assertEquals;

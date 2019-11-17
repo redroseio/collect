@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package org.odk.collect.android.utilities;
+package com.redrosecps.collect.android.utilities;
 
 import org.javarosa.core.model.FormIndex;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.logic.FormController;
-import org.odk.collect.android.tasks.SaveFormIndexTask;
-import org.odk.collect.android.tasks.SaveToDiskTask;
+import com.redrosecps.collect.android.application.Collect;
+import com.redrosecps.collect.android.logic.FormController;
+import com.redrosecps.collect.android.tasks.SaveFormIndexTask;
+import com.redrosecps.collect.android.tasks.SaveToDiskTask;
 
 import java.io.File;
 

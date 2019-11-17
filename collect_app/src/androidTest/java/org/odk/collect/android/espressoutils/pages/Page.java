@@ -1,4 +1,4 @@
-package org.odk.collect.android.espressoutils.pages;
+package com.redrosecps.collect.android.espressoutils.pages;
 
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.NoMatchingViewException;
@@ -22,7 +22,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.core.StringEndsWith.endsWith;
-import static org.odk.collect.android.test.CustomMatchers.withIndex;
+import static com.redrosecps.collect.android.test.CustomMatchers.withIndex;
 
 /**
  * Base class for Page Objects used in Espresso tests. Provides shared helpers/setup.

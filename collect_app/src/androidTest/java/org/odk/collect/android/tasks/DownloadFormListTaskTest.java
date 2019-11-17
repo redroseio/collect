@@ -1,9 +1,9 @@
-package org.odk.collect.android.tasks;
+package com.redrosecps.collect.android.tasks;
 
 import org.junit.Test;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.logic.FormDetails;
-import org.odk.collect.android.test.MockedServerTest;
+import com.redrosecps.collect.android.application.Collect;
+import com.redrosecps.collect.android.logic.FormDetails;
+import com.redrosecps.collect.android.test.MockedServerTest;
 
 import java.util.Map;
 
@@ -12,7 +12,7 @@ import okhttp3.mockwebserver.RecordedRequest;
 import static junit.framework.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.odk.collect.android.test.TestUtils.assertMatches;
+import static com.redrosecps.collect.android.test.TestUtils.assertMatches;
 
 public class DownloadFormListTaskTest extends MockedServerTest {
 
@@ -30,7 +30,7 @@ public class DownloadFormListTaskTest extends MockedServerTest {
         RecordedRequest r = nextRequest();
         assertEquals("GET", r.getMethod());
         assertEquals("/formList", r.getPath());
-        assertMatches("Dalvik/.* org.odk.collect.android/.*", r.getHeader("User-Agent"));
+        assertMatches("Dalvik/.* com.redrosecps.collect.android/.*", r.getHeader("User-Agent"));
         assertEquals("1.0", r.getHeader("X-OpenRosa-Version"));
         assertEquals("gzip", r.getHeader("Accept-Encoding"));
 

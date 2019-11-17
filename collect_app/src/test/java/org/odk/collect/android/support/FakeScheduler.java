@@ -1,6 +1,6 @@
-package org.odk.collect.android.support;
+package com.redrosecps.collect.android.support;
 
-import org.odk.collect.android.utilities.Scheduler;
+import com.redrosecps.collect.android.utilities.Scheduler;
 
 public class FakeScheduler implements Scheduler {
 

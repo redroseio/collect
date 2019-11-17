@@ -1,9 +1,9 @@
-package org.odk.collect.android.widgets;
+package com.redrosecps.collect.android.widgets;
 
 import androidx.annotation.NonNull;
 
-import org.odk.collect.android.formentry.questions.QuestionDetails;
-import org.odk.collect.android.widgets.base.GeneralSelectMultiWidgetTest;
+import com.redrosecps.collect.android.formentry.questions.QuestionDetails;
+import com.redrosecps.collect.android.widgets.base.GeneralSelectMultiWidgetTest;
 
 /**
  * @author James Knight

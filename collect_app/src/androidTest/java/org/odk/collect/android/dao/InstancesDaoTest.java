@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.odk.collect.android.dao;
+package com.redrosecps.collect.android.dao;
 
 import android.Manifest;
 import android.database.Cursor;
@@ -26,9 +26,9 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.dto.Instance;
-import org.odk.collect.android.provider.InstanceProviderAPI;
+import com.redrosecps.collect.android.application.Collect;
+import com.redrosecps.collect.android.dto.Instance;
+import com.redrosecps.collect.android.provider.InstanceProviderAPI;
 
 import java.util.List;
 

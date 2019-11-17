@@ -1,4 +1,4 @@
-package org.odk.collect.android.widgets;
+package com.redrosecps.collect.android.widgets;
 
 import android.content.Intent;
 import androidx.annotation.NonNull;
@@ -10,10 +10,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.odk.collect.android.R;
-import org.odk.collect.android.activities.DrawActivity;
-import org.odk.collect.android.formentry.questions.QuestionDetails;
-import org.odk.collect.android.widgets.base.FileWidgetTest;
+import com.redrosecps.collect.android.R;
+import com.redrosecps.collect.android.activities.DrawActivity;
+import com.redrosecps.collect.android.formentry.questions.QuestionDetails;
+import com.redrosecps.collect.android.widgets.base.FileWidgetTest;
 import org.robolectric.RobolectricTestRunner;
 
 import java.io.File;

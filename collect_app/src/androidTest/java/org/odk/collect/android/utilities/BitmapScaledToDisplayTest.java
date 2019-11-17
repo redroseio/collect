@@ -1,11 +1,11 @@
-package org.odk.collect.android.utilities;
+package com.redrosecps.collect.android.utilities;
 
 import android.graphics.Bitmap;
 import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.odk.collect.android.application.Collect;
+import com.redrosecps.collect.android.application.Collect;
 
 import java.io.File;
 

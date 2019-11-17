@@ -1,4 +1,4 @@
-package org.odk.collect.android.sms.base;
+package com.redrosecps.collect.android.sms.base;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -7,14 +7,14 @@ import android.preference.PreferenceManager;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import org.odk.collect.android.preferences.GeneralKeys;
-import org.odk.collect.android.tasks.sms.SmsSubmissionManager;
-import org.odk.collect.android.tasks.sms.models.SmsSubmission;
+import com.redrosecps.collect.android.preferences.GeneralKeys;
+import com.redrosecps.collect.android.tasks.sms.SmsSubmissionManager;
+import com.redrosecps.collect.android.tasks.sms.models.SmsSubmission;
 import org.robolectric.RuntimeEnvironment;
 
 import java.lang.reflect.Type;
 
-import static org.odk.collect.android.tasks.sms.SmsSubmissionManager.KEY_SUBMISSION;
+import static com.redrosecps.collect.android.tasks.sms.SmsSubmissionManager.KEY_SUBMISSION;
 
 public abstract class BaseSmsTest {
     public static final String GATEWAY = "1918-344-4545";

@@ -1,16 +1,16 @@
-package org.odk.collect.android.database;
+package com.redrosecps.collect.android.database;
 
 import org.junit.Test;
-import org.odk.collect.android.dao.FormsDao;
-import org.odk.collect.android.dao.InstancesDao;
-import org.odk.collect.android.database.helpers.FormsDatabaseHelper;
-import org.odk.collect.android.database.helpers.InstancesDatabaseHelper;
-import org.odk.collect.android.database.helpers.SqlLiteHelperTest;
+import com.redrosecps.collect.android.dao.FormsDao;
+import com.redrosecps.collect.android.dao.InstancesDao;
+import com.redrosecps.collect.android.database.helpers.FormsDatabaseHelper;
+import com.redrosecps.collect.android.database.helpers.InstancesDatabaseHelper;
+import com.redrosecps.collect.android.database.helpers.SqlLiteHelperTest;
 
 import java.io.File;
 import java.io.IOException;
 
-import static org.odk.collect.android.test.FileUtils.copyFileFromAssets;
+import static com.redrosecps.collect.android.test.FileUtils.copyFileFromAssets;
 
 public class ChangingDatabasesByForksTest extends SqlLiteHelperTest {
 

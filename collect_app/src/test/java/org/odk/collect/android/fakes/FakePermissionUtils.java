@@ -1,10 +1,10 @@
-package org.odk.collect.android.fakes;
+package com.redrosecps.collect.android.fakes;
 
 import android.app.Activity;
 import androidx.annotation.NonNull;
 
-import org.odk.collect.android.listeners.PermissionListener;
-import org.odk.collect.android.utilities.PermissionUtils;
+import com.redrosecps.collect.android.listeners.PermissionListener;
+import com.redrosecps.collect.android.utilities.PermissionUtils;
 
 /**
  * Mocked implementation of {@link PermissionUtils}.

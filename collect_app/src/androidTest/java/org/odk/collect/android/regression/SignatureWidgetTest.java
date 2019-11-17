@@ -1,4 +1,4 @@
-package org.odk.collect.android.regression;
+package com.redrosecps.collect.android.regression;
 
 import android.Manifest;
 
@@ -10,11 +10,11 @@ import org.junit.Test;
 import org.junit.rules.RuleChain;
 import org.junit.rules.TestRule;
 import org.junit.runner.RunWith;
-import org.odk.collect.android.R;
-import org.odk.collect.android.espressoutils.pages.MainMenuPage;
-import org.odk.collect.android.support.CopyFormRule;
-import org.odk.collect.android.support.ResetStateRule;
-import org.odk.collect.android.support.ScreenshotOnFailureTestRule;
+import com.redrosecps.collect.android.R;
+import com.redrosecps.collect.android.espressoutils.pages.MainMenuPage;
+import com.redrosecps.collect.android.support.CopyFormRule;
+import com.redrosecps.collect.android.support.ResetStateRule;
+import com.redrosecps.collect.android.support.ScreenshotOnFailureTestRule;
 
 // Issue number NODK-211
 @RunWith(AndroidJUnit4.class)

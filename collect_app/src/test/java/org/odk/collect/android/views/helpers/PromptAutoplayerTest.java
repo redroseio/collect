@@ -1,4 +1,4 @@
-package org.odk.collect.android.views.helpers;
+package com.redrosecps.collect.android.views.helpers;
 
 import androidx.core.util.Pair;
 
@@ -9,11 +9,11 @@ import org.javarosa.form.api.FormEntryCaption;
 import org.javarosa.form.api.FormEntryPrompt;
 import org.junit.Before;
 import org.junit.Test;
-import org.odk.collect.android.analytics.Analytics;
-import org.odk.collect.android.audio.AudioHelper;
-import org.odk.collect.android.audio.Clip;
-import org.odk.collect.android.formentry.media.PromptAutoplayer;
-import org.odk.collect.android.support.MockFormEntryPromptBuilder;
+import com.redrosecps.collect.android.analytics.Analytics;
+import com.redrosecps.collect.android.audio.AudioHelper;
+import com.redrosecps.collect.android.audio.Clip;
+import com.redrosecps.collect.android.formentry.media.PromptAutoplayer;
+import com.redrosecps.collect.android.support.MockFormEntryPromptBuilder;
 
 import static java.util.Arrays.asList;
 import static org.hamcrest.Matchers.equalTo;
@@ -22,10 +22,10 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
-import static org.odk.collect.android.support.Helpers.createMockReference;
-import static org.odk.collect.android.utilities.WidgetAppearanceUtils.COMPACT;
-import static org.odk.collect.android.utilities.WidgetAppearanceUtils.MINIMAL;
-import static org.odk.collect.android.utilities.WidgetAppearanceUtils.NO_BUTTONS;
+import static com.redrosecps.collect.android.support.Helpers.createMockReference;
+import static com.redrosecps.collect.android.utilities.WidgetAppearanceUtils.COMPACT;
+import static com.redrosecps.collect.android.utilities.WidgetAppearanceUtils.MINIMAL;
+import static com.redrosecps.collect.android.utilities.WidgetAppearanceUtils.NO_BUTTONS;
 
 public class PromptAutoplayerTest {
 

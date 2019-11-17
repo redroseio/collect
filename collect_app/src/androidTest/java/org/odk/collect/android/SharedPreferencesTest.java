@@ -14,23 +14,23 @@
  * limitations under the License.
  */
 
-package org.odk.collect.android;
+package com.redrosecps.collect.android;
 
 import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.odk.collect.android.preferences.AdminSharedPreferences;
-import org.odk.collect.android.preferences.GeneralSharedPreferences;
-import org.odk.collect.android.preferences.GeneralKeys;
-import org.odk.collect.android.utilities.SharedPreferencesUtils;
+import com.redrosecps.collect.android.preferences.AdminSharedPreferences;
+import com.redrosecps.collect.android.preferences.GeneralSharedPreferences;
+import com.redrosecps.collect.android.preferences.GeneralKeys;
+import com.redrosecps.collect.android.utilities.SharedPreferencesUtils;
 
 import java.util.HashMap;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
-import static org.odk.collect.android.preferences.AdminKeys.KEY_EDIT_SAVED;
-import static org.odk.collect.android.preferences.GeneralKeys.KEY_COMPLETED_DEFAULT;
+import static com.redrosecps.collect.android.preferences.AdminKeys.KEY_EDIT_SAVED;
+import static com.redrosecps.collect.android.preferences.GeneralKeys.KEY_COMPLETED_DEFAULT;
 
 @RunWith(AndroidJUnit4.class)
 public class SharedPreferencesTest {

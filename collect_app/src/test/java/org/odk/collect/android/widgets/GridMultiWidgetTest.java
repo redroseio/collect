@@ -1,4 +1,4 @@
-package org.odk.collect.android.widgets;
+package com.redrosecps.collect.android.widgets;
 
 import android.app.Application;
 
@@ -16,15 +16,15 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
-import org.odk.collect.android.analytics.Analytics;
-import org.odk.collect.android.audio.AudioHelper;
-import org.odk.collect.android.audio.Clip;
-import org.odk.collect.android.formentry.media.AudioHelperFactory;
-import org.odk.collect.android.formentry.questions.QuestionDetails;
-import org.odk.collect.android.injection.config.AppDependencyModule;
-import org.odk.collect.android.support.MockFormEntryPromptBuilder;
-import org.odk.collect.android.support.RobolectricHelpers;
-import org.odk.collect.android.widgets.base.GeneralSelectMultiWidgetTest;
+import com.redrosecps.collect.android.analytics.Analytics;
+import com.redrosecps.collect.android.audio.AudioHelper;
+import com.redrosecps.collect.android.audio.Clip;
+import com.redrosecps.collect.android.formentry.media.AudioHelperFactory;
+import com.redrosecps.collect.android.formentry.questions.QuestionDetails;
+import com.redrosecps.collect.android.injection.config.AppDependencyModule;
+import com.redrosecps.collect.android.support.MockFormEntryPromptBuilder;
+import com.redrosecps.collect.android.support.RobolectricHelpers;
+import com.redrosecps.collect.android.widgets.base.GeneralSelectMultiWidgetTest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,8 +35,8 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
-import static org.odk.collect.android.support.Helpers.createMockReference;
-import static org.odk.collect.android.utilities.WidgetAppearanceUtils.NO_BUTTONS;
+import static com.redrosecps.collect.android.support.Helpers.createMockReference;
+import static com.redrosecps.collect.android.utilities.WidgetAppearanceUtils.NO_BUTTONS;
 
 /**
  * @author James Knight

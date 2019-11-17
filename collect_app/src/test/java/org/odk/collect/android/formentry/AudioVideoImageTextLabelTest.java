@@ -1,4 +1,4 @@
-package org.odk.collect.android.formentry;
+package com.redrosecps.collect.android.formentry;
 
 import android.app.Activity;
 import android.widget.TextView;
@@ -12,11 +12,11 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
-import org.odk.collect.android.audio.AudioButton;
-import org.odk.collect.android.audio.AudioHelper;
-import org.odk.collect.android.formentry.questions.AudioVideoImageTextLabel;
-import org.odk.collect.android.support.RobolectricHelpers;
-import org.odk.collect.android.support.TestScreenContextActivity;
+import com.redrosecps.collect.android.audio.AudioButton;
+import com.redrosecps.collect.android.audio.AudioHelper;
+import com.redrosecps.collect.android.formentry.questions.AudioVideoImageTextLabel;
+import com.redrosecps.collect.android.support.RobolectricHelpers;
+import com.redrosecps.collect.android.support.TestScreenContextActivity;
 import org.robolectric.RobolectricTestRunner;
 
 import static org.hamcrest.MatcherAssert.assertThat;

@@ -1,9 +1,9 @@
-package org.odk.collect.android.regression;
+package com.redrosecps.collect.android.regression;
 
 import androidx.test.rule.ActivityTestRule;
 
 import org.junit.Rule;
-import org.odk.collect.android.activities.MainMenuActivity;
+import com.redrosecps.collect.android.activities.MainMenuActivity;
 
 public class BaseRegressionTest {
 

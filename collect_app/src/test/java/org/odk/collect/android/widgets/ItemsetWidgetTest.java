@@ -1,4 +1,4 @@
-package org.odk.collect.android.widgets;
+package com.redrosecps.collect.android.widgets;
 
 import android.database.Cursor;
 import androidx.annotation.NonNull;
@@ -19,11 +19,11 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
-import org.odk.collect.android.database.ItemsetDbAdapter;
-import org.odk.collect.android.formentry.questions.QuestionDetails;
-import org.odk.collect.android.utilities.FileUtil;
-import org.odk.collect.android.utilities.XPathParseTool;
-import org.odk.collect.android.widgets.base.QuestionWidgetTest;
+import com.redrosecps.collect.android.database.ItemsetDbAdapter;
+import com.redrosecps.collect.android.formentry.questions.QuestionDetails;
+import com.redrosecps.collect.android.utilities.FileUtil;
+import com.redrosecps.collect.android.utilities.XPathParseTool;
+import com.redrosecps.collect.android.widgets.base.QuestionWidgetTest;
 
 import java.io.File;
 import java.util.HashMap;

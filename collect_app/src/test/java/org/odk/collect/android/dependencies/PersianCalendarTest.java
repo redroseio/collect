@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.odk.collect.android.dependencies;
+package com.redrosecps.collect.android.dependencies;
 
 import org.joda.time.DateTime;
 import org.joda.time.chrono.GregorianChronology;

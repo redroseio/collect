@@ -1,4 +1,4 @@
-package org.odk.collect.android.widgets.base;
+package com.redrosecps.collect.android.widgets.base;
 
 import org.javarosa.core.model.FormIndex;
 import org.javarosa.core.model.IFormElement;

@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package org.odk.collect.android.utilities;
+package com.redrosecps.collect.android.utilities;
 
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.odk.collect.android.utilities.RegexUtils.normalizeFormName;
+import static com.redrosecps.collect.android.utilities.RegexUtils.normalizeFormName;
 
 public class RegexUtilsTest {
 

@@ -1,4 +1,4 @@
-package org.odk.collect.android.utilities;
+package com.redrosecps.collect.android.utilities;
 
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -6,15 +6,15 @@ import android.content.res.TypedArray;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.odk.collect.android.R;
-import org.odk.collect.android.activities.MainMenuActivity;
-import org.odk.collect.android.preferences.GeneralSharedPreferences;
+import com.redrosecps.collect.android.R;
+import com.redrosecps.collect.android.activities.MainMenuActivity;
+import com.redrosecps.collect.android.preferences.GeneralSharedPreferences;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotSame;
-import static org.odk.collect.android.preferences.GeneralKeys.KEY_APP_THEME;
+import static com.redrosecps.collect.android.preferences.GeneralKeys.KEY_APP_THEME;
 
 /**
  * Unit tests for checking the behaviour of updating themes from User Interface settings

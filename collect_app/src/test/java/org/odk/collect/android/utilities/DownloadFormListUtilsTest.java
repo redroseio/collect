@@ -1,10 +1,10 @@
-package org.odk.collect.android.utilities;
+package com.redrosecps.collect.android.utilities;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.odk.collect.android.dao.FormsDao;
-import org.odk.collect.android.http.CollectServerClient;
+import com.redrosecps.collect.android.dao.FormsDao;
+import com.redrosecps.collect.android.http.CollectServerClient;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 

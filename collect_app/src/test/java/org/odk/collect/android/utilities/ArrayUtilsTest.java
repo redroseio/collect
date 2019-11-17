@@ -1,10 +1,10 @@
-package org.odk.collect.android.utilities;
+package com.redrosecps.collect.android.utilities;
 
 import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;
-import static org.odk.collect.android.utilities.ArrayUtils.toPrimitive;
-import static org.odk.collect.android.utilities.ArrayUtils.toObject;
+import static com.redrosecps.collect.android.utilities.ArrayUtils.toPrimitive;
+import static com.redrosecps.collect.android.utilities.ArrayUtils.toObject;
 
 public class ArrayUtilsTest {
 

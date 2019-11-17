@@ -1,4 +1,4 @@
-package org.odk.collect.android.preferences;
+package com.redrosecps.collect.android.preferences;
 
 import org.junit.Test;
 

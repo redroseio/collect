@@ -1,12 +1,12 @@
-package org.odk.collect.android.support;
+package com.redrosecps.collect.android.support;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.injection.config.AppDependencyComponent;
-import org.odk.collect.android.injection.config.AppDependencyModule;
-import org.odk.collect.android.injection.config.DaggerAppDependencyComponent;
-import org.odk.collect.android.logic.FormController;
+import com.redrosecps.collect.android.application.Collect;
+import com.redrosecps.collect.android.injection.config.AppDependencyComponent;
+import com.redrosecps.collect.android.injection.config.AppDependencyModule;
+import com.redrosecps.collect.android.injection.config.DaggerAppDependencyComponent;
+import com.redrosecps.collect.android.logic.FormController;
 
 public final class CollectHelpers {
 

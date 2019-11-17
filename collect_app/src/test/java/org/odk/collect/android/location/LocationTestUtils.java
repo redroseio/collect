@@ -1,4 +1,4 @@
-package org.odk.collect.android.location;
+package com.redrosecps.collect.android.location;
 
 import android.location.Location;
 

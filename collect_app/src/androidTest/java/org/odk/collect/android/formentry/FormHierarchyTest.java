@@ -1,4 +1,4 @@
-package org.odk.collect.android.formentry;
+package com.redrosecps.collect.android.formentry;
 
 import android.Manifest;
 
@@ -7,19 +7,19 @@ import androidx.test.rule.GrantPermissionRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
-import org.odk.collect.android.R;
-import org.odk.collect.android.espressoutils.pages.FormEntryPage;
-import org.odk.collect.android.espressoutils.pages.MainMenuPage;
-import org.odk.collect.android.regression.BaseRegressionTest;
-import org.odk.collect.android.support.CopyFormRule;
-import org.odk.collect.android.support.ResetStateRule;
-import org.odk.collect.android.support.matchers.RecyclerViewMatcher;
+import com.redrosecps.collect.android.R;
+import com.redrosecps.collect.android.espressoutils.pages.FormEntryPage;
+import com.redrosecps.collect.android.espressoutils.pages.MainMenuPage;
+import com.redrosecps.collect.android.regression.BaseRegressionTest;
+import com.redrosecps.collect.android.support.CopyFormRule;
+import com.redrosecps.collect.android.support.ResetStateRule;
+import com.redrosecps.collect.android.support.matchers.RecyclerViewMatcher;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static org.odk.collect.android.support.matchers.RecyclerViewMatcher.withRecyclerView;
+import static com.redrosecps.collect.android.support.matchers.RecyclerViewMatcher.withRecyclerView;
 
 public class FormHierarchyTest extends BaseRegressionTest {
 

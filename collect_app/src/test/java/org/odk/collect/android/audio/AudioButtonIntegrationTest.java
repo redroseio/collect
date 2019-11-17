@@ -1,4 +1,4 @@
-package org.odk.collect.android.audio;
+package com.redrosecps.collect.android.audio;
 
 import android.media.MediaPlayer;
 
@@ -9,9 +9,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.odk.collect.android.support.FakeLifecycleOwner;
-import org.odk.collect.android.support.FakeScheduler;
-import org.odk.collect.android.support.LiveDataTester;
+import com.redrosecps.collect.android.support.FakeLifecycleOwner;
+import com.redrosecps.collect.android.support.FakeScheduler;
+import com.redrosecps.collect.android.support.LiveDataTester;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.android.controller.ActivityController;
@@ -23,7 +23,7 @@ import java.io.File;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
-import static org.odk.collect.android.support.RobolectricHelpers.setupMediaPlayerDataSource;
+import static com.redrosecps.collect.android.support.RobolectricHelpers.setupMediaPlayerDataSource;
 import static org.robolectric.Shadows.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)

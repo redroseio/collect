@@ -1,4 +1,4 @@
-package org.odk.collect.android.widgets;
+package com.redrosecps.collect.android.widgets;
 
 import androidx.annotation.NonNull;
 
@@ -8,8 +8,8 @@ import org.javarosa.core.model.data.TimeData;
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.odk.collect.android.formentry.questions.QuestionDetails;
-import org.odk.collect.android.widgets.base.GeneralDateTimeWidgetTest;
+import com.redrosecps.collect.android.formentry.questions.QuestionDetails;
+import com.redrosecps.collect.android.widgets.base.GeneralDateTimeWidgetTest;
 
 import static org.junit.Assert.assertEquals;
 

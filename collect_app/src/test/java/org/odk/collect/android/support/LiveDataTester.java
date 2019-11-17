@@ -1,4 +1,4 @@
-package org.odk.collect.android.support;
+package com.redrosecps.collect.android.support;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;

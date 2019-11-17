@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.odk.collect.android.formentry;
+package com.redrosecps.collect.android.formentry;
 
 import android.Manifest;
 
@@ -24,12 +24,12 @@ import androidx.test.rule.GrantPermissionRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
-import org.odk.collect.android.R;
-import org.odk.collect.android.activities.MainMenuActivity;
-import org.odk.collect.android.espressoutils.pages.MainMenuPage;
-import org.odk.collect.android.provider.InstanceProviderAPI;
-import org.odk.collect.android.support.CopyFormRule;
-import org.odk.collect.android.support.ResetStateRule;
+import com.redrosecps.collect.android.R;
+import com.redrosecps.collect.android.activities.MainMenuActivity;
+import com.redrosecps.collect.android.espressoutils.pages.MainMenuPage;
+import com.redrosecps.collect.android.provider.InstanceProviderAPI;
+import com.redrosecps.collect.android.support.CopyFormRule;
+import com.redrosecps.collect.android.support.ResetStateRule;
 
 public class EncryptedFormTest {
     @Rule

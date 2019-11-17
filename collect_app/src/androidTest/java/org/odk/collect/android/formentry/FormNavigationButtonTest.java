@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.odk.collect.android.formentry;
+package com.redrosecps.collect.android.formentry;
 
 import android.Manifest;
 
@@ -27,15 +27,15 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
-import org.odk.collect.android.R;
-import org.odk.collect.android.activities.FormEntryActivity;
-import org.odk.collect.android.preferences.AdminKeys;
-import org.odk.collect.android.preferences.AdminSharedPreferences;
-import org.odk.collect.android.preferences.GeneralKeys;
-import org.odk.collect.android.preferences.GeneralSharedPreferences;
-import org.odk.collect.android.support.CopyFormRule;
-import org.odk.collect.android.support.ResetStateRule;
-import org.odk.collect.android.test.FormLoadingUtils;
+import com.redrosecps.collect.android.R;
+import com.redrosecps.collect.android.activities.FormEntryActivity;
+import com.redrosecps.collect.android.preferences.AdminKeys;
+import com.redrosecps.collect.android.preferences.AdminSharedPreferences;
+import com.redrosecps.collect.android.preferences.GeneralKeys;
+import com.redrosecps.collect.android.preferences.GeneralSharedPreferences;
+import com.redrosecps.collect.android.support.CopyFormRule;
+import com.redrosecps.collect.android.support.ResetStateRule;
+import com.redrosecps.collect.android.test.FormLoadingUtils;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -48,8 +48,8 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.startsWith;
 import static org.hamcrest.core.AllOf.allOf;
-import static org.odk.collect.android.support.CollectHelpers.waitForFormController;
-import static org.odk.collect.android.test.FormLoadingUtils.ALL_WIDGETS_FORM;
+import static com.redrosecps.collect.android.support.CollectHelpers.waitForFormController;
+import static com.redrosecps.collect.android.test.FormLoadingUtils.ALL_WIDGETS_FORM;
 
 /**
  * Tests that visibility of the next and back buttons is correctly linked to the navigation

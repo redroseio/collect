@@ -1,8 +1,8 @@
-package org.odk.collect.android.event;
+package com.redrosecps.collect.android.event;
 
 import org.junit.Test;
-import org.odk.collect.android.events.RxEvent;
-import org.odk.collect.android.events.RxEventBus;
+import com.redrosecps.collect.android.events.RxEvent;
+import com.redrosecps.collect.android.events.RxEventBus;
 
 import io.reactivex.observers.TestObserver;
 

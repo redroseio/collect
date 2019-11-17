@@ -1,15 +1,15 @@
-package org.odk.collect.android.widgets;
+package com.redrosecps.collect.android.widgets;
 
 import androidx.annotation.NonNull;
 
 import org.javarosa.core.model.data.IntegerData;
-import org.odk.collect.android.formentry.questions.QuestionDetails;
+import com.redrosecps.collect.android.formentry.questions.QuestionDetails;
 import org.junit.Test;
-import org.odk.collect.android.widgets.base.GeneralExStringWidgetTest;
+import com.redrosecps.collect.android.widgets.base.GeneralExStringWidgetTest;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.mockito.Mockito.when;
-import static org.odk.collect.android.utilities.WidgetAppearanceUtils.THOUSANDS_SEP;
+import static com.redrosecps.collect.android.utilities.WidgetAppearanceUtils.THOUSANDS_SEP;
 
 /**
  * @author James Knight

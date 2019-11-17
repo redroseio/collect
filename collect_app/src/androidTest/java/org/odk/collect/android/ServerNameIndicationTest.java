@@ -1,14 +1,14 @@
-package org.odk.collect.android;
+package com.redrosecps.collect.android;
 
 import androidx.test.filters.Suppress;
 import androidx.test.runner.AndroidJUnit4;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.odk.collect.android.http.CollectServerClient;
-import org.odk.collect.android.http.openrosa.HttpGetResult;
-import org.odk.collect.android.http.openrosa.OpenRosaHttpInterface;
-import org.odk.collect.android.utilities.WebCredentialsUtils;
+import com.redrosecps.collect.android.http.CollectServerClient;
+import com.redrosecps.collect.android.http.openrosa.HttpGetResult;
+import com.redrosecps.collect.android.http.openrosa.OpenRosaHttpInterface;
+import com.redrosecps.collect.android.utilities.WebCredentialsUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,7 +20,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
-import static org.odk.collect.android.support.CollectHelpers.getAppDependencyComponent;
+import static com.redrosecps.collect.android.support.CollectHelpers.getAppDependencyComponent;
 
 /**
  * An on-device test for TLS server name indication support.

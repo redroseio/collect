@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.odk.collect.android.utilities;
+package com.redrosecps.collect.android.utilities;
 
 import android.app.DatePickerDialog;
 import android.widget.DatePicker;
@@ -27,13 +27,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.odk.collect.android.formentry.questions.QuestionDetails;
-import org.odk.collect.android.support.MockFormEntryPromptBuilder;
-import org.odk.collect.android.support.RobolectricHelpers;
-import org.odk.collect.android.support.TestScreenContextActivity;
-import org.odk.collect.android.widgets.DateTimeWidget;
-import org.odk.collect.android.widgets.DateWidget;
-import org.odk.collect.android.widgets.TimeWidget;
+import com.redrosecps.collect.android.formentry.questions.QuestionDetails;
+import com.redrosecps.collect.android.support.MockFormEntryPromptBuilder;
+import com.redrosecps.collect.android.support.RobolectricHelpers;
+import com.redrosecps.collect.android.support.TestScreenContextActivity;
+import com.redrosecps.collect.android.widgets.DateTimeWidget;
+import com.redrosecps.collect.android.widgets.DateWidget;
+import com.redrosecps.collect.android.widgets.TimeWidget;
 import org.robolectric.RobolectricTestRunner;
 
 import java.util.TimeZone;

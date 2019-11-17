@@ -1,4 +1,4 @@
-package org.odk.collect.android.widgets.utilities;
+package com.redrosecps.collect.android.widgets.utilities;
 
 import org.javarosa.core.model.data.DecimalData;
 import org.javarosa.core.model.data.IntegerData;

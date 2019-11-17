@@ -1,4 +1,4 @@
-package org.odk.collect.android.formentry.backgroundlocation;
+package com.redrosecps.collect.android.formentry.backgroundlocation;
 
 import android.location.Location;
 
@@ -10,10 +10,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
-import org.odk.collect.android.location.LocationTestUtils;
-import org.odk.collect.android.location.client.FakeLocationClient;
-import org.odk.collect.android.logic.AuditConfig;
-import org.odk.collect.android.logic.AuditEvent;
+import com.redrosecps.collect.android.location.LocationTestUtils;
+import com.redrosecps.collect.android.location.client.FakeLocationClient;
+import com.redrosecps.collect.android.logic.AuditConfig;
+import com.redrosecps.collect.android.logic.AuditEvent;
 import org.robolectric.RobolectricTestRunner;
 
 import static org.hamcrest.MatcherAssert.assertThat;

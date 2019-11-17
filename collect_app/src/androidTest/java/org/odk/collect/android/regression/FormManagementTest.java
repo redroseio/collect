@@ -1,4 +1,4 @@
-package org.odk.collect.android.regression;
+package com.redrosecps.collect.android.regression;
 
 import android.Manifest;
 
@@ -9,12 +9,12 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
 import org.junit.runner.RunWith;
-import org.odk.collect.android.R;
-import org.odk.collect.android.espressoutils.pages.FormEntryPage;
-import org.odk.collect.android.espressoutils.pages.GeneralSettingsPage;
-import org.odk.collect.android.espressoutils.pages.MainMenuPage;
-import org.odk.collect.android.support.CopyFormRule;
-import org.odk.collect.android.support.ResetStateRule;
+import com.redrosecps.collect.android.R;
+import com.redrosecps.collect.android.espressoutils.pages.FormEntryPage;
+import com.redrosecps.collect.android.espressoutils.pages.GeneralSettingsPage;
+import com.redrosecps.collect.android.espressoutils.pages.MainMenuPage;
+import com.redrosecps.collect.android.support.CopyFormRule;
+import com.redrosecps.collect.android.support.ResetStateRule;
 
 //Issue NODK-237
 @RunWith(AndroidJUnit4.class)

@@ -1,8 +1,8 @@
-package org.odk.collect.android.http;
+package com.redrosecps.collect.android.http;
 
-import org.odk.collect.android.http.openrosa.okhttp.OkHttpConnection;
-import org.odk.collect.android.http.openrosa.okhttp.OkHttpOpenRosaServerClientProvider;
-import org.odk.collect.android.http.openrosa.OpenRosaHttpInterface;
+import com.redrosecps.collect.android.http.openrosa.okhttp.OkHttpConnection;
+import com.redrosecps.collect.android.http.openrosa.okhttp.OkHttpOpenRosaServerClientProvider;
+import com.redrosecps.collect.android.http.openrosa.OpenRosaHttpInterface;
 
 import okhttp3.OkHttpClient;
 

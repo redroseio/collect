@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.odk.collect.android.dao;
+package com.redrosecps.collect.android.dao;
 
 import android.database.Cursor;
 import androidx.test.InstrumentationRegistry;
@@ -24,10 +24,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.dto.Form;
-import org.odk.collect.android.provider.FormsProviderAPI;
-import org.odk.collect.android.utilities.ResetUtility;
+import com.redrosecps.collect.android.application.Collect;
+import com.redrosecps.collect.android.dto.Form;
+import com.redrosecps.collect.android.provider.FormsProviderAPI;
+import com.redrosecps.collect.android.utilities.ResetUtility;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,11 +1,11 @@
-package org.odk.collect.android.utilities;
+package com.redrosecps.collect.android.utilities;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-import org.odk.collect.android.upload.InstanceGoogleSheetsUploader;
+import com.redrosecps.collect.android.upload.InstanceGoogleSheetsUploader;
 
 import java.util.HashMap;
 
