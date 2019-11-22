@@ -301,7 +301,7 @@ the specific language governing permissions and limitations under the License.
             android:windowSoftInputMode="stateAlwaysHidden"
             android:screenOrientation="portrait" >
             <intent-filter>
-                <action android:name="com.maviucak.android.redrose.ACTIVATE_BENEFICIARY_CARD" />
+                <action android:name="com.redrosecps.collect.android.activities.ACTIVATE_BENEFICIARY_CARD" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
