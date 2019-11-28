@@ -14,6 +14,9 @@
 
 package com.redrosecps.collect.android.activities;
 
+import android.widget.ImageView;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -1218,7 +1221,72 @@ public class FormEntryActivity extends CollectAbstractActivity implements Animat
 
         switch (event) {
             case FormEntryController.EVENT_BEGINNING_OF_FORM:
-                return createViewForFormBeginning(formController);
+                //return createViewForFormBeginning(formController);
+                View startView = View.inflate(this, R.layout.form_entry_start, null);
+
+                //setTitle(getString(R.string.app_name) + " > " + formController.getFormTitle());
+                setTitle(formController.getFormTitle());
+
+                Drawable image = null;
+                File mediaFolder = formController.getMediaFolder();
+                String mediaDir = mediaFolder.getAbsolutePath();
+                BitmapDrawable bitImage = null;
+                // attempt to load the form-specific logo...
+                // this is arbitrarily silly
+                bitImage = new BitmapDrawable(getResources(), mediaDir + File.separator + "form_logo.png");
+
+                if (bitImage != null && bitImage.getBitmap() != null && bitImage.getIntrinsicHeight() > 0
+                        && bitImage.getIntrinsicWidth() > 0)
+                {
+                    image = bitImage;
+                }
+
+                if (image == null)
+                {
+                    ((ImageView)startView.findViewById(R.id.form_start_bling)).setVisibility(View.GONE);
+                }
+                else
+                {
+                    ImageView v = ((ImageView)startView.findViewById(R.id.form_start_bling));
+                    v.setImageDrawable(image);
+                    v.setContentDescription(formController.getFormTitle());
+                }
+                Boolean useSwipe = false;
+                Boolean useButtons = false;
+                ImageView ia = ((ImageView)startView.findViewById(R.id.image_advance));
+                ImageView ib = ((ImageView)startView.findViewById(R.id.image_backup));
+                TextView ta = ((TextView)startView.findViewById(R.id.text_advance));
+                TextView tb = ((TextView)startView.findViewById(R.id.text_backup));
+                TextView d = ((TextView)startView.findViewById(R.id.description));
+
+                useSwipe = true;
+                if (useSwipe && !useButtons)
+                {
+                    d.setText(getString(R.string.swipe_instructions, formController.getFormTitle()));
+                }
+                else if (useButtons && !useSwipe)
+                {
+                    ia.setVisibility(View.GONE);
+                    ib.setVisibility(View.GONE);
+                    ta.setVisibility(View.GONE);
+                    tb.setVisibility(View.GONE);
+                    d.setText(getString(R.string.buttons_instructions, formController.getFormTitle()));
+                }
+                else
+                {
+                    d.setText(getString(R.string.swipe_buttons_instructions, formController.getFormTitle()));
+                }
+
+                if (backButton.isShown())
+                {
+                    backButton.setEnabled(false);
+                }
+                if (nextButton.isShown())
+                {
+                    nextButton.setEnabled(true);
+                }
+
+                return startView;
             case FormEntryController.EVENT_END_OF_FORM:
                 return createViewForFormEnd(formController);
             case FormEntryController.EVENT_QUESTION:

@@ -536,6 +536,18 @@ public class FormHierarchyActivity extends CollectAbstractActivity {
 
             int event = formController.getEvent();
 
+            if (event == FormEntryController.EVENT_BEGINNING_OF_FORM) {
+                // The beginning of form has no valid prompt to display.
+                formController.stepToNextEvent(FormController.STEP_INTO_GROUP);
+                contextGroupRef = formController.getFormIndex().getReference().getParentRef();
+                groupPathTextView.setVisibility(View.GONE);
+                jumpBeginningButton.setEnabled(true);
+            } else {
+                groupPathTextView.setVisibility(View.VISIBLE);
+                groupPathTextView.setText(getCurrentPath());
+                jumpBeginningButton.setEnabled(true);
+            }
+            /*
             if (event == FormEntryController.EVENT_BEGINNING_OF_FORM && !shouldShowRepeatGroupPicker()) {
                 // The beginning of form has no valid prompt to display.
                 groupPathTextView.setVisibility(View.GONE);
@@ -543,7 +555,7 @@ public class FormHierarchyActivity extends CollectAbstractActivity {
                 groupPathTextView.setVisibility(View.VISIBLE);
                 groupPathTextView.setText(getCurrentPath());
             }
-
+            */
             // Refresh the current event in case we did step forward.
             event = formController.getEvent();
 
