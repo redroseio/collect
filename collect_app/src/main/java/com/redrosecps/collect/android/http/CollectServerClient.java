@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 
 import org.kxml2.io.KXmlParser;
 import org.kxml2.kdom.Document;
+
 import com.redrosecps.collect.android.http.openrosa.HttpGetResult;
 import com.redrosecps.collect.android.http.openrosa.OpenRosaHttpInterface;
 import com.redrosecps.collect.android.utilities.DocumentFetchResult;
@@ -100,7 +101,6 @@ public class CollectServerClient {
             Timber.e("Invalid server URL (no hostname): %s", downloadUrl);
             throw new Exception("Invalid server URL (no hostname): " + downloadUrl);
         }
-
         return httpInterface.executeGetRequest(uri, contentType, webCredentialsUtils.getCredentials(uri));
     }
 

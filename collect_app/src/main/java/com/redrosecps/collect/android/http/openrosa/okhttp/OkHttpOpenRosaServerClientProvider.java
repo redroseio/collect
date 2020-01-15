@@ -3,6 +3,7 @@ package com.redrosecps.collect.android.http.openrosa.okhttp;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+
 import com.burgstaller.okhttp.AuthenticationCacheInterceptor;
 import com.burgstaller.okhttp.CachingAuthenticatorDecorator;
 import com.burgstaller.okhttp.DispatchingAuthenticator;
@@ -10,10 +11,12 @@ import com.burgstaller.okhttp.basic.BasicAuthenticator;
 import com.burgstaller.okhttp.digest.CachingAuthenticator;
 import com.burgstaller.okhttp.digest.Credentials;
 import com.burgstaller.okhttp.digest.DigestAuthenticator;
-
+import com.redrosecps.collect.android.http.openrosa.HttpCredentials;
 import com.redrosecps.collect.android.http.openrosa.HttpCredentialsInterface;
 import com.redrosecps.collect.android.http.openrosa.OpenRosaServerClient;
 import com.redrosecps.collect.android.http.openrosa.OpenRosaServerClientProvider;
+import com.redrosecps.collect.android.preferences.GeneralKeys;
+import com.redrosecps.collect.android.preferences.GeneralSharedPreferences;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -82,7 +85,6 @@ public class OkHttpOpenRosaServerClientProvider implements OpenRosaServerClientP
             builder.authenticator(new CachingAuthenticatorDecorator(authenticator, authCache))
                     .addInterceptor(new AuthenticationCacheInterceptor(authCache)).build();
         }
-
         return new OkHttpOpenRosaServerClient(builder.build(), userAgent);
     }
 
@@ -97,11 +99,17 @@ public class OkHttpOpenRosaServerClientProvider implements OpenRosaServerClientP
         }
 
         @Override
-        public Response makeRequest(Request request, Date currentTime) throws IOException {
+        public Response makeRequest(Request request, Date currentTime, @Nullable HttpCredentialsInterface credentials) throws IOException {
+            if(credentials == null) {
+                String u = (String)GeneralSharedPreferences.getInstance().get(GeneralKeys.KEY_USERNAME);
+                String p = (String)GeneralSharedPreferences.getInstance().get(GeneralKeys.KEY_PASSWORD);
+                credentials = new HttpCredentials(u, p);
+            }
             return client.newCall(request.newBuilder()
                     .addHeader(USER_AGENT_HEADER, userAgent)
                     .addHeader(OPEN_ROSA_VERSION_HEADER, OPEN_ROSA_VERSION)
                     .addHeader(DATE_HEADER, getHeaderDate(currentTime))
+                    .addHeader("Authorization", okhttp3.Credentials.basic(credentials.getUsername(), credentials.getPassword()))
                     .build()).execute();
         }
 

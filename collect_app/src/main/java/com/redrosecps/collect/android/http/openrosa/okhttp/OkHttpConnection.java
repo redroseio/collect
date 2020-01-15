@@ -59,7 +59,7 @@ public class OkHttpConnection implements OpenRosaHttpInterface {
                 .get()
                 .build();
 
-        Response response = httpClient.makeRequest(request, new Date());
+        Response response = httpClient.makeRequest(request, new Date(), credentials);
         int statusCode = response.code();
 
         if (statusCode != HttpURLConnection.HTTP_OK) {
@@ -120,7 +120,7 @@ public class OkHttpConnection implements OpenRosaHttpInterface {
                 .build();
 
         Timber.i("Issuing HEAD request to: %s", uri.toString());
-        Response response = httpClient.makeRequest(request, new Date());
+        Response response = httpClient.makeRequest(request, new Date(), credentials);
         int statusCode = response.code();
 
         Map<String, String> responseHeaders = new HashMap<>();
@@ -205,7 +205,7 @@ public class OkHttpConnection implements OpenRosaHttpInterface {
                 .url(uri.toURL())
                 .post(multipartBody)
                 .build();
-        Response response = httpClient.makeRequest(request, new Date());
+        Response response = httpClient.makeRequest(request, new Date(), credentials);
 
         if (response.code() == 204) {
             throw new Exception();
