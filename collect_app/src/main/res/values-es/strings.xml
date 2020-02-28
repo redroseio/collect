@@ -737,6 +737,8 @@
 	<string name="no_blank_search">Campo de búsqueda no puede estar en blanco.</string>
 	<string name="select_maps_account">Ha seleccionado Google Maps Engine como su servidor, por favor, seleccione una cuenta de Google correspondiente en los ajustes generales antes de continuar</string>
 	<string name="get_project_IDs">Obtener IDs de Proyectos</string>
+	<string name="restriction_web_service_url_title">Web Service URL</string>
+	<string name="restriction_web_service_url_description">Web Service URL for the app to connect (e.g. https://a-platform.redrosecps.com/rest/mobileservices/v2)</string>
 	<plurals name="number_of_seconds">
 		<item quantity="one">%d segundo</item>
 		<item quantity="other">%d segundos</item>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<restrictions xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <restriction
+        android:defaultValue="https://hedetest.redrosecps.com/rest/mobileservices/v2"
+        android:description="@string/restriction_web_service_url_description"
+        android:key="restrictions.web.service.url"
+        android:restrictionType="string"
+        android:title="@string/restriction_web_service_url_title" />
+
+</restrictions>

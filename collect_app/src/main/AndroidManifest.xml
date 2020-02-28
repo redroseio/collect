@@ -94,6 +94,8 @@ the specific language governing permissions and limitations under the License.
         android:supportsRtl="true"
         android:usesCleartextTraffic="true">
 
+        <meta-data android:name="android.content.APP_RESTRICTIONS" android:resource="@xml/app_restrictions" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"

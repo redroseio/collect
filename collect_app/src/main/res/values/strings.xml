@@ -780,6 +780,8 @@
 	<string name="please_put_your_card">Please put the card behind reader</string>
 	<string name="title_activity_activate_beneficiary_card">Activate Beneficiary Card</string>
 	<string name="print_again">Print Again</string>
+	<string name="restriction_web_service_url_title">Web Service URL</string>
+	<string name="restriction_web_service_url_description">Web Service URL for the app to connect (e.g. https://a-platform.redrosecps.com/rest/mobileservices/v2)</string>
 	<plurals name="sms_sending">
 		<item quantity="one">Submitting form as a single message.</item>
 		<item quantity="other">Submitting form, sending message %1$d of %2$d</item>

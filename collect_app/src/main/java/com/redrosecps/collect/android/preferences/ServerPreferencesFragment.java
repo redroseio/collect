@@ -116,11 +116,12 @@ public class ServerPreferencesFragment extends BasePreferenceFragment implements
         // TODO: use just 'serverUrlPreference.getEditText().setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_arrow_drop_down, 0);' once minSdkVersion is >= 21
         serverUrlPreference.getEditText().setCompoundDrawablesWithIntrinsicBounds(null, null,
                 AppCompatResources.getDrawable(getActivity(), R.drawable.ic_arrow_drop_down), null);
-        serverUrlPreference.getEditText().setOnTouchListener(this);
-        serverUrlPreference.setOnPreferenceChangeListener(createChangeListener());
+//        serverUrlPreference.getEditText().setOnTouchListener(this);
+//        serverUrlPreference.setOnPreferenceChangeListener(createChangeListener());
         serverUrlPreference.setSummary(serverUrlPreference.getText());
-        serverUrlPreference.getEditText().setFilters(
-                new InputFilter[]{new ControlCharacterFilter(), new WhitespaceFilter()});
+//        serverUrlPreference.getEditText().setFilters(
+//                new InputFilter[]{new ControlCharacterFilter(), new WhitespaceFilter()});
+        serverUrlPreference.setSelectable(false);
 
         usernamePreference.setOnPreferenceChangeListener(createChangeListener());
         usernamePreference.setSummary(usernamePreference.getText());

@@ -18,6 +18,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.RestrictionsManager;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
@@ -28,6 +29,7 @@ import android.os.Environment;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -39,8 +41,8 @@ import com.evernote.android.job.JobManagerCreateException;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.security.ProviderInstaller;
 import com.google.firebase.analytics.FirebaseAnalytics;
-import com.squareup.leakcanary.LeakCanary;
-import com.squareup.leakcanary.RefWatcher;
+//import com.squareup.leakcanary.LeakCanary;
+//import com.squareup.leakcanary.RefWatcher;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
@@ -280,8 +282,38 @@ public class Collect extends Application {
             Timber.plant(new Timber.DebugTree());
         }
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            RestrictionsManager restrictionsMgr = (RestrictionsManager)getApplicationContext()
+                    .getSystemService(Context.RESTRICTIONS_SERVICE);
+            Toast.makeText(getApplicationContext(), "Restrictions supported", Toast.LENGTH_SHORT).show();
+            Bundle appRestrictions = restrictionsMgr.getApplicationRestrictions();
+
+            if (appRestrictions != null) {
+                if (appRestrictions.size() == 0) {
+                    Toast.makeText(getApplicationContext(), "Found appRestrictions but an empty set. Has restrictions provider? Ans:"
+                            + restrictionsMgr.hasRestrictionsProvider(), Toast.LENGTH_LONG).show();
+
+                }
+                else {
+
+                    Toast.makeText(getApplicationContext(),
+                            "Found appRestrictions and it has some elements in it (viola!) Has restrictions provider? Ans:"
+                                    + restrictionsMgr.hasRestrictionsProvider(),
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+            if (appRestrictions.containsKey("restrictions.web.service.url")) {
+                String url = appRestrictions.getString("restrictions.web.service.url");
+                Toast.makeText(getApplicationContext(), "URL: " + url, Toast.LENGTH_SHORT).show();
+                if (url != null && !url.equals("")) {
+                    PreferenceManager.getDefaultSharedPreferences(Collect.getInstance())
+                            .edit().putString(GeneralKeys.KEY_SERVER_URL, url).apply();
+                }
+            }
+        }
+
         setupRemoteAnalytics();
-        setupLeakCanary();
+        //setupLeakCanary();
         setupOSMDroid();
     }
 
@@ -320,12 +352,12 @@ public class Collect extends Application {
         }
     }
 
-    protected RefWatcher setupLeakCanary() {
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            return RefWatcher.DISABLED;
-        }
-        return LeakCanary.install(this);
-    }
+//    protected RefWatcher setupLeakCanary() {
+//        if (LeakCanary.isInAnalyzerProcess(this)) {
+//            return RefWatcher.DISABLED;
+//        }
+//        return LeakCanary.install(this);
+//    }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {

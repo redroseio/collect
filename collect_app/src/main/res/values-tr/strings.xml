@@ -174,5 +174,7 @@
 	<string name="no_account">Hesabınız Yok</string>
 	<string name="form_backward">Geri</string>
 	<string name="change_url_default">URL</string>
+	<string name="restriction_web_service_url_title">Web Service URL</string>
+	<string name="restriction_web_service_url_description">Web Service URL for the app to connect (e.g. https://a-platform.redrosecps.com/rest/mobileservices/v2)</string>
 </resources>
 
