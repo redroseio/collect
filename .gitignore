@@ -10,7 +10,7 @@ local.properties
 *.*~
 
 # gradle env props
-secrets.properties
+#secrets.properties
 
 # built application files
 *.apk
