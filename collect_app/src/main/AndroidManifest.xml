@@ -9,7 +9,7 @@ the specific language governing permissions and limitations under the License.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.redrosecps.collect.android">
+    package="com.redrosecps.collect.android" android:sharedUserId="redrose.one">
 
     <uses-feature
         android:name="android.hardware.location"

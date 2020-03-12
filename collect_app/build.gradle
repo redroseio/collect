@@ -73,8 +73,8 @@ android {
         applicationId('com.redrosecps.collect.android')
         minSdkVersion(16)
         targetSdkVersion(28)
-        versionCode 3580 //LEGACY_BUILD_NUMBER_OFFSET + getMasterCommitCount()
-        versionName "3580" //getVersionName()
+        versionCode 3581 //LEGACY_BUILD_NUMBER_OFFSET + getMasterCommitCount()
+        versionName "3581" //getVersionName()
         testInstrumentationRunner('androidx.test.runner.AndroidJUnitRunner')
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
