@@ -306,12 +306,9 @@ public class Collect extends Application {
                 String url = appRestrictions.getString("restrictions.web.service.url");
                 Toast.makeText(getApplicationContext(), "URL: " + url, Toast.LENGTH_SHORT).show();
                 if (url != null && !url.equals("")) {
-                    if(url.endsWith("/"))
-                        url += "rraggregate";
-                    else
-                        url += "/rraggregate";
                     PreferenceManager.getDefaultSharedPreferences(Collect.getInstance())
                             .edit().putString(GeneralKeys.KEY_SERVER_URL, url).apply();
+                    GeneralKeys.GENERAL_KEYS.put(GeneralKeys.KEY_SERVER_URL, url);
                 }
             }
         }
