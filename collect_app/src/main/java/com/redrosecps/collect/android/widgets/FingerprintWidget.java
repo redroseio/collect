@@ -87,7 +87,7 @@ public class FingerprintWidget extends QuestionWidget implements IBinaryWidget
 					Toast.makeText(
 							getContext(),
 							getContext().getString(R.string.activity_not_found,
-									"Fingerprint capture (RedRose One App Installation is required!)"),
+									"Fingerprint capture (RedRose One Biometrics Installation is required!)"),
 							Toast.LENGTH_SHORT).show();
 					Collect.getInstance().getFormController().setIndexWaitingForData(null);
 				}
@@ -186,7 +186,6 @@ public class FingerprintWidget extends QuestionWidget implements IBinaryWidget
 		deleteMedia();
 		mImageView.setImageBitmap(null);
 		mErrorTextView.setVisibility(View.GONE);
-
 		// reset buttons
 		mCaptureButton.setText(getContext().getString(R.string.capture_image));
 	}

@@ -126,6 +126,8 @@ public class WidgetFactory {
                     questionWidget = new DrawWidget(context, questionDetails);
                 } else if (appearance.equals(WidgetAppearanceUtils.FINGERPRINT)) {
                     questionWidget = new FingerprintWidget(context, questionDetails);
+                } else if (appearance.equals(WidgetAppearanceUtils.FACECAPTURE)) {
+                    questionWidget = new FaceCaptureWidget(context, questionDetails);
                 }
                 else {
                     questionWidget = new ImageWidget(context, questionDetails);

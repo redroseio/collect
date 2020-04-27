@@ -848,6 +848,52 @@ public class FormEntryActivity extends CollectAbstractActivity implements Animat
                 }
             }
             break;
+            case RequestCodes.FACE_CAPTURE:
+            {
+                Object externalValue;
+                if (intent == null || intent.getExtras() == null
+                        || (externalValue = intent.getExtras().get("capturedImage")) == null)
+                {
+                    ((ODKView)getCurrentViewIfODKView()).cancelWaitingForBinaryData();
+                    createErrorDialog("Failed to grab face registration image! "
+                            + "Please request help from RedRose support team!", DO_NOT_EXIT);
+                }
+                else
+                {
+                    String mInstanceFolder = formController.getInstanceFile().getParent();
+                    String s1 = mInstanceFolder + File.separator + System.currentTimeMillis() + ".png";
+                    FileOutputStream out = null;
+                    try
+                    {
+                        out = new FileOutputStream(s1);
+                        out.write((byte[])externalValue);
+                        File nf1 = new File(s1);
+                        ((ODKView)getCurrentViewIfODKView()).setBinaryData(nf1);
+                        saveAnswersForCurrentScreen(DO_NOT_EVALUATE_CONSTRAINTS);
+                    }
+                    catch (IOException e)
+                    {
+                        ((ODKView)getCurrentViewIfODKView()).cancelWaitingForBinaryData();
+                        createErrorDialog("Failed to save face registration image! Reason: " + e.getMessage(),
+                                DO_NOT_EXIT);
+                    }
+                    finally
+                    {
+                        if (out != null)
+                        {
+                            try
+                            {
+                                out.close();
+                            }
+                            catch (IOException e)
+                            {
+                                //don't care if cannot close
+                            }
+                        }
+                    }
+                }
+            }
+            break;
             case RequestCodes.ALIGNED_IMAGE:
                 /*
                  * We saved the image to the tempfile_path; the app returns the full

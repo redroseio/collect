@@ -673,6 +673,7 @@
 	<string name="barcode_scanner_error">Sorry, Barcode Scanner is not installed!</string>
 	<string name="cancel_saving_form">Cancel</string>
 	<string name="capture_fingerprint">Scan Fingerprint</string>
+	<string name="capture_face">Capture Face</string>
 	<string name="change_protocol_settings_default">Platform Settings</string>
 	<string name="completed_data">Complete (%s)</string>
 	<string name="latitude">Latitude</string>
