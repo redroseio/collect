@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.net.Uri;
-import android.provider.MediaStore;
+import android.provider.MediaStore.Images;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
@@ -27,13 +27,14 @@ import com.redrosecps.collect.android.formentry.questions.QuestionDetails;
 import com.redrosecps.collect.android.utilities.ApplicationConstants;
 import com.redrosecps.collect.android.utilities.FileUtils;
 import com.redrosecps.collect.android.utilities.MediaUtils;
+import com.redrosecps.collect.android.widgets.interfaces.BinaryWidget;
 
 import org.javarosa.core.model.data.IAnswerData;
 import org.javarosa.core.model.data.StringData;
 
 import java.io.File;
 
-public class FaceCaptureWidget  extends QuestionWidget implements IBinaryWidget
+public class FaceCaptureWidget  extends QuestionWidget implements BinaryWidget
 {
     private final static String t = "FaceCaptureWidget";
 
@@ -217,13 +218,13 @@ public class FaceCaptureWidget  extends QuestionWidget implements IBinaryWidget
             // Add the new image to the Media content provider so that the
             // viewing is fast in Android 2.0+
             ContentValues values = new ContentValues(6);
-            values.put(MediaStore.Images.Media.TITLE, newImage.getName());
-            values.put(MediaStore.Images.Media.DISPLAY_NAME, newImage.getName());
-            values.put(MediaStore.Images.Media.DATE_TAKEN, System.currentTimeMillis());
-            values.put(MediaStore.Images.Media.MIME_TYPE, "image/png");
-            values.put(MediaStore.Images.Media.DATA, newImage.getAbsolutePath());
+            values.put(Images.Media.TITLE, newImage.getName());
+            values.put(Images.Media.DISPLAY_NAME, newImage.getName());
+            values.put(Images.Media.DATE_TAKEN, System.currentTimeMillis());
+            values.put(Images.Media.MIME_TYPE, "image/png");
+            values.put(Images.Media.DATA, newImage.getAbsolutePath());
 
-            Uri imageURI = getContext().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+            Uri imageURI = getContext().getContentResolver().insert(Images.Media.EXTERNAL_CONTENT_URI, values);
             Log.i(t, "Inserting image returned uri = " + imageURI.toString());
 
             mBinaryName = newImage.getName();
@@ -245,7 +246,7 @@ public class FaceCaptureWidget  extends QuestionWidget implements IBinaryWidget
         inputManager.hideSoftInputFromWindow(this.getWindowToken(), 0);
     }
 
-    @Override
+   /* @Override
     public boolean isWaitingForBinaryData()
     {
         return getFormEntryPrompt().getIndex().equals(Collect.getInstance().getFormController().getIndexWaitingForData());
@@ -255,7 +256,7 @@ public class FaceCaptureWidget  extends QuestionWidget implements IBinaryWidget
     public void cancelWaitingForBinaryData()
     {
         Collect.getInstance().getFormController().setIndexWaitingForData(null);
-    }
+    }*/
 
     @Override
     public void setOnLongClickListener(OnLongClickListener l)
@@ -278,4 +279,9 @@ public class FaceCaptureWidget  extends QuestionWidget implements IBinaryWidget
         }
     }
 
+    @Override
+    public void onButtonClick(int buttonId)
+    {
+
+    }
 }

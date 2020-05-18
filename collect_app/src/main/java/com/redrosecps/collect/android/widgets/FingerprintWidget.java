@@ -35,8 +35,9 @@ import com.redrosecps.collect.android.formentry.questions.QuestionDetails;
 import com.redrosecps.collect.android.utilities.ApplicationConstants;
 import com.redrosecps.collect.android.utilities.FileUtils;
 import com.redrosecps.collect.android.utilities.MediaUtils;
+import com.redrosecps.collect.android.widgets.interfaces.BinaryWidget;
 
-public class FingerprintWidget extends QuestionWidget implements IBinaryWidget
+public class FingerprintWidget extends QuestionWidget implements BinaryWidget
 {
 	private final static String t = "FingerprintWidget";
 
@@ -247,7 +248,7 @@ public class FingerprintWidget extends QuestionWidget implements IBinaryWidget
 		inputManager.hideSoftInputFromWindow(this.getWindowToken(), 0);
 	}
 
-	@Override
+	/*@Override
 	public boolean isWaitingForBinaryData()
 	{
 		return getFormEntryPrompt().getIndex().equals(Collect.getInstance().getFormController().getIndexWaitingForData());
@@ -258,7 +259,7 @@ public class FingerprintWidget extends QuestionWidget implements IBinaryWidget
 	{
 		Collect.getInstance().getFormController().setIndexWaitingForData(null);
 	}
-
+*/
 	@Override
 	public void setOnLongClickListener(OnLongClickListener l)
 	{
@@ -280,4 +281,9 @@ public class FingerprintWidget extends QuestionWidget implements IBinaryWidget
 		}
 	}
 
+	@Override
+	public void onButtonClick(int buttonId)
+	{
+
+	}
 }

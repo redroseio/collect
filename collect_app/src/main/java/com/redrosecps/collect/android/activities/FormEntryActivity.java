@@ -852,7 +852,7 @@ public class FormEntryActivity extends CollectAbstractActivity implements Animat
             {
                 Object externalValue;
                 if (intent == null || intent.getExtras() == null
-                        || (externalValue = intent.getExtras().get("capturedImage")) == null)
+                        || (externalValue = intent.getExtras().get("exifEmbeddedResultTemplate")) == null)
                 {
                     ((ODKView)getCurrentViewIfODKView()).cancelWaitingForBinaryData();
                     createErrorDialog("Failed to grab face registration image! "

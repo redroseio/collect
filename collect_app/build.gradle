@@ -91,6 +91,10 @@ android {
             }
         }
     }
+    lintOptions {
+        abortOnError false
+    }
+
 
     buildTypes {
         // Release build for all forks
@@ -116,6 +120,7 @@ android {
             buildConfigField 'String', "MAPBOX_ACCESS_TOKEN", '"' + mapboxToken + '"'
         }
         debug {
+            signingConfig signingConfigs.release //oneapp uses maviucak keystore for debug releases also
             debuggable(true)
             testCoverageEnabled(true)
             resValue("bool", "CRASHLYTICS_ENABLED", "false")
@@ -177,6 +182,7 @@ android {
             }
         }
     }
+    buildToolsVersion = '28.0.3'
 }
 
 configurations.all {
@@ -197,10 +203,14 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
 
     implementation 'androidx.legacy:legacy-support-v13:1.0.0'
+    //noinspection GradleDependency
     implementation 'androidx.browser:browser:1.2.0-alpha07'
+    //noinspection GradleDependency
     implementation 'androidx.appcompat:appcompat:1.1.0-rc01' // Shouldn't be upgraded until https://issuetracker.google.com/issues/141869006 is fixed
+    //noinspection GradleDependency
     implementation 'com.google.android.material:material:1.1.0-alpha10'
     implementation 'androidx.cardview:cardview:1.0.0'
+    //noinspection GradleDependency
     implementation 'androidx.exifinterface:exifinterface:1.1.0-beta01'
     implementation "androidx.multidex:multidex:2.0.1"
 
@@ -208,6 +218,7 @@ dependencies {
     implementation "com.google.android.gms:play-services-maps:17.0.0"
     implementation "com.google.android.gms:play-services-location:17.0.0"
 
+    //noinspection GradleDependency
     implementation 'com.google.firebase:firebase-analytics:17.2.1'
     implementation "com.crashlytics.sdk.android:crashlytics:2.10.1"
 
@@ -249,7 +260,9 @@ dependencies {
     implementation "org.slf4j:slf4j-api:2.0.0-alpha0"
     implementation "com.arcao:slf4j-timber:3.1@aar"
 
+    //noinspection GradleDependency
     implementation "com.google.zxing:core:3.3.0" //updating to 3.4.0 requires minSdkVersion >=24 https://github.com/zxing/zxing/releases/tag/zxing-3.4.0
+    //noinspection GradleDependency
     implementation "com.journeyapps:zxing-android-embedded:3.5.0" //updating would require minSdkVersion >=24
     implementation "net.danlew:android.joda:2.10.3"
 
@@ -262,6 +275,7 @@ dependencies {
     odkCollectReleaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:${rootProject.leakyCanaryVersion}"
 
     // Android Architecture Components:
+    //noinspection GradleDependency
     implementation "androidx.lifecycle:lifecycle-extensions:2.1.0"
 
     // Dagger:
@@ -322,6 +336,7 @@ dependencies {
         exclude group: 'com.google.code.findbugs', module: 'jsr305'
     }
 
+    //noinspection GradleDependency
     androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.3.0-alpha02'
     androidTestImplementation("androidx.test.espresso:espresso-intents:3.3.0-alpha02") {
         exclude group: 'com.android.support', module: 'support-annotations'
