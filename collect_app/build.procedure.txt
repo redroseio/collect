@@ -1,0 +1,29 @@
+- Update Project & select "Merge" on the popup dialog
+    Make sure local branch is "master" and remote branch is "origin/master" (right bottom of screen)
+
+- Open up untranslated.xml and edit the following line accordingly
+    <string name="default_server_url" translatable="false">https://aggregate.redrosecps.com/iomsomalia</string>
+
+- Execute the following to build the package
+    gradlew clean assembleRelease
+    Notes: We exclude build process as it executes tests and they're failing, we don't want to deal with it and fix the tests. Instead we use assemble
+
+- Open up [ProjectFolder]\collect_app\build\outputs\apk\release
+    Tip: you can right click collect_app Android Studio project explorer and select "Show in Explorer"
+
+- Rename collect-release-[versionCode].apk to RRCollect_v3582_iomsomalia.apk (domain convention must match with the domain specified in untranslated.xml)
+
+- Upload the file to AWS S3 "redrose_repo_android/rrcollect/RRCollect_v3582_iomsomalia.apk"
+    - https://redrose-repo-android.s3.eu-west-1.amazonaws.com/rrcollect/RRCollect_v3582_iomsomalia.apk will be the link (pattern is always the same)
+    - Copy and paste the link to browser and confirm the existence of the app
+
+- Login to bit.ly RedRose account (ask Oguz/Engin for credentials)
+    - Generate short link as https://bit.ly/rrciomsomalia3582 (https://bit.ly/rrc[platformName][version])
+    - Set up the description as RRCollect [PlatformName] [Version] (e.g. RRCollect iomsomalia 3582)
+
+- Uninstall if RRCollect is previously installed
+
+- Install the app by using the short link and verify the following
+    - If it's connected to correct domain
+        Tip: Use the right top menu button / General Settings / Server
+    - Click on "Get Blank Form" and make sure username/password dialog is displayed (you can also check the domain here)

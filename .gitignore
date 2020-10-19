@@ -44,3 +44,4 @@ javarosa/
 
 # Config for the official ODK Collect build
 collect_app/src/odkCollectRelease/
+/collect_app/secrets.properties
