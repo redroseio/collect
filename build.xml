@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="RRCollect" default="go">
+
+
+	<property file="local.properties" />
+	<property file="collect_app/secrets.properties" />
+	<property name="deploy.dir" location="${basedir}/releases" />
+		
+	<target name="define.gradle.path">		
+		<condition property="gradle.path" value="${basedir}/gradlew.bat">
+			<os family="windows" />
+		</condition>
+		<condition property="gradle.path" value="${basedir}/gradlew">
+			<os family="unix" />
+		</condition>
+		<condition property="gradle.path" value="${basedir}/gradlew">
+			<os family="mac" />
+		</condition>
+	</target>
+	
+	<target name="define.aggregate.base.url" unless="aggregate.base.url">
+		<input message="Please enter aggregate server domain (e.g. https://aggregate.redrosecps.com)" addproperty="aggregate.base.url" defaultvalue="https://aggregate.redrosecps.com" />
+	</target>
+	
+	<target name="define.host.base.name" depends="define.aggregate.base.url" unless="host.base.name">
+		<input message="Please enter platform domain (e.g. oneplatform.redrosecps.com)" addproperty="host.base.name" />
+	</target>
+	
+	
+	<target name="define.web.service.url" depends="define.host.base.name" unless="web.service.url">
+		<propertyregex property="customer" input="${host.base.name}" regexp="(.*?)\.(.*)" select="\1" casesensitive="false" />
+		<propertyregex property="domain" input="${host.base.name}" regexp="(.*?)\.(.*?)\.(com|io|org|net)" select="\2" casesensitive="false" />
+		
+		<if>
+			<equals arg1="${domain}" arg2="redrosecps" />
+			<then>
+				<property name="module.name" value="${customer}" />
+			</then>
+			<elseif>
+				<equals arg1="${domain}" arg2="crscat" />
+				<then>
+					<property name="module.name" value="${customer}crscat" />
+				</then>
+			</elseif>
+			<elseif>
+				<equals arg1="${domain}" arg2="kacheproject" />
+				<then>
+					<property name="module.name" value="${customer}kacheprojectorg" />
+				</then>
+			</elseif>
+			<else>
+				<fail message="Domain ${domain} is unknown!"  />
+			</else>
+		</if>
+		
+		<property name="web.service.url" value="${aggregate.base.url}/${module.name}"></property>
+		</target>
+
+	<!--http://redrose-repo-android.s3.amazonaws.com/v2/xxx.apk-->
+	<target name="uploadToS3" depends="loadHelperJars" if="s3.bucket">
+		<s3upload accesskey="${s3.access.key}" secretkey="${s3.secret.key}" region="${s3.region}" bucket="${s3.bucket}" basePath="${s3.basepath}" verbose="true">
+			<fileset dir="${deploy.dir}">
+				<include name="${out.final.filename}" />
+			</fileset>
+		</s3upload>
+		<property name="out.s3.link" value="https://${s3.bucket}.s3.amazonaws.com/${s3.basepath}${out.final.filename}" />
+		<echo>File is uploaded to ${out.s3.link}</echo>
+	</target>
+
+	<target name="go" depends="loadHelperJars,define.gradle.path, define.web.service.url">
+		<mkdir dir="${deploy.dir}" />
+		
+		<!--<xpath input="AndroidManifest.xml" expression="/manifest/@android:versionName" output="android.version.name" default="" />
+		<echo message="Version code: ${android.version.name}" />-->
+		<loadfile property="build.gradle.file" srcfile="collect_app/build.gradle" />
+		<for param="line" delimiter="${line.separator}" list="${build.gradle.file}">
+            <sequential>
+                <propertyregex property="version.code" input="@{line}" regexp="\s*versionCode\s*(\d*)\s*.*" select="\1" />                
+            </sequential>
+        </for>
+		
+		<echo>aggregate.base.url = ${aggregate.base.url}</echo>
+		<echo>host.base.name = ${host.base.name}</echo>
+		<echo>customer = ${customer}</echo>
+		<echo>domain = ${domain}</echo>
+		<echo>module.name = ${module.name}</echo>
+		<echo>web.service.url = ${web.service.url}</echo>
+		<echo>version.code = ${version.code}</echo>
+		
+		<replaceregexp file="collect_app/src/main/res/values/untranslated.xml" match='\"default_server_url\".*' replace='"default_server_url" translatable="false"&gt;${web.service.url}&lt;/string&gt;' />
+
+		<exec executable="${gradle.path}" dir="${basedir}" >
+			<arg value="clean" />
+			<arg value="assembleRelease" />
+		</exec>
+		
+		<property name="out.final.filename" value="RRCollect_v${version.code}_${module.name}.apk" />
+		<copy file="${basedir}/collect_app/build/outputs/apk/release/collect-release-${version.code}.apk" tofile="${deploy.dir}/${out.final.filename}" overwrite="true" />
+		
+		<property name="out.final.file" location="${deploy.dir}/${out.final.filename}" />
+		
+		<exec executable="${gradle.path}" dir="${basedir}" >
+			<arg value="clean" />
+		</exec>
+		
+		<echo>*****************************************************************</echo>
+		<echo>*                                                               *</echo>
+		<echo>Deployed to ${out.final.file}									   </echo>
+		<echo>*                                                               *</echo>
+		<echo>*****************************************************************</echo>
+		
+		<antcall target="uploadToS3" />
+	</target>
+
+	<target name="loadHelperJars">
+		<taskdef resource="net/sf/antcontrib/antcontrib.properties">
+			<classpath>
+				<pathelement location="${basedir}/helpers/ant/ant-contrib.jar" />
+			</classpath>
+		</taskdef>
+		<taskdef resource="net/sf/antcontrib/antlib.xml">
+			<classpath>
+				<pathelement location="${basedir}/helpers/ant/ant-contrib.jar" />
+			</classpath>
+		</taskdef>
+		<taskdef resource="com/maviucak/anttasks/antlib.xml">
+			<classpath>
+				<pathelement location="${basedir}/helpers/ant/aws-java-sdk-core-1.11.280.jar" />
+				<pathelement location="${basedir}/helpers/ant/aws-java-sdk-s3-1.11.280.jar" />
+				<pathelement location="${basedir}/helpers/ant/commons-logging-1.2.jar" />
+				<pathelement location="${basedir}/helpers/ant/jackson-databind-2.8.1.jar" />
+				<pathelement location="${basedir}/helpers/ant/jackson-core-2.8.1.jar" />
+				<pathelement location="${basedir}/helpers/ant/jackson-annotations-2.8.1.jar" />
+				<pathelement location="${basedir}/helpers/ant/httpcore-4.4.5.jar" />
+				<pathelement location="${basedir}/helpers/ant/httpclient-4.5.2.jar" />
+				<pathelement location="${basedir}/helpers/ant/joda-time-2.9.4.jar" />
+				<pathelement location="${basedir}/helpers/ant/android-ant-tasks.jar" />
+				<pathelement location="${basedir}/helpers/ant/bin" />
+			</classpath>
+		</taskdef>
+	</target>
+</project>
