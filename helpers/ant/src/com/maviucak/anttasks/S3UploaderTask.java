@@ -12,6 +12,7 @@ import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DirectoryScanner;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.taskdefs.Echo;
+import org.apache.tools.ant.taskdefs.Property;
 import org.apache.tools.ant.types.FileSet;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
@@ -29,6 +30,7 @@ public class S3UploaderTask extends Task
 	private String region;
 	private String bucket;
 	private String basePath = "";
+	private String propertyName;
 
 	//Variables initialized internally
 	private AmazonS3 s3;
@@ -70,6 +72,11 @@ public class S3UploaderTask extends Task
 		else
 			this.basePath = basePath;
 	}
+	
+	public void setPropertyName(String propertyName)
+	{
+		this.propertyName = propertyName;
+	}
 
 	public void execute() throws BuildException
 	{
@@ -107,11 +114,19 @@ public class S3UploaderTask extends Task
 				if (bytes != null)
 					metaData.setContentLength(bytes.length);
 				s3.putObject(bucket, basePath + file.getName(), new ByteArrayInputStream(bytes), metaData);
+				String url = s3.getUrl(bucket, basePath + file.getName()).toString();
 				if (mVerbose)
 				{
 					Echo echo = (Echo)getProject().createTask("echo");
-					echo.setMessage("Uploaded " + file.getName());
+					echo.setMessage("Uploaded to " + url);
 					echo.execute();
+				}
+				if (propertyName != null && !propertyName.isEmpty())
+				{
+					Property property = (Property)getProject().createTask("property");
+					property.setName(propertyName);
+					property.setValue(url);
+					property.execute();
 				}
 			}
 			catch (IOException e)
