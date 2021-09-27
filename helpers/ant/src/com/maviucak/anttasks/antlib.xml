@@ -1,3 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?><antlib>
 <taskdef name="s3upload" classname="com.maviucak.anttasks.S3UploaderTask"/>
+<taskdef name="createCuttlyLink" classname="com.maviucak.anttasks.CuttlyLinkCreatorTask"/>
 </antlib>
