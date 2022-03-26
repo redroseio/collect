@@ -63,6 +63,9 @@ def secrets = new Properties()
 if (secretsFile.exists()) {
     secrets.load(new FileInputStream(secretsFile))
 }
+else
+    throw new IllegalStateException("secrets.properties file could not be found! Please create it by deriving from secrets.sample.properties")
+
 def googleMapsApiKey = secrets.getProperty('GOOGLE_MAPS_API_KEY', '')
 def mapboxToken = secrets.getProperty('MAPBOX_ACCESS_TOKEN', '')
 
