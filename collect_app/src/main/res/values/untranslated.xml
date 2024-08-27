@@ -18,7 +18,7 @@ the specific language governing permissions and limitations under the License. -
         abc.kacheproject.org: "/abckacheprojectorg"
      -->
 
-    <string name="default_server_url" translatable="false">https://aggregate.redrosecps.com/puicameroon</string>
+    <string name="default_server_url" translatable="false">https://aggregate.redrosecps.com/oneplatform</string>
 
     <string name="default_odk_formlist" translatable="false">/formList</string>
     <string name="default_odk_submission" translatable="false">/submission</string>

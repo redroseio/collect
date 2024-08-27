@@ -2266,7 +2266,11 @@ public class FormEntryActivity extends CollectAbstractActivity implements Animat
         // Register to receive location provider change updates and write them to the audit log
         if (formController != null && formController.currentFormAuditsLocation()
                 && PlayServicesUtil.isGooglePlayServicesAvailable(this)) {
-            registerReceiver(locationProvidersReceiver, new IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                registerReceiver(locationProvidersReceiver, new IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION),RECEIVER_EXPORTED);
+            }else{
+                registerReceiver(locationProvidersReceiver, new IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION));
+            }
         }
 
         // User may have changed location permissions in Android settings

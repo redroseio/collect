@@ -101,7 +101,7 @@ public class SmsSender {
         sendIntent.putExtra(SMS_INSTANCE_ID, instanceId);
         sendIntent.putExtra(SMS_MESSAGE_ID, messageId);
 
-        return PendingIntent.getBroadcast(context, messageId, sendIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        return PendingIntent.getBroadcast(context, messageId, sendIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
     }
 
     /***
@@ -117,6 +117,6 @@ public class SmsSender {
         sendIntent.putExtra(SMS_INSTANCE_ID, instanceId);
         sendIntent.putExtra(SMS_MESSAGE_ID, messageId);
 
-        return PendingIntent.getBroadcast(context, messageId, sendIntent, PendingIntent.FLAG_NO_CREATE) != null;
+        return PendingIntent.getBroadcast(context, messageId, sendIntent, PendingIntent.FLAG_NO_CREATE | PendingIntent.FLAG_MUTABLE) != null;
     }
 }

@@ -22,7 +22,9 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
+
 import androidx.appcompat.content.res.AppCompatResources;
+
 import android.telephony.PhoneNumberUtils;
 import android.text.InputFilter;
 import android.text.TextUtils;
@@ -32,6 +34,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListPopupWindow;
 
+import com.redrosecps.collect.android.BuildConfig;
 import com.redrosecps.collect.android.R;
 import com.redrosecps.collect.android.application.Collect;
 import com.redrosecps.collect.android.http.CollectServerClient;
@@ -116,26 +119,48 @@ public class ServerPreferencesFragment extends BasePreferenceFragment implements
         // TODO: use just 'serverUrlPreference.getEditText().setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_arrow_drop_down, 0);' once minSdkVersion is >= 21
         serverUrlPreference.getEditText().setCompoundDrawablesWithIntrinsicBounds(null, null,
                 AppCompatResources.getDrawable(getActivity(), R.drawable.ic_arrow_drop_down), null);
-//        serverUrlPreference.getEditText().setOnTouchListener(this);
-//        serverUrlPreference.setOnPreferenceChangeListener(createChangeListener());
+        if (BuildConfig.IS_TEST_VERSION) {
+            serverUrlPreference.getEditText().setOnTouchListener(this);
+            serverUrlPreference.setOnPreferenceChangeListener(createChangeListener());
+        }
         serverUrlPreference.setSummary(serverUrlPreference.getText());
-//        serverUrlPreference.getEditText().setFilters(
-//                new InputFilter[]{new ControlCharacterFilter(), new WhitespaceFilter()});
+        if (BuildConfig.IS_TEST_VERSION) {
+            serverUrlPreference.getEditText().setFilters(
+                    new InputFilter[]{new ControlCharacterFilter(), new WhitespaceFilter()});
+        }
         serverUrlPreference.setSelectable(false);
 
-        usernamePreference.setOnPreferenceChangeListener(createChangeListener());
-        usernamePreference.setSummary(usernamePreference.getText());
-        usernamePreference.getEditText().setFilters(
-                new InputFilter[]{new ControlCharacterFilter()});
+        usernamePreference.setOnPreferenceChangeListener(
 
-        passwordPreference.setOnPreferenceChangeListener(createChangeListener());
+                createChangeListener());
+        usernamePreference.setSummary(usernamePreference.getText());
+        usernamePreference.getEditText().
+
+                setFilters(
+                        new InputFilter[]{
+                                new ControlCharacterFilter()
+                        });
+
+        passwordPreference.setOnPreferenceChangeListener(
+
+                createChangeListener());
+
         maskPasswordSummary(passwordPreference.getText());
-        passwordPreference.getEditText().setFilters(
-                new InputFilter[]{new ControlCharacterFilter()});
+        passwordPreference.getEditText().
+
+                setFilters(
+                        new InputFilter[]{
+                                new ControlCharacterFilter()
+                        });
 
         //setupTransportPreferences();
-        getPreferenceScreen().removePreference(findPreference(KEY_TRANSPORT_PREFERENCE));
-        getPreferenceScreen().removePreference(findPreference(KEY_SMS_PREFERENCE));
+        getPreferenceScreen().
+
+                removePreference(findPreference(KEY_TRANSPORT_PREFERENCE));
+
+        getPreferenceScreen().
+
+                removePreference(findPreference(KEY_SMS_PREFERENCE));
     }
 
     /*
@@ -462,7 +487,6 @@ public class ServerPreferencesFragment extends BasePreferenceFragment implements
         }
     }
     */
-
     private void runGoogleAccountValidation() {
         String account = (String) GeneralSharedPreferences.getInstance().get(KEY_SELECTED_GOOGLE_ACCOUNT);
         String protocol = (String) GeneralSharedPreferences.getInstance().get(KEY_PROTOCOL);

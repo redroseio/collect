@@ -9,7 +9,7 @@ the specific language governing permissions and limitations under the License.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.redrosecps.collect.android" android:sharedUserId="redrose.one">
+    android:sharedUserId="redrose.one">
 
     <uses-feature
         android:name="android.hardware.location"
@@ -31,7 +31,6 @@ the specific language governing permissions and limitations under the License.
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -47,6 +46,13 @@ the specific language governing permissions and limitations under the License.
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!--
+        Since we use Scoped Storage, we should not need this permission. However, we discovered that
+        this might be required in some rare cases, probably due to bugs in Android OS.
+        See: https://github.com/getodk/collect/issues/5145
+     -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <!-- Removed in API 23 -->
     <uses-permission
@@ -65,9 +71,14 @@ the specific language governing permissions and limitations under the License.
     <uses-feature
         android:name="android.hardware.screen.portrait"
         android:required="false" />
-    <uses-feature
-        android:glEsVersion="0x00020000"
-        android:required="true" />
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
     <!--
     for Maps v2 functionality, want:
     <uses-feature android:glEsVersion="0x00020000" android:required="false"/>
@@ -91,10 +102,13 @@ the specific language governing permissions and limitations under the License.
         android:installLocation="auto"
         android:label="@string/app_name"
         android:largeHeap="true"
+        android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true">
 
-        <meta-data android:name="android.content.APP_RESTRICTIONS" android:resource="@xml/app_restrictions" />
+        <meta-data
+            android:name="android.content.APP_RESTRICTIONS"
+            android:resource="@xml/app_restrictions" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -108,63 +122,107 @@ the specific language governing permissions and limitations under the License.
 
         <activity
             android:name=".activities.MainMenuActivity"
-            android:configChanges="locale|orientation|screenSize" />
+            android:configChanges="locale|orientation|screenSize"
+            android:exported="true" />
         <activity
             android:name=".activities.ScannerWithFlashlightActivity"
+            android:exported="true"
             android:screenOrientation="portrait"
             android:stateNotNeeded="true"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".activities.FormEntryActivity"
             android:configChanges="orientation"
+            android:exported="true"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activities.NotificationActivity"
             android:excludeFromRecents="true"
+            android:exported="true"
             android:launchMode="singleTask"
             android:taskAffinity=""
             android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
         <activity
             android:name=".activities.DrawActivity"
+            android:exported="true"
             android:screenOrientation="landscape" />
         <activity
             android:name=".activities.GoogleDriveActivity"
             android:configChanges="orientation|screenSize"
+            android:exported="true"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".activities.InstanceChooserList" />
-        <activity android:name=".activities.FormChooserListActivity" />
-        <activity android:name=".activities.FormDownloadList" />
+        <activity
+            android:name=".activities.InstanceChooserList"
+            android:exported="true" />
+        <activity
+            android:name=".activities.FormChooserListActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activities.FormDownloadList"
+            android:exported="true" />
         <activity
             android:name=".activities.FileManagerTabs"
-            android:configChanges="orientation|screenSize" />
+            android:configChanges="orientation|screenSize"
+            android:exported="true" />
         <activity
             android:name=".activities.GoogleSheetsUploaderActivity"
-            android:configChanges="orientation|screenSize" />
+            android:configChanges="orientation|screenSize"
+            android:exported="true" />
         <activity
             android:name=".activities.InstanceUploaderListActivity"
-            android:configChanges="orientation|screenSize" />
-        <activity android:name=".activities.InstanceUploaderActivity" />
-        <activity android:name=".activities.AboutActivity" />
-        <activity android:name=".preferences.PreferencesActivity" />
-        <activity android:name=".preferences.AdminPreferencesActivity" />
-        <activity android:name=".activities.FormHierarchyActivity" />
-        <activity android:name=".activities.ViewOnlyFormHierarchyActivity" />
-        <activity android:name=".activities.GeoPointActivity" />
+            android:configChanges="orientation|screenSize"
+            android:exported="true" />
+        <activity
+            android:name=".activities.InstanceUploaderActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activities.AboutActivity"
+            android:exported="true" />
+        <activity
+            android:name=".preferences.PreferencesActivity"
+            android:exported="true" />
+        <activity
+            android:name=".preferences.AdminPreferencesActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activities.FormHierarchyActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activities.ViewOnlyFormHierarchyActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activities.GeoPointActivity"
+            android:exported="true" />
         <activity
             android:name=".activities.GeoPointMapActivity"
-            android:configChanges="orientation" />
+            android:configChanges="orientation"
+            android:exported="true" />
         <activity
             android:name=".activities.GeoPolyActivity"
-            android:configChanges="orientation" />
-        <activity android:name=".activities.BearingActivity" />
+            android:configChanges="orientation"
+            android:exported="true" />
+        <activity
+            android:name=".activities.BearingActivity"
+            android:exported="true" />
         <activity
             android:name=".activities.SplashScreenActivity"
+            android:exported="true"
             android:theme="@android:style/Theme.Dialog" />
-        <activity android:name=".activities.CaptureSelfieActivity" />
-        <activity android:name=".activities.CaptureSelfieActivityNewApi" />
-        <activity android:name=".activities.WebViewActivity" />
-        <activity android:name=".activities.CaptureSelfieVideoActivity" />
-        <activity android:name=".activities.CaptureSelfieVideoActivityNewApi" />
+        <activity
+            android:name=".activities.CaptureSelfieActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activities.CaptureSelfieActivityNewApi"
+            android:exported="true" />
+        <activity
+            android:name=".activities.WebViewActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activities.CaptureSelfieVideoActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activities.CaptureSelfieVideoActivityNewApi"
+            android:exported="true" />
 
         <!-- Configure this key by setting GOOGLE_MAPS_API_KEY in collect_app/secrets.properties. -->
         <meta-data
@@ -204,6 +262,7 @@ the specific language governing permissions and limitations under the License.
 
         <activity-alias
             android:name=".activities.FormEntryActivity"
+            android:exported="true"
             android:targetActivity=".activities.FormEntryActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -218,8 +277,9 @@ the specific language governing permissions and limitations under the License.
 
         <activity-alias
             android:name=".activities.InstanceChooserList"
+            android:exported="true"
             android:targetActivity=".activities.InstanceChooserList">
-            <intent-filter>
+            <intent-filter android:scheme="http">
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.EDIT" />
 
@@ -231,6 +291,7 @@ the specific language governing permissions and limitations under the License.
 
         <activity-alias
             android:name=".activities.FormChooserList"
+            android:exported="true"
             android:targetActivity=".activities.FormChooserListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -245,17 +306,19 @@ the specific language governing permissions and limitations under the License.
 
         <activity-alias
             android:name=".activities.FormDownloadList"
+            android:exported="true"
             android:targetActivity=".activities.FormDownloadList">
             <intent-filter>
                 <action android:name="com.redrosecps.collect.android.FORM_DOWNLOAD" />
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="vnd.android.cursor.dir/vnd.odk.form" />
             </intent-filter>
         </activity-alias>
 
         <activity-alias
             android:name=".activities.InstanceUploaderList"
-            android:targetActivity=".activities.InstanceUploaderListActivity" >
+            android:exported="true"
+            android:targetActivity=".activities.InstanceUploaderListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.EDIT" />
@@ -266,16 +329,18 @@ the specific language governing permissions and limitations under the License.
 
         <activity-alias
             android:name=".activities.InstanceUploaderActivity"
+            android:exported="true"
             android:targetActivity=".activities.InstanceUploaderActivity">
             <intent-filter>
                 <action android:name="com.redrosecps.collect.android.INSTANCE_UPLOAD" />
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="vnd.android.cursor.dir/vnd.odk.instance" />
             </intent-filter>
         </activity-alias>
 
         <activity-alias
             android:name=".activities.SplashScreenActivity"
+            android:exported="true"
             android:targetActivity=".activities.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -288,6 +353,7 @@ the specific language governing permissions and limitations under the License.
         <!-- Enable Shortcuts for Command Actions -->
         <activity
             android:name=".activities.AndroidShortcuts"
+            android:exported="true"
             android:label="ODK Form"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
@@ -298,15 +364,16 @@ the specific language governing permissions and limitations under the License.
         </activity>
         <activity
             android:name=".activities.ActivateBeneficiaryCardActivity"
+            android:exported="true"
             android:label="@string/title_activity_activate_beneficiary_card"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.DeviceDefault.NoActionBar.Fullscreen"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            android:screenOrientation="portrait" >
+            android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
                 <action android:name="com.redrosecps.collect.android.activities.ACTIVATE_BENEFICIARY_CARD" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        </application>
+    </application>
 
 </manifest>

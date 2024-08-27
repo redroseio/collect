@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
 apply from: '../config/quality.gradle'
 apply from: '../config/jacoco.gradle'
 
@@ -70,18 +69,32 @@ def googleMapsApiKey = secrets.getProperty('GOOGLE_MAPS_API_KEY', '')
 def mapboxToken = secrets.getProperty('MAPBOX_ACCESS_TOKEN', '')
 
 android {
-    compileSdkVersion(28)
-
+    namespace 'com.redrosecps.collect.android'
     defaultConfig {
         applicationId('com.redrosecps.collect.android')
-        minSdkVersion(16)
-        targetSdkVersion(28)
+        minSdkVersion(21)
+        targetSdkVersion(34)
+        compileSdk(34)
         versionCode 3583 //LEGACY_BUILD_NUMBER_OFFSET + getMasterCommitCount()
         versionName "3583" //getVersionName()
         testInstrumentationRunner('androidx.test.runner.AndroidJUnitRunner')
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
         archivesBaseName = 'collect'
+    }
+
+    android {
+        buildFeatures {
+            buildConfig = true
+        }
+    }
+
+    tasks.withType(JavaCompile).configureEach{
+        options.fork = true
+        options.forkOptions.jvmArgs +=[
+                '--add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED',
+                '--add-exports=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED',
+                '--add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED']
     }
 
     signingConfigs {
@@ -109,6 +122,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
             resValue("bool", "CRASHLYTICS_ENABLED", "false")
             resValue("string", "GOOGLE_MAPS_API_KEY", googleMapsApiKey)
+            buildConfigField 'boolean', "IS_TEST_VERSION", "false"
             buildConfigField 'String', "MAPBOX_ACCESS_TOKEN", '"' + mapboxToken + '"'
         }
         // Release build for the official ODK Collect app
@@ -120,14 +134,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
             resValue("bool", "CRASHLYTICS_ENABLED", "true")
             resValue("string", "GOOGLE_MAPS_API_KEY", googleMapsApiKey)
+            buildConfigField 'boolean', "IS_TEST_VERSION", "false"
             buildConfigField 'String', "MAPBOX_ACCESS_TOKEN", '"' + mapboxToken + '"'
         }
         debug {
-            signingConfig signingConfigs.release //oneapp uses maviucak keystore for debug releases also
+            signingConfig signingConfigs.debug
+            //oneapp uses maviucak keystore for debug releases also
             debuggable(true)
             testCoverageEnabled(true)
             resValue("bool", "CRASHLYTICS_ENABLED", "false")
             resValue("string", "GOOGLE_MAPS_API_KEY", googleMapsApiKey)
+            buildConfigField 'boolean', "IS_TEST_VERSION", "true"
             buildConfigField 'String', "MAPBOX_ACCESS_TOKEN", '"' + mapboxToken + '"'
         }
     }
@@ -166,12 +183,9 @@ android {
     }
 
     compileOptions {
+        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    dexOptions {
-        javaMaxHeapSize '2048M'
     }
 
     testOptions {
@@ -185,7 +199,7 @@ android {
             }
         }
     }
-    buildToolsVersion = '28.0.3'
+    //buildToolsVersion = '28.0.3'
 }
 
 configurations.all {
@@ -199,11 +213,14 @@ configurations.all {
 }
 
 dependencies {
+
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
     // To make ODK Collect is installable on all devices even though the Mapbox
     // native library is missing for some ABIs, we include an .aar dependency
     // named "nbi-stubs", which causes there to be at least one .so library
     // present for every ABI (armeabi, armeabi-v7a, arm64-v8a, x86, x86_64).
-    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+    //implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+    implementation project(':nbistubs')
 
     implementation 'androidx.legacy:legacy-support-v13:1.0.0'
     //noinspection GradleDependency
@@ -272,10 +289,10 @@ dependencies {
     // Real LeakCanary for debug builds only: notifications, analysis, etc
     debugImplementation "com.squareup.leakcanary:leakcanary-android:${rootProject.leakyCanaryVersion}"
     // No-Op version of LeakCanary for release builds: no notifications, no analysis, nothing
-    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:${rootProject.leakyCanaryVersion}"
-    testImplementation "com.squareup.leakcanary:leakcanary-android-no-op:${rootProject.leakyCanaryVersion}"
-    androidTestImplementation "com.squareup.leakcanary:leakcanary-android-no-op:${rootProject.leakyCanaryVersion}"
-    odkCollectReleaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:${rootProject.leakyCanaryVersion}"
+    //releaseImplementation "com.squareup.leakcanary:leakcanary-android:${rootProject.leakyCanaryVersion}"
+    testImplementation "com.squareup.leakcanary:leakcanary-android:${rootProject.leakyCanaryVersion}"
+    androidTestImplementation "com.squareup.leakcanary:leakcanary-android:${rootProject.leakyCanaryVersion}"
+    odkCollectReleaseImplementation "com.squareup.leakcanary:leakcanary-android:${rootProject.leakyCanaryVersion}"
 
     // Android Architecture Components:
     //noinspection GradleDependency
@@ -299,7 +316,7 @@ dependencies {
     implementation "com.jakewharton.rxrelay2:rxrelay:2.1.1"
 
     // WorkManager for specifying deferrable, asynchronous tasks
-    implementation("android.arch.work:work-runtime:1.0.1") {
+    implementation("androidx.work:work-runtime:2.9.0") {
         exclude group: 'com.google.guava', module: 'listenablefuture'
     }
     // Optional JobDispatcher support so devices with Play Services do better than AlarmManager

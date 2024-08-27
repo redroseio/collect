@@ -1,16 +1,23 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     repositories {
-        google()
-        jcenter()
-        maven { url 'https://maven.fabric.io/public' }
+
+        repositories {
+            google()
+            jcenter()
+            mavenCentral()
+            maven {
+                url "https://plugins.gradle.org/m2/"
+            }
+        }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.3'
+        classpath 'com.android.tools.build:gradle:8.2.2'
         classpath 'com.google.gms:google-services:4.3.2'
         classpath 'org.ow2.asm:asm:7.2' // https://github.com/jacoco/jacoco/issues/639#issuecomment-355424756
         classpath 'org.jacoco:org.jacoco.core:0.8.5'
-        classpath 'io.fabric.tools:gradle:1.31.2'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.9'
+
     }
 }
 
@@ -20,14 +27,42 @@ plugins {
 
 allprojects {
     repositories {
+
+        maven {
+            url "${rootDir}/.local-m2/"
+            metadataSources {
+                mavenPom()
+                artifact() // Supports artifact only dependencies like those from medicmobile repo
+            }
+        }
+
         // Needs to go first to get specialty libraries https://stackoverflow.com/a/48438866/137744
         google()
-
         jcenter()
+        mavenLocal() // Only used for javarosa_local dependency
+        mavenCentral()
+
         maven { url 'https://oss.sonatype.org/content/groups/public' }
         maven { url 'https://jitpack.io' }
-        maven { url 'https://staging.dev.medicmobile.org/_couch/maven-repo' }
+        maven {
+            url 'https://staging.dev.medicmobile.org/_couch/maven-repo'
+            metadataSources { artifact() }
+        }
     }
+
+    // This code is where all the magic happens and fixes the error.
+    subprojects {
+        afterEvaluate { project ->
+            if (project.hasProperty('android')) {
+                project.android {
+                    if (namespace == null) {
+                        namespace project.group
+                    }
+                }
+            }
+        }
+    }
+    // This code is where all the magic happens and fixes the error.
 }
 
 configurations.all {
@@ -47,7 +82,7 @@ task checkTests(type: GradleBuild) {
 }
 
 ext {
-    leakyCanaryVersion = '1.6.3'
+    leakyCanaryVersion = '2.14'
     daggerVersion = '2.25.2'
     okhttp3Version = '3.12.5' //newer versions require minSdkVersion >= 21
 }

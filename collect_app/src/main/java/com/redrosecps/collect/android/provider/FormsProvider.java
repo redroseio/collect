@@ -23,6 +23,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import android.os.Environment;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
@@ -81,7 +82,13 @@ public class FormsProvider extends ContentProvider {
             Timber.i("Read and write permissions are required for this content provider to function.");
             return false;
         }
-
+        Collect.ODK_ROOT = getContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath() + File.separator + "rrcollect";
+        Collect.FORMS_PATH = Collect.ODK_ROOT + File.separator + "forms";
+        Collect.INSTANCES_PATH = Collect.ODK_ROOT + File.separator + "instances";
+        Collect.CACHE_PATH = Collect.ODK_ROOT + File.separator + ".cache";
+        Collect.METADATA_PATH = Collect.ODK_ROOT + File.separator + "metadata";
+        Collect.OFFLINE_LAYERS = Collect.ODK_ROOT + File.separator + "layers";
+        Collect.SETTINGS = Collect.ODK_ROOT + File.separator + "settings";
         // must be at the beginning of any activity that can be called from an external intent
         FormsDatabaseHelper h = getDbHelper();
         return h != null;
@@ -518,7 +525,7 @@ public class FormsProvider extends ContentProvider {
     private String[] prepareWhereArgs(String[] whereArgs, String formId) {
         String[] newWhereArgs;
         if (whereArgs == null || whereArgs.length == 0) {
-            newWhereArgs = new String[] {formId};
+            newWhereArgs = new String[]{formId};
         } else {
             newWhereArgs = new String[whereArgs.length + 1];
             newWhereArgs[0] = formId;

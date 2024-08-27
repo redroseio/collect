@@ -8,7 +8,7 @@
             android:dialogTitle="@string/change_server_url"
             android:inputType="textNoSuggestions"
             android:key="server_url"
-            android:title="@string/server_url" android:visibility="invisible" />
+            android:title="@string/server_url" />
         <EditTextPreference
             android:dialogTitle="@string/change_username"
             android:inputType="textNoSuggestions"

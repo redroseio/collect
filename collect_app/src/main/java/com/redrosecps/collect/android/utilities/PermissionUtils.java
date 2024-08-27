@@ -27,6 +27,7 @@ import com.redrosecps.collect.android.activities.InstanceChooserList;
 import com.redrosecps.collect.android.activities.InstanceUploaderActivity;
 import com.redrosecps.collect.android.activities.InstanceUploaderListActivity;
 import com.redrosecps.collect.android.activities.SplashScreenActivity;
+import com.redrosecps.collect.android.application.Collect;
 import com.redrosecps.collect.android.listeners.PermissionListener;
 
 import java.util.ArrayList;
@@ -43,6 +44,9 @@ import timber.log.Timber;
 public class PermissionUtils {
 
     public static boolean areStoragePermissionsGranted(Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            return true;
+        }
         return isPermissionGranted(context,
                 Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -127,6 +131,10 @@ public class PermissionUtils {
      * @param action is a listener that provides the calling component with the permission result.
      */
     public void requestStoragePermissions(Activity activity, @NonNull PermissionListener action) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            action.granted();
+            return;
+        }
         requestPermissions(activity, new PermissionListener() {
             @Override
             public void granted() {

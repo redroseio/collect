@@ -21,7 +21,9 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -45,6 +47,9 @@ import java.io.IOException;
 import timber.log.Timber;
 
 import static com.redrosecps.collect.android.preferences.GeneralKeys.KEY_SPLASH_PATH;
+import static java.security.AccessController.getContext;
+
+import androidx.core.os.EnvironmentCompat;
 
 public class SplashScreenActivity extends Activity {
 
@@ -58,13 +63,21 @@ public class SplashScreenActivity extends Activity {
         super.onCreate(savedInstanceState);
         // this splash screen should be a blank slate
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        Collect.ODK_ROOT = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath() + File.separator + "rrcollect";
+        Collect.FORMS_PATH = Collect.ODK_ROOT + File.separator + "forms";
+        Collect.INSTANCES_PATH = Collect.ODK_ROOT + File.separator + "instances";
+        Collect.CACHE_PATH = Collect.ODK_ROOT + File.separator + ".cache";
+        Collect.METADATA_PATH = Collect.ODK_ROOT + File.separator + "metadata";
+        Collect.OFFLINE_LAYERS = Collect.ODK_ROOT + File.separator + "layers";
+        Collect.SETTINGS = Collect.ODK_ROOT + File.separator + "settings";
+
 
         new PermissionUtils().requestStoragePermissions(this, new PermissionListener() {
             @Override
             public void granted() {
                 // must be at the beginning of any activity that can be called from an external intent
                 try {
-                    Collect.createODKDirs();
+                    Collect.createODKDirs(SplashScreenActivity.this);
                 } catch (RuntimeException e) {
                     DialogUtils.showDialog(DialogUtils.createErrorDialog(SplashScreenActivity.this,
                             e.getMessage(), EXIT), SplashScreenActivity.this);
@@ -80,6 +93,8 @@ public class SplashScreenActivity extends Activity {
                 finish();
             }
         });
+
+
     }
 
     private void init() {

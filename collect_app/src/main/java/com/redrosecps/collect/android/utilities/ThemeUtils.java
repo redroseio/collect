@@ -102,7 +102,7 @@ public final class ThemeUtils {
      */
     @ColorInt
     public int getColorOnSurface() {
-        return getAttributeValue(R.attr.colorOnSurface);
+        return getAttributeValue(com.google.android.material.R.attr.colorOnSurface);
     }
 
     /**
@@ -110,7 +110,7 @@ public final class ThemeUtils {
      */
     @ColorInt
     public int getAccentColor() {
-        return getAttributeValue(R.attr.colorAccent);
+        return getAttributeValue( com.google.android.material.R.attr.colorAccent);
     }
 
     /**

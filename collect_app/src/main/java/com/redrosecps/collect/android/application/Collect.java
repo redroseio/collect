@@ -90,18 +90,17 @@ import static com.redrosecps.collect.android.tasks.sms.SmsSender.SMS_SEND_ACTION
 public class Collect extends Application {
 
     // Storage paths
-    public static final String ODK_ROOT = Environment.getExternalStorageDirectory()
-            + File.separator + "rrcollect";
-    public static final String FORMS_PATH = ODK_ROOT + File.separator + "forms";
-    public static final String INSTANCES_PATH = ODK_ROOT + File.separator + "instances";
-    public static final String CACHE_PATH = ODK_ROOT + File.separator + ".cache";
-    public static final String METADATA_PATH = ODK_ROOT + File.separator + "metadata";
+    public static String ODK_ROOT = null;
+    public static  String FORMS_PATH = ODK_ROOT + File.separator + "forms";
+    public static  String INSTANCES_PATH = ODK_ROOT + File.separator + "instances";
+    public static  String CACHE_PATH = ODK_ROOT + File.separator + ".cache";
+    public static  String METADATA_PATH = ODK_ROOT + File.separator + "metadata";
     public static final String TMPFILE_PATH = CACHE_PATH + File.separator + "tmp.jpg";
     public static final String TMPDRAWFILE_PATH = CACHE_PATH + File.separator + "tmpDraw.jpg";
     public static final String DEFAULT_FONTSIZE = "21";
     public static final int DEFAULT_FONTSIZE_INT = 21;
-    public static final String OFFLINE_LAYERS = ODK_ROOT + File.separator + "layers";
-    public static final String SETTINGS = ODK_ROOT + File.separator + "settings";
+    public static String OFFLINE_LAYERS = ODK_ROOT + File.separator + "layers";
+    public static String SETTINGS = ODK_ROOT + File.separator + "settings";
 
     public static final int CLICK_DEBOUNCE_MS = 1000;
 
@@ -120,6 +119,9 @@ public class Collect extends Application {
         return singleton;
     }
 
+    public static Context context;
+
+
     public static int getQuestionFontsize() {
         // For testing:
         Collect instance = Collect.getInstance();
@@ -136,11 +138,43 @@ public class Collect extends Application {
      * @throws RuntimeException if there is no SDCard or the directory exists as a non directory
      */
     public static void createODKDirs() throws RuntimeException {
-        String cardstatus = Environment.getExternalStorageState();
+        //ODK_ROOT = context.getExternalFilesDir(null).getAbsolutePath();
+        /*String cardstatus = Environment.getExternalStorageState();
         if (!cardstatus.equals(Environment.MEDIA_MOUNTED)) {
             throw new RuntimeException(
                     Collect.getInstance().getString(R.string.sdcard_unmounted, cardstatus));
+        }*/
+
+        String[] dirs = {
+                ODK_ROOT, FORMS_PATH, INSTANCES_PATH, CACHE_PATH, METADATA_PATH, OFFLINE_LAYERS
+        };
+
+        for (String dirName : dirs) {
+            File dir = new File(dirName);
+            if (!dir.exists()) {
+                if (!dir.mkdirs()) {
+                    String message = getInstance().getString(R.string.cannot_create_directory, dirName);
+                    Timber.w(message);
+                    throw new RuntimeException(message);
+                }
+            } else {
+                if (!dir.isDirectory()) {
+                    String message = getInstance().getString(R.string.not_a_directory, dirName);
+                    Timber.w(message);
+                    throw new RuntimeException(message);
+                }
+            }
         }
+    }
+
+
+    public static void createODKDirs(Context context) throws RuntimeException {
+        ODK_ROOT = context.getExternalFilesDir(null).getAbsolutePath();
+        /*String cardstatus = context.getExternalFilesDir(null);
+        if (!cardstatus.equals(Environment.MEDIA_MOUNTED)) {
+            throw new RuntimeException(
+                    Collect.getInstance().getString(R.string.sdcard_unmounted, cardstatus));
+        }*/
 
         String[] dirs = {
                 ODK_ROOT, FORMS_PATH, INSTANCES_PATH, CACHE_PATH, METADATA_PATH, OFFLINE_LAYERS
@@ -242,15 +276,23 @@ public class Collect extends Application {
     public void onCreate() {
         super.onCreate();
         singleton = this;
+        context = getApplicationContext();
+
         firebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         installTls12();
         setupDagger();
 
         NotificationUtils.createNotificationChannel(singleton);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(new SmsSentBroadcastReceiver(), new IntentFilter(SMS_SEND_ACTION), RECEIVER_EXPORTED);
+            registerReceiver(new SmsNotificationReceiver(), new IntentFilter(SMS_NOTIFICATION_ACTION), RECEIVER_EXPORTED);
+        }else{
+            registerReceiver(new SmsSentBroadcastReceiver(), new IntentFilter(SMS_SEND_ACTION));
+            registerReceiver(new SmsNotificationReceiver(), new IntentFilter(SMS_NOTIFICATION_ACTION));
+        }
 
-        registerReceiver(new SmsSentBroadcastReceiver(), new IntentFilter(SMS_SEND_ACTION));
-        registerReceiver(new SmsNotificationReceiver(), new IntentFilter(SMS_NOTIFICATION_ACTION));
+
 
         try {
             JobManager
