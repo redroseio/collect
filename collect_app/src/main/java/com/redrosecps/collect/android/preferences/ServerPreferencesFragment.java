@@ -128,7 +128,9 @@ public class ServerPreferencesFragment extends BasePreferenceFragment implements
             serverUrlPreference.getEditText().setFilters(
                     new InputFilter[]{new ControlCharacterFilter(), new WhitespaceFilter()});
         }
-        serverUrlPreference.setSelectable(false);
+        if(BuildConfig.IS_TEST_VERSION == false){
+            serverUrlPreference.setSelectable(false);
+        }
 
         usernamePreference.setOnPreferenceChangeListener(
 
