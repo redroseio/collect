@@ -67,6 +67,8 @@ public class SplashScreenActivity extends Activity {
         Collect.FORMS_PATH = Collect.ODK_ROOT + File.separator + "forms";
         Collect.INSTANCES_PATH = Collect.ODK_ROOT + File.separator + "instances";
         Collect.CACHE_PATH = Collect.ODK_ROOT + File.separator + ".cache";
+        Collect.TMPFILE_PATH = Collect.CACHE_PATH + File.separator + "tmp.jpg";
+        Collect.TMPDRAWFILE_PATH = Collect.CACHE_PATH + File.separator + "tmpDraw.jpg";
         Collect.METADATA_PATH = Collect.ODK_ROOT + File.separator + "metadata";
         Collect.OFFLINE_LAYERS = Collect.ODK_ROOT + File.separator + "layers";
         Collect.SETTINGS = Collect.ODK_ROOT + File.separator + "settings";

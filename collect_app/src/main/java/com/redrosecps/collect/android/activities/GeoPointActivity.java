@@ -18,10 +18,12 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.GnssStatus;
 import android.location.GpsSatellite;
 import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import androidx.annotation.NonNull;
@@ -174,7 +176,37 @@ public class GeoPointActivity extends CollectAbstractActivity implements Locatio
 
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         if (locationManager != null) {
-            locationManager.addGpsStatusListener(this);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                locationManager.registerGnssStatusCallback(new GnssStatus.Callback() {
+                    @Override
+                    public void onStarted() {
+                        // GPS has started
+                    }
+
+                    @Override
+                    public void onStopped() {
+                        // GPS has stopped
+                    }
+
+                    @Override
+                    public void onFirstFix(int ttffMillis) {
+                    }
+
+                    @Override
+                    public void onSatelliteStatusChanged(GnssStatus status) {
+                        int satellitesNumber = 0;
+                        for (int i = 0; i < status.getSatelliteCount(); i++) {
+                            if (status.usedInFix(i)) {
+                                satellitesNumber++;
+                            }
+                        }
+                        numberOfAvailableSatellites = satellitesNumber;
+                        updateDialogMessage();
+                    }
+                });
+            }else{
+                locationManager.addGpsStatusListener(this);
+            }
         }
 
         if (locationClient.isLocationAvailable()) {

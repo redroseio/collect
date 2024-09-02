@@ -91,12 +91,12 @@ public class Collect extends Application {
 
     // Storage paths
     public static String ODK_ROOT = null;
-    public static  String FORMS_PATH = ODK_ROOT + File.separator + "forms";
-    public static  String INSTANCES_PATH = ODK_ROOT + File.separator + "instances";
-    public static  String CACHE_PATH = ODK_ROOT + File.separator + ".cache";
-    public static  String METADATA_PATH = ODK_ROOT + File.separator + "metadata";
-    public static final String TMPFILE_PATH = CACHE_PATH + File.separator + "tmp.jpg";
-    public static final String TMPDRAWFILE_PATH = CACHE_PATH + File.separator + "tmpDraw.jpg";
+    public static String FORMS_PATH = ODK_ROOT + File.separator + "forms";
+    public static String INSTANCES_PATH = ODK_ROOT + File.separator + "instances";
+    public static String CACHE_PATH = ODK_ROOT + File.separator + ".cache";
+    public static String METADATA_PATH = ODK_ROOT + File.separator + "metadata";
+    public static String TMPFILE_PATH = CACHE_PATH + File.separator + "tmp.jpg";
+    public static String TMPDRAWFILE_PATH = CACHE_PATH + File.separator + "tmpDraw.jpg";
     public static final String DEFAULT_FONTSIZE = "21";
     public static final int DEFAULT_FONTSIZE_INT = 21;
     public static String OFFLINE_LAYERS = ODK_ROOT + File.separator + "layers";
@@ -245,7 +245,7 @@ public class Collect extends Application {
     /**
      * Get a User-Agent string that provides the platform details followed by the application ID
      * and application version name: {@code Dalvik/<version> (platform info) com.redrosecps.collect.android/v<version>}.
-     *
+     * <p>
      * This deviates from the recommended format as described in https://github.com/opendatakit/collect/issues/3253.
      */
     public String getUserAgentString() {
@@ -287,11 +287,10 @@ public class Collect extends Application {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             registerReceiver(new SmsSentBroadcastReceiver(), new IntentFilter(SMS_SEND_ACTION), RECEIVER_EXPORTED);
             registerReceiver(new SmsNotificationReceiver(), new IntentFilter(SMS_NOTIFICATION_ACTION), RECEIVER_EXPORTED);
-        }else{
+        } else {
             registerReceiver(new SmsSentBroadcastReceiver(), new IntentFilter(SMS_SEND_ACTION));
             registerReceiver(new SmsNotificationReceiver(), new IntentFilter(SMS_NOTIFICATION_ACTION));
         }
-
 
 
         try {
@@ -325,7 +324,7 @@ public class Collect extends Application {
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            RestrictionsManager restrictionsMgr = (RestrictionsManager)getApplicationContext()
+            RestrictionsManager restrictionsMgr = (RestrictionsManager) getApplicationContext()
                     .getSystemService(Context.RESTRICTIONS_SERVICE);
             Toast.makeText(getApplicationContext(), "Restrictions supported", Toast.LENGTH_SHORT).show();
             Bundle appRestrictions = restrictionsMgr.getApplicationRestrictions();
@@ -335,8 +334,7 @@ public class Collect extends Application {
                     Toast.makeText(getApplicationContext(), "Found appRestrictions but an empty set. Has restrictions provider? Ans:"
                             + restrictionsMgr.hasRestrictionsProvider(), Toast.LENGTH_LONG).show();
 
-                }
-                else {
+                } else {
 
                     Toast.makeText(getApplicationContext(),
                             "Found appRestrictions and it has some elements in it (viola!) Has restrictions provider? Ans:"
@@ -501,7 +499,8 @@ public class Collect extends Application {
 
     /**
      * Gets a unique, privacy-preserving identifier for a form based on its id and version.
-     * @param formId id of a form
+     *
+     * @param formId      id of a form
      * @param formVersion version of a form
      * @return md5 hash of the form title, a space, the form ID
      */
