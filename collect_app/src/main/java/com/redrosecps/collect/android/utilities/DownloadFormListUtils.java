@@ -26,6 +26,8 @@ import androidx.annotation.Nullable;
 
 import org.javarosa.xform.parse.XFormParser;
 import org.kxml2.kdom.Element;
+
+import com.redrosecps.collect.android.BuildConfig;
 import com.redrosecps.collect.android.R;
 import com.redrosecps.collect.android.dao.FormsDao;
 import com.redrosecps.collect.android.http.CollectServerClient;
@@ -78,7 +80,7 @@ public class DownloadFormListUtils {
 
         String downloadListUrl = url != null ? url :
                 settings.getString(GeneralKeys.KEY_SERVER_URL,
-                        application.getString(R.string.default_server_url));
+                        BuildConfig.SERVER_URL);
 
         while (downloadListUrl.endsWith("/")) {
             downloadListUrl = downloadListUrl.substring(0, downloadListUrl.length() - 1);

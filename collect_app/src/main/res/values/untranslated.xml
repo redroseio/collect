@@ -11,14 +11,6 @@ the specific language governing permissions and limitations under the License. -
     <string name="protocol_odk_default" translatable="false">odk_default</string>
     <string name="protocol_google_sheets" translatable="false">google_sheets</string>
     <string name="protocol_other" translatable="false">other_protocol</string>
-    <!--
-        abc.redrosecps.com: "/abc"
-        abc.crscat.com: "/abccrscat"
-
-        abc.kacheproject.org: "/abckacheprojectorg"
-     -->
-
-    <string name="default_server_url" translatable="false">https://aggregate.redrosecps.com/oneplatform</string>
 
     <string name="default_odk_formlist" translatable="false">/formList</string>
     <string name="default_odk_submission" translatable="false">/submission</string>

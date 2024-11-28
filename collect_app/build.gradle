@@ -75,8 +75,8 @@ android {
         minSdkVersion(21)
         targetSdkVersion(34)
         compileSdk(34)
-        versionCode 3583 //LEGACY_BUILD_NUMBER_OFFSET + getMasterCommitCount()
-        versionName "3583" //getVersionName()
+        versionCode 3585 //LEGACY_BUILD_NUMBER_OFFSET + getMasterCommitCount()
+        versionName "3585" //getVersionName()
         testInstrumentationRunner('androidx.test.runner.AndroidJUnitRunner')
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
@@ -106,6 +106,14 @@ android {
                 keyPassword secrets.getProperty('RELEASE_KEY_PASSWORD')
             }
         }
+        oxfammalirelease {
+            if (secrets.getProperty('RELEASE_STORE_FILE')) {
+                storeFile file(secrets.getProperty('RELEASE_STORE_FILE'))
+                storePassword secrets.getProperty('RELEASE_STORE_PASSWORD')
+                keyAlias secrets.getProperty('RELEASE_KEY_ALIAS')
+                keyPassword secrets.getProperty('RELEASE_KEY_PASSWORD')
+            }
+        }
     }
     lintOptions {
         abortOnError false
@@ -124,6 +132,7 @@ android {
             resValue("string", "GOOGLE_MAPS_API_KEY", googleMapsApiKey)
             buildConfigField 'boolean', "IS_TEST_VERSION", "false"
             buildConfigField 'String', "MAPBOX_ACCESS_TOKEN", '"' + mapboxToken + '"'
+            buildConfigField "String", "SERVER_URL", '"' +"https://aggregate.redrosecps.com/oneplatform"+ '"'
         }
         // Release build for the official ODK Collect app
         odkCollectRelease {
@@ -136,6 +145,18 @@ android {
             resValue("string", "GOOGLE_MAPS_API_KEY", googleMapsApiKey)
             buildConfigField 'boolean', "IS_TEST_VERSION", "false"
             buildConfigField 'String', "MAPBOX_ACCESS_TOKEN", '"' + mapboxToken + '"'
+            buildConfigField "String", "SERVER_URL",'"' + "https://aggregate.redrosecps.com/oneplatform"+ '"'
+        }
+        odkCollectDebug {
+            signingConfig signingConfigs.debug
+            //oneapp uses maviucak keystore for debug releases also
+            debuggable(true)
+            testCoverageEnabled(true)
+            resValue("bool", "CRASHLYTICS_ENABLED", "false")
+            resValue("string", "GOOGLE_MAPS_API_KEY", googleMapsApiKey)
+            buildConfigField 'boolean', "IS_TEST_VERSION", "true"
+            buildConfigField 'String', "MAPBOX_ACCESS_TOKEN", '"' + mapboxToken + '"'
+            buildConfigField "String", "SERVER_URL",'"' + "https://aggregate.redrosecps.com/oneplatform"+ '"'
         }
         debug {
             signingConfig signingConfigs.debug
@@ -146,6 +167,32 @@ android {
             resValue("string", "GOOGLE_MAPS_API_KEY", googleMapsApiKey)
             buildConfigField 'boolean', "IS_TEST_VERSION", "true"
             buildConfigField 'String', "MAPBOX_ACCESS_TOKEN", '"' + mapboxToken + '"'
+            buildConfigField "String", "SERVER_URL",'"' + "https://aggregate.redrosecps.com/oneplatform"+ '"'
+        }
+        oxfamMaliRelease {
+            if (secrets.getProperty('RELEASE_STORE_FILE')) {
+                signingConfig signingConfigs.release
+            }
+            minifyEnabled(true)
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            resValue("bool", "CRASHLYTICS_ENABLED", "false")
+            resValue("string", "GOOGLE_MAPS_API_KEY", googleMapsApiKey)
+            buildConfigField 'boolean', "IS_TEST_VERSION", "false"
+            buildConfigField 'String', "MAPBOX_ACCESS_TOKEN", '"' + mapboxToken + '"'
+            applicationIdSuffix(".oxfammali")
+            buildConfigField "String", "SERVER_URL",'"' + "https://aggregate.redrosecps.com/oxfammali2"+ '"'
+        }
+        oxfamMaliDebug {
+            signingConfig signingConfigs.debug
+            //oneapp uses maviucak keystore for debug releases also
+            debuggable(true)
+            testCoverageEnabled(true)
+            resValue("bool", "CRASHLYTICS_ENABLED", "false")
+            resValue("string", "GOOGLE_MAPS_API_KEY", googleMapsApiKey)
+            buildConfigField 'boolean', "IS_TEST_VERSION", "true"
+            buildConfigField 'String', "MAPBOX_ACCESS_TOKEN", '"' + mapboxToken + '"'
+            applicationIdSuffix(".oxfammali")
+            buildConfigField "String", "SERVER_URL",'"' + "https://aggregate.redrosecps.com/oxfammali2"+ '"'
         }
     }
 
@@ -220,7 +267,7 @@ dependencies {
     // named "nbi-stubs", which causes there to be at least one .so library
     // present for every ABI (armeabi, armeabi-v7a, arm64-v8a, x86, x86_64).
     //implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
-    implementation project(':nbistubs')
+    implementation project(path : ':nbistubs', configuration: 'default')
 
     implementation 'androidx.legacy:legacy-support-v13:1.0.0'
     //noinspection GradleDependency
@@ -254,7 +301,7 @@ dependencies {
     implementation 'com.github.chanmratekoko:myanmar-calendar:1.0.6.RC3'
     implementation 'bikramsambat:bikram-sambat:1.1.0'
     implementation "com.evernote:android-job:1.4.2"
-    implementation "com.rarepebble:colorpicker:3.0.1"
+    implementation 'com.github.martin-stone:hsv-alpha-color-picker-android:3.1.0'
     implementation "commons-io:commons-io:2.6"
     implementation "net.sf.opencsv:opencsv:2.4"
     implementation("org.opendatakit:opendatakit-javarosa:2.17.0") {

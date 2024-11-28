@@ -2,9 +2,7 @@ package com.redrosecps.collect.android.preferences.utilities;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
-import com.redrosecps.collect.android.R;
-import com.redrosecps.collect.android.application.Collect;
+import com.redrosecps.collect.android.BuildConfig;
 import com.redrosecps.collect.android.preferences.GeneralSharedPreferences;
 
 import java.util.ArrayList;
@@ -36,7 +34,7 @@ public class ChangingServerUrlUtils {
         String urlListString = (String) GeneralSharedPreferences.getInstance().get(KNOWN_URL_LIST);
 
         return urlListString == null || urlListString.isEmpty()
-                ? new ArrayList<>(Collections.singletonList(Collect.getInstance().getString(R.string.default_server_url)))
+                ? new ArrayList<>(Collections.singletonList(BuildConfig.SERVER_URL))
                 : new Gson().fromJson(urlListString, new TypeToken<List<String>>() {}.getType());
     }
 }

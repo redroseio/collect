@@ -1145,7 +1145,7 @@ public class FormEntryActivity extends CollectAbstractActivity implements Animat
             try {
                 FailedConstraint constraint = formController.saveAllScreenAnswers(answers,
                         evaluateConstraints);
-                if (constraint != null) {
+                 if (constraint != null) {
                     createConstraintToast(constraint.index, constraint.status);
                     if (formController.indexIsInFieldList() && formController.getQuestionPrompts().length > 1) {
                         getCurrentViewIfODKView().highlightWidget(constraint.index);
