@@ -75,8 +75,8 @@ android {
         minSdkVersion(21)
         targetSdkVersion(34)
         compileSdk(34)
-        versionCode 3585 //LEGACY_BUILD_NUMBER_OFFSET + getMasterCommitCount()
-        versionName "3585" //getVersionName()
+        versionCode 3586 //LEGACY_BUILD_NUMBER_OFFSET + getMasterCommitCount()
+        versionName "3586" //getVersionName()
         testInstrumentationRunner('androidx.test.runner.AndroidJUnitRunner')
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true

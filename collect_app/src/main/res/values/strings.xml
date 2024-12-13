@@ -673,6 +673,10 @@
 	<string name="barcode_scanner_error">Sorry, Barcode Scanner is not installed!</string>
 	<string name="cancel_saving_form">Cancel</string>
 	<string name="capture_fingerprint">Scan Fingerprint</string>
+	<string name="capture_fingerprint_ansi">Scan Fingerprint(ANSI)</string>
+	<string name="capture_fingerprint_iso">Scan Fingerprint(ISO)</string>
+	<string name="capture_fingerprint_iso_compact">Scan Fingerprint(ISO_COMPACT)</string>
+	<string name="capture_fingerprint_sg400">Scan Fingerprint(SG 400)</string>
 	<string name="capture_face">Capture Face</string>
 	<string name="change_protocol_settings_default">Platform Settings</string>
 	<string name="completed_data">Complete (%s)</string>
@@ -783,6 +787,7 @@
 	<string name="print_again">Print Again</string>
 	<string name="restriction_web_service_url_title">Web Service URL</string>
 	<string name="restriction_web_service_url_description">Web Service URL for the app to connect (e.g. https://a-platform.redrosecps.com/rest/mobileservices/v2)</string>
+	<string name="selected_file_is_not_a_valid_fingerprint">Selected file is not a valid fingerprint</string>
 	<plurals name="sms_sending">
 		<item quantity="one">Submitting form as a single message.</item>
 		<item quantity="other">Submitting form, sending message %1$d of %2$d</item>

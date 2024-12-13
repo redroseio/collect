@@ -7,18 +7,22 @@ import org.javarosa.core.model.data.StringData;
 import org.javarosa.form.api.FormEntryPrompt;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore.Images;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -28,6 +32,9 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.room.util.StringUtil;
+
+import com.google.api.client.util.StringUtils;
 import com.redrosecps.collect.android.R;
 import com.redrosecps.collect.android.activities.FormEntryActivity;
 import com.redrosecps.collect.android.application.Collect;
@@ -37,253 +44,212 @@ import com.redrosecps.collect.android.utilities.FileUtils;
 import com.redrosecps.collect.android.utilities.MediaUtils;
 import com.redrosecps.collect.android.widgets.interfaces.BinaryWidget;
 
-public class FingerprintWidget extends QuestionWidget implements BinaryWidget
-{
-	private final static String t = "FingerprintWidget";
+public class FingerprintWidget extends QuestionWidget implements BinaryWidget {
+    private final static String t = "FingerprintWidget";
 
-	private Button mCaptureButton;
-	private ImageView mImageView;
+    private Button mCaptureButton;
+    private ImageView mImageView;
 
-	private String mBinaryName;
-	private String mInstanceFolder;
-	private TextView mErrorTextView;
+    private String mBinaryName;
+    private String mInstanceFolder;
+    private TextView mErrorTextView;
 
-	public FingerprintWidget(Context context, QuestionDetails prompt)
-	{
-		super(context, prompt);
-		mInstanceFolder = Collect.getInstance().getFormController().getInstanceFile().getParent();
+    private static final int PADDING = 20;
 
-		TableLayout.LayoutParams params = new TableLayout.LayoutParams();
-		params.setMargins(7, 5, 7, 5);
+    public FingerprintWidget(Context context, QuestionDetails prompt) {
+        super(context, prompt);
+        mInstanceFolder = Collect.getInstance().getFormController().getInstanceFile().getParent();
 
-		mErrorTextView = new TextView(context);
-		//mErrorTextView.setId(QuestionWidget.newUniqueId());
-		mErrorTextView.setText("Selected file is not a valid fingerprint");
+        LinearLayout buttonLayout = createButtonLayout(context);
 
-		// setup capture button
-		mCaptureButton = new Button(getContext());
-		//mCaptureButton.setId(QuestionWidget.newUniqueId());
-		mCaptureButton.setText(getContext().getString(R.string.capture_fingerprint));
-		mCaptureButton.setTextSize(TypedValue.COMPLEX_UNIT_DIP, getAnswerFontSize());
-		mCaptureButton.setPadding(20, 20, 20, 20);
-		mCaptureButton.setEnabled(!prompt.getPrompt().isReadOnly());
-		mCaptureButton.setLayoutParams(params);
+        mErrorTextView = createErrorTextView(context);
+        mCaptureButton = createCaptureButton(context, prompt.getPrompt().isReadOnly());
+        setupCaptureButtonListener(mCaptureButton, mErrorTextView, prompt.getPrompt());
 
-		// launch capture intent on click
-		mCaptureButton.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				mErrorTextView.setVisibility(View.GONE);
-				Intent i = new Intent("com.maviucak.android.redrose.SCAN_FINGERPRINT");
-				//i.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Collect.TMPFILE_PATH)));
-				try
-				{
-					Collect.getInstance().getFormController().setIndexWaitingForData(getFormEntryPrompt().getIndex());
-					((Activity)getContext()).startActivityForResult(i, ApplicationConstants.RequestCodes.FINGERPRINT_CAPTURE);
-				}
-				catch (ActivityNotFoundException e)
-				{
-					Toast.makeText(
-							getContext(),
-							getContext().getString(R.string.activity_not_found,
-									"Fingerprint capture (RedRose One Biometrics Installation is required!)"),
-							Toast.LENGTH_SHORT).show();
-					Collect.getInstance().getFormController().setIndexWaitingForData(null);
-				}
+        buttonLayout.addView(mCaptureButton);
+        buttonLayout.addView(mErrorTextView);
 
-			}
-		});
+        if (prompt.getPrompt().isReadOnly()) {
+            mCaptureButton.setVisibility(View.GONE);
+        }
+        mErrorTextView.setVisibility(View.GONE);
 
-		// finish complex layout
-		addAnswerView(mCaptureButton);
-		addAnswerView(mErrorTextView);
+        mBinaryName = prompt.getPrompt().getAnswerText();
+        setupImageView(buttonLayout);
 
-		// and hide the capture and choose button if read-only
-		if (prompt.getPrompt().isReadOnly())
-		{
-			mCaptureButton.setVisibility(View.GONE);
-		}
-		mErrorTextView.setVisibility(View.GONE);
 
-		// retrieve answer from data model and update ui
-		mBinaryName = prompt.getPrompt().getAnswerText();
+        addAnswerView(buttonLayout);
+    }
 
-		// Only add the imageView if the user has taken a picture
-		if (mBinaryName != null)
-		{
-			mImageView = new ImageView(getContext());
-			//mImageView.setId(View.NO_ID);
-			Display display = ((WindowManager)getContext().getSystemService(Context.WINDOW_SERVICE))
-					.getDefaultDisplay();
-			Point p = new Point();
-			display.getSize(p);
-			int screenWidth = p.x;
-			int screenHeight = p.y;
+    private void setupImageView(LinearLayout buttonLayout) {
 
-			File f = new File(mInstanceFolder + File.separator + mBinaryName);
+        mImageView = new ImageView(getContext());
+        mImageView.setAdjustViewBounds(true);
+        mImageView.setPadding(10, 10, 10, 10);
 
-			if (f.exists())
-			{
-				Bitmap bmp = FileUtils.getBitmapScaledToDisplay(f, screenHeight, screenWidth);
-				if (bmp == null)
-				{
-					mErrorTextView.setVisibility(View.VISIBLE);
-				}
-				mImageView.setImageBitmap(bmp);
-			}
-			else
-			{
-				mImageView.setImageBitmap(null);
-			}
+        setFingerPrintToImageView();
+        mImageView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                File imageFile = new File(mInstanceFolder + File.separator + mBinaryName);
+                showImageInDialog(imageFile);
+            }
+        });
+        buttonLayout.addView(mImageView);
+        if (mBinaryName == null) {
+            mImageView.setVisibility(View.GONE);
+        }
+    }
 
-			mImageView.setPadding(10, 10, 10, 10);
-			mImageView.setAdjustViewBounds(true);
-			mImageView.setOnClickListener(new View.OnClickListener()
-			{
-				@Override
-				public void onClick(View v)
-				{
-					Intent i = new Intent("android.intent.action.VIEW");
-					Uri uri = MediaUtils.getImageUriFromMediaProvider(mInstanceFolder + File.separator + mBinaryName);
-					if (uri != null)
-					{
-						Log.i(t, "setting view path to: " + uri);
-						i.setDataAndType(uri, "image/*");
-						try
-						{
-							getContext().startActivity(i);
-						}
-						catch (ActivityNotFoundException e)
-						{
-							Toast.makeText(getContext(),
-									getContext().getString(R.string.activity_not_found, "view image"),
-									Toast.LENGTH_SHORT).show();
-						}
-					}
-				}
-			});
+    private void setFingerPrintToImageView() {
+        File imageFile = new File(mInstanceFolder + File.separator + mBinaryName);
+        if (imageFile.exists()) {
+            Point p = new Point();
+            Display display = ((WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE))
+                    .getDefaultDisplay();
+            display.getSize(p);
+            int screenWidth = p.x;
+            int screenHeight = p.y;
+            Bitmap bmp = FileUtils.getBitmapScaledToDisplay(imageFile, screenHeight, screenWidth);
+            mImageView.setImageBitmap(bmp);
+        }
+    }
 
-			addView(mImageView);
-		}
-	}
 
-	private void deleteMedia()
-	{
-		// get the file path and delete the file
-		String name = mBinaryName;
-		// clean up variables
-		mBinaryName = null;
-		// delete from media provider
-		int del = MediaUtils.deleteImageFileFromMediaProvider(mInstanceFolder + File.separator + name);
-		Log.i(t, "Deleted " + del + " rows from media content provider");
-	}
+    private void showImageInDialog(File imageFile) {
+        if (imageFile.exists()) {
+            Dialog dialog = new Dialog(getContext());
+            dialog.setContentView(R.layout.dialog_image);
+            ImageView imageView = dialog.findViewById(R.id.dialogImageView);
+            Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+            imageView.setImageBitmap(bitmap);
+            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            dialog.show();
+        } else {
+            Toast.makeText(getContext(), "NO IMAGE EXISTS", Toast.LENGTH_SHORT).show();
+        }
+    }
 
-	@Override
-	public void clearAnswer()
-	{
-		// remove the file
-		deleteMedia();
-		mImageView.setImageBitmap(null);
-		mErrorTextView.setVisibility(View.GONE);
-		// reset buttons
-		mCaptureButton.setText(getContext().getString(R.string.capture_image));
-	}
 
-	@Override
-	public IAnswerData getAnswer()
-	{
-		if (mBinaryName != null)
-		{
-			return new StringData(mBinaryName.toString());
-		}
-		else
-		{
-			return null;
-		}
-	}
+    private LinearLayout createButtonLayout(Context context) {
+        LinearLayout buttonLayout = new LinearLayout(context);
+        buttonLayout.setOrientation(LinearLayout.VERTICAL);
+        buttonLayout.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT));
+        return buttonLayout;
+    }
 
-	@Override
-	public void setBinaryData(Object newImageObj)
-	{
-		// you are replacing an answer. delete the previous image using the
-		// content provider.
-		if (mBinaryName != null)
-		{
-			deleteMedia();
-		}
+    private TextView createErrorTextView(Context context) {
+        TextView errorTextView = new TextView(context);
+        errorTextView.setText(R.string.selected_file_is_not_a_valid_fingerprint);
+        return errorTextView;
+    }
 
-		File newImage = (File)newImageObj;
-		if (newImage.exists())
-		{
-			// Add the new image to the Media content provider so that the
-			// viewing is fast in Android 2.0+
-			ContentValues values = new ContentValues(6);
-			values.put(Images.Media.TITLE, newImage.getName());
-			values.put(Images.Media.DISPLAY_NAME, newImage.getName());
-			values.put(Images.Media.DATE_TAKEN, System.currentTimeMillis());
-			values.put(Images.Media.MIME_TYPE, "image/png");
-			values.put(Images.Media.DATA, newImage.getAbsolutePath());
+    private Button createCaptureButton(Context context, boolean isReadOnly) {
+        Button captureButton = new Button(context);
+        captureButton.setText(context.getString(R.string.capture_fingerprint));
+        captureButton.setTextSize(TypedValue.COMPLEX_UNIT_DIP, getAnswerFontSize());
+        captureButton.setPadding(PADDING, PADDING, PADDING, PADDING);
+        captureButton.setEnabled(!isReadOnly);
+        return captureButton;
+    }
 
-			Uri imageURI = getContext().getContentResolver().insert(Images.Media.EXTERNAL_CONTENT_URI, values);
-			Log.i(t, "Inserting image returned uri = " + imageURI.toString());
+    private void setupCaptureButtonListener(Button button, TextView errorTextView, FormEntryPrompt prompt) {
+        button.setOnClickListener(v -> {
+            errorTextView.setVisibility(View.GONE);
+            Intent intent = new Intent("com.maviucak.android.redrose.SCAN_FINGERPRINT");
+            try {
+                Collect.getInstance().getFormController().setIndexWaitingForData(prompt.getIndex());
+                ((Activity) getContext()).startActivityForResult(intent, ApplicationConstants.RequestCodes.FINGERPRINT_CAPTURE);
+            } catch (ActivityNotFoundException e) {
+                Toast.makeText(
+                        getContext(),
+                        getContext().getString(R.string.activity_not_found,
+                                "Fingerprint capture (RedRose One Biometrics Installation is required!)"),
+                        Toast.LENGTH_SHORT).show();
+                Collect.getInstance().getFormController().setIndexWaitingForData(null);
+            }
+        });
+    }
 
-			mBinaryName = newImage.getName();
-			Log.i(t, "Setting current answer to " + newImage.getName());
-		}
-		else
-		{
-			Log.e(t, "NO IMAGE EXISTS at: " + newImage.getAbsolutePath());
-		}
+    private void deleteMedia() {
+        // get the file path and delete the file
+        String name = mBinaryName;
+        // clean up variables
+        mBinaryName = null;
+        // delete from media provider
+        int del = MediaUtils.deleteImageFileFromMediaProvider(mInstanceFolder + File.separator + name);
+        Log.i(t, "Deleted " + del + " rows from media content provider");
+        mImageView.setVisibility(View.GONE);
+    }
 
-		Collect.getInstance().getFormController().setIndexWaitingForData(null);
-	}
+    @Override
+    public void clearAnswer() {
+        // remove the file
+        deleteMedia();
+        mImageView.setImageBitmap(null);
+        mErrorTextView.setVisibility(View.GONE);
+        // reset buttons
+        mCaptureButton.setText(getContext().getString(R.string.capture_image));
+    }
 
-	@Override
-	public void setFocus(Context context)
-	{
-		// Hide the soft keyboard if it's showing.
-		InputMethodManager inputManager = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
-		inputManager.hideSoftInputFromWindow(this.getWindowToken(), 0);
-	}
+    @Override
+    public IAnswerData getAnswer() {
+        if (mBinaryName != null) {
+            return new StringData(mBinaryName.toString());
+        } else {
+            return null;
+        }
+    }
 
-	/*@Override
-	public boolean isWaitingForBinaryData()
-	{
-		return getFormEntryPrompt().getIndex().equals(Collect.getInstance().getFormController().getIndexWaitingForData());
-	}
+    @Override
+    public void setBinaryData(Object newImageObj) {
+        // you are replacing an answer. delete the previous image using the
+        // content provider.
+        if (mBinaryName != null) {
+            deleteMedia();
+        }
 
-	@Override
-	public void cancelWaitingForBinaryData()
-	{
-		Collect.getInstance().getFormController().setIndexWaitingForData(null);
-	}
-*/
-	@Override
-	public void setOnLongClickListener(OnLongClickListener l)
-	{
-		mCaptureButton.setOnLongClickListener(l);
-		if (mImageView != null)
-		{
-			mImageView.setOnLongClickListener(l);
-		}
-	}
+        File newImage = (File) newImageObj;
+        if (newImage.exists()) {
+            mBinaryName = newImage.getName();
+            setFingerPrintToImageView();
+            mImageView.setVisibility(View.VISIBLE);
+            Log.i(t, "Setting current answer to " + newImage.getName());
+        } else {
+            Log.e(t, "NO IMAGE EXISTS at: " + newImage.getAbsolutePath());
+        }
 
-	@Override
-	public void cancelLongPress()
-	{
-		super.cancelLongPress();
-		mCaptureButton.cancelLongPress();
-		if (mImageView != null)
-		{
-			mImageView.cancelLongPress();
-		}
-	}
+        Collect.getInstance().getFormController().setIndexWaitingForData(null);
+    }
 
-	@Override
-	public void onButtonClick(int buttonId)
-	{
+    @Override
+    public void setFocus(Context context) {
+        // Hide the soft keyboard if it's showing.
+        InputMethodManager inputManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(this.getWindowToken(), 0);
+    }
 
-	}
+    @Override
+    public void setOnLongClickListener(OnLongClickListener l) {
+        mCaptureButton.setOnLongClickListener(l);
+        if (mImageView != null) {
+            mImageView.setOnLongClickListener(l);
+        }
+    }
+
+    @Override
+    public void cancelLongPress() {
+        super.cancelLongPress();
+        mCaptureButton.cancelLongPress();
+        if (mImageView != null) {
+            mImageView.cancelLongPress();
+        }
+    }
+
+    @Override
+    public void onButtonClick(int buttonId) {
+
+    }
 }
