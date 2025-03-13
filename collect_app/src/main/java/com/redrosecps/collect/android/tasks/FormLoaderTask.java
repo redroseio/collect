@@ -32,6 +32,8 @@ import org.javarosa.form.api.FormEntryModel;
 import org.javarosa.xform.parse.XFormParser;
 import org.javarosa.xform.util.XFormUtils;
 import org.javarosa.xpath.XPathTypeMismatchException;
+
+import com.redrosecps.collect.android.BuildConfig;
 import com.redrosecps.collect.android.R;
 import com.redrosecps.collect.android.application.Collect;
 import com.redrosecps.collect.android.database.ItemsetDbAdapter;
@@ -45,6 +47,7 @@ import com.redrosecps.collect.android.external.handler.ExternalDataHandlerPull;
 import com.redrosecps.collect.android.listeners.FormLoaderListener;
 import com.redrosecps.collect.android.logic.FileReferenceFactory;
 import com.redrosecps.collect.android.logic.FormController;
+import com.redrosecps.collect.android.utilities.CryptoFileHandler;
 import com.redrosecps.collect.android.utilities.FileUtils;
 import com.redrosecps.collect.android.utilities.FormDefCache;
 import com.redrosecps.collect.android.utilities.ZipUtils;
@@ -417,42 +420,56 @@ public class FormLoaderTask extends AsyncTask<String, String, FormLoaderTask.FEC
     }
 
     public static void importData(File instanceFile, FormEntryController fec) throws IOException, RuntimeException {
-        // convert files into a byte array
-        byte[] fileBytes = org.apache.commons.io.FileUtils.readFileToByteArray(instanceFile);
+        byte[] fileBytes;
 
-        // get the root of the saved and template instances
+        // Dosyanın şifrelenmiş olup olmadığını kontrol et ve şifreyi çöz
+        if (instanceFile.exists()) {
+            if (CryptoFileHandler.isEncryptionEnabled()){
+                try {
+
+                    fileBytes = CryptoFileHandler.readAndDecryptFile(instanceFile.getAbsolutePath());
+                } catch (IOException e) {
+                    fileBytes = org.apache.commons.io.FileUtils.readFileToByteArray(instanceFile);
+                }
+            }else {
+                fileBytes = org.apache.commons.io.FileUtils.readFileToByteArray(instanceFile);
+            }
+
+        } else {
+            throw new IOException("Instance file not found: " + instanceFile.getAbsolutePath());
+        }
+
+        // Veriyi XFormParser ile işle
         TreeElement savedRoot = XFormParser.restoreDataModel(fileBytes, null).getRoot();
         TreeElement templateRoot = fec.getModel().getForm().getInstance().getRoot().deepCopy(true);
 
-        // weak check for matching forms
+        // Form doğrulaması (bozuk veya uyumsuz form hatalarını yakalamak için)
         if (!savedRoot.getName().equals(templateRoot.getName()) || savedRoot.getMult() != 0) {
             Timber.e("Saved form instance does not match template form definition");
             return;
         }
 
-        // populate the data model
+        // Form verisini yerleştir
         TreeReference tr = TreeReference.rootRef();
         tr.add(templateRoot.getName(), TreeReference.INDEX_UNBOUND);
 
-        // Here we set the Collect's implementation of the IAnswerResolver.
-        // We set it back to the default after select choices have been populated.
+        // Cevap çözücüleri ayarla
         XFormParser.setAnswerResolver(new ExternalAnswerResolver());
         templateRoot.populate(savedRoot, fec.getModel().getForm());
         XFormParser.setAnswerResolver(new DefaultAnswerResolver());
 
-        // populated model to current form
+        // Güncellenmiş formu modelin içine koy
         fec.getModel().getForm().getInstance().setRoot(templateRoot);
 
-        // fix any language issues
-        // :
-        // http://bitbucket.org/javarosa/main/issue/5/itext-n-appearing-in-restored-instances
+        // Dil ayarlarını düzelt
         if (fec.getModel().getLanguages() != null) {
             fec.getModel().getForm()
                     .localeChanged(fec.getModel().getLanguage(),
                             fec.getModel().getForm().getLocalizer());
         }
-        Timber.i("Done importing data");
+        Timber.i("Veri başarıyla içe aktarıldı.");
     }
+
 
     @Override
     protected void onCancelled() {

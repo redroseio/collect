@@ -24,8 +24,11 @@ import org.javarosa.core.services.transport.payload.ByteArrayPayload;
 import com.redrosecps.collect.android.application.Collect;
 import com.redrosecps.collect.android.listeners.SavePointListener;
 import com.redrosecps.collect.android.logic.FormController;
+import com.redrosecps.collect.android.utilities.KeyManager;
 
 import java.io.File;
+
+import javax.crypto.SecretKey;
 
 import timber.log.Timber;
 
@@ -45,6 +48,7 @@ public class SavePointTask extends AsyncTask<Void, Void, String> {
     public SavePointTask(SavePointListener listener) {
         this.listener = listener;
         this.priority = ++lastPriorityUsed;
+
     }
 
     @Override

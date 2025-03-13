@@ -75,8 +75,8 @@ android {
         minSdkVersion(21)
         targetSdkVersion(34)
         compileSdk(34)
-        versionCode 3586 //LEGACY_BUILD_NUMBER_OFFSET + getMasterCommitCount()
-        versionName "3586" //getVersionName()
+        versionCode 3589 //LEGACY_BUILD_NUMBER_OFFSET + getMasterCommitCount()
+        versionName "3589" //getVersionName()
         testInstrumentationRunner('androidx.test.runner.AndroidJUnitRunner')
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
@@ -114,6 +114,14 @@ android {
                 keyPassword secrets.getProperty('RELEASE_KEY_PASSWORD')
             }
         }
+        coreRelease {
+            if (secrets.getProperty('RELEASE_STORE_FILE')) {
+                storeFile file(secrets.getProperty('RELEASE_STORE_FILE'))
+                storePassword secrets.getProperty('RELEASE_STORE_PASSWORD')
+                keyAlias secrets.getProperty('RELEASE_KEY_ALIAS')
+                keyPassword secrets.getProperty('RELEASE_KEY_PASSWORD')
+            }
+        }
     }
     lintOptions {
         abortOnError false
@@ -132,6 +140,8 @@ android {
             resValue("string", "GOOGLE_MAPS_API_KEY", googleMapsApiKey)
             buildConfigField 'boolean', "IS_TEST_VERSION", "false"
             buildConfigField 'String', "MAPBOX_ACCESS_TOKEN", '"' + mapboxToken + '"'
+            buildConfigField 'boolean', "IS_FORM_SUBMISSON_ENABLED", "true"
+            buildConfigField 'boolean', "IS_ENCRYPTION_ENABLED", "false"
             buildConfigField "String", "SERVER_URL", '"' +"https://aggregate.redrosecps.com/oneplatform"+ '"'
         }
         // Release build for the official ODK Collect app
@@ -145,6 +155,8 @@ android {
             resValue("string", "GOOGLE_MAPS_API_KEY", googleMapsApiKey)
             buildConfigField 'boolean', "IS_TEST_VERSION", "false"
             buildConfigField 'String', "MAPBOX_ACCESS_TOKEN", '"' + mapboxToken + '"'
+            buildConfigField 'boolean', "IS_FORM_SUBMISSON_ENABLED", "true"
+            buildConfigField 'boolean', "IS_ENCRYPTION_ENABLED", "false"
             buildConfigField "String", "SERVER_URL",'"' + "https://aggregate.redrosecps.com/oneplatform"+ '"'
         }
         odkCollectDebug {
@@ -156,6 +168,8 @@ android {
             resValue("string", "GOOGLE_MAPS_API_KEY", googleMapsApiKey)
             buildConfigField 'boolean', "IS_TEST_VERSION", "true"
             buildConfigField 'String', "MAPBOX_ACCESS_TOKEN", '"' + mapboxToken + '"'
+            buildConfigField 'boolean', "IS_FORM_SUBMISSON_ENABLED", "true"
+            buildConfigField 'boolean', "IS_ENCRYPTION_ENABLED", "false"
             buildConfigField "String", "SERVER_URL",'"' + "https://aggregate.redrosecps.com/oneplatform"+ '"'
         }
         debug {
@@ -166,6 +180,8 @@ android {
             resValue("bool", "CRASHLYTICS_ENABLED", "false")
             resValue("string", "GOOGLE_MAPS_API_KEY", googleMapsApiKey)
             buildConfigField 'boolean', "IS_TEST_VERSION", "true"
+            buildConfigField 'boolean', "IS_FORM_SUBMISSON_ENABLED", "true"
+            buildConfigField 'boolean', "IS_ENCRYPTION_ENABLED", "false"
             buildConfigField 'String', "MAPBOX_ACCESS_TOKEN", '"' + mapboxToken + '"'
             buildConfigField "String", "SERVER_URL",'"' + "https://aggregate.redrosecps.com/oneplatform"+ '"'
         }
@@ -179,6 +195,8 @@ android {
             resValue("string", "GOOGLE_MAPS_API_KEY", googleMapsApiKey)
             buildConfigField 'boolean', "IS_TEST_VERSION", "false"
             buildConfigField 'String', "MAPBOX_ACCESS_TOKEN", '"' + mapboxToken + '"'
+            buildConfigField 'boolean', "IS_FORM_SUBMISSON_ENABLED", "true"
+            buildConfigField 'boolean', "IS_ENCRYPTION_ENABLED", "false"
             applicationIdSuffix(".oxfammali")
             buildConfigField "String", "SERVER_URL",'"' + "https://aggregate.redrosecps.com/oxfammali2"+ '"'
         }
@@ -191,8 +209,37 @@ android {
             resValue("string", "GOOGLE_MAPS_API_KEY", googleMapsApiKey)
             buildConfigField 'boolean', "IS_TEST_VERSION", "true"
             buildConfigField 'String', "MAPBOX_ACCESS_TOKEN", '"' + mapboxToken + '"'
+            buildConfigField 'boolean', "IS_FORM_SUBMISSON_ENABLED", "true"
+            buildConfigField 'boolean', "IS_ENCRYPTION_ENABLED", "false"
             applicationIdSuffix(".oxfammali")
             buildConfigField "String", "SERVER_URL",'"' + "https://aggregate.redrosecps.com/oxfammali2"+ '"'
+        }
+        coreRelease {
+            if (secrets.getProperty('RELEASE_STORE_FILE')) {
+                signingConfig signingConfigs.release
+            }
+            minifyEnabled(true)
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            resValue("bool", "CRASHLYTICS_ENABLED", "false")
+            resValue("string", "GOOGLE_MAPS_API_KEY", googleMapsApiKey)
+            buildConfigField 'boolean', "IS_TEST_VERSION", "false"
+            buildConfigField 'boolean', "IS_FORM_SUBMISSON_ENABLED", "false"
+            buildConfigField 'boolean', "IS_ENCRYPTION_ENABLED", "true"
+            buildConfigField 'String', "MAPBOX_ACCESS_TOKEN", '"' + mapboxToken + '"'
+            buildConfigField "String", "SERVER_URL",'"' + "https://aggregate.redrosecps.com/core-global"+ '"'
+        }
+        coreDebug {
+            signingConfig signingConfigs.debug
+            //oneapp uses maviucak keystore for debug releases also
+            debuggable(true)
+            testCoverageEnabled(true)
+            resValue("bool", "CRASHLYTICS_ENABLED", "false")
+            resValue("string", "GOOGLE_MAPS_API_KEY", googleMapsApiKey)
+            buildConfigField 'boolean', "IS_TEST_VERSION", "true"
+            buildConfigField 'boolean', "IS_FORM_SUBMISSON_ENABLED", "false"
+            buildConfigField 'boolean', "IS_ENCRYPTION_ENABLED", "true"
+            buildConfigField 'String', "MAPBOX_ACCESS_TOKEN", '"' + mapboxToken + '"'
+            buildConfigField "String", "SERVER_URL",'"' + "https://aggregate.redrosecps.com/core-globaldemo"+ '"'
         }
     }
 

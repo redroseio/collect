@@ -100,9 +100,8 @@ public final class GeneralKeys {
         hashMap.put(KEY_USERNAME,                   "");
         hashMap.put(KEY_PASSWORD,                   "");
         // form_management_preferences.xml
-        hashMap.put(KEY_AUTOSEND,                   AUTOSEND_OFF);
         hashMap.put(KEY_GUIDANCE_HINT,              GUIDANCE_HINT_OFF);
-        hashMap.put(KEY_DELETE_AFTER_SEND,          false);
+
         hashMap.put(KEY_COMPLETED_DEFAULT,          true);
         hashMap.put(KEY_CONSTRAINT_BEHAVIOR,        CONSTRAINT_BEHAVIOR_ON_SWIPE);
         hashMap.put(KEY_HIGH_RESOLUTION,            true);
@@ -110,6 +109,13 @@ public final class GeneralKeys {
         hashMap.put(KEY_INSTANCE_SYNC,              true);
         hashMap.put(KEY_PERIODIC_FORM_UPDATES_CHECK, "never");
         hashMap.put(KEY_AUTOMATIC_UPDATE,           false);
+        if(BuildConfig.IS_FORM_SUBMISSON_ENABLED == false){
+            hashMap.put(KEY_AUTOSEND,                   KEY_AUTOSEND_NETWORK);
+            hashMap.put(KEY_DELETE_AFTER_SEND,          true);
+        }else{
+            hashMap.put(KEY_AUTOSEND,                   AUTOSEND_OFF);
+            hashMap.put(KEY_DELETE_AFTER_SEND,          false);
+        }
         hashMap.put(KEY_HIDE_OLD_FORM_VERSIONS,     true);
         hashMap.put(KEY_BACKGROUND_LOCATION,        true);
         // form_metadata_preferences.xml

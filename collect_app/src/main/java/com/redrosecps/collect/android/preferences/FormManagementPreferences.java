@@ -14,14 +14,6 @@
 
 package com.redrosecps.collect.android.preferences;
 
-import android.os.Bundle;
-import android.preference.ListPreference;
-import android.preference.Preference;
-
-import com.redrosecps.collect.android.R;
-import com.redrosecps.collect.android.application.Collect;
-import com.redrosecps.collect.android.tasks.ServerPollingJob;
-
 import static com.redrosecps.collect.android.preferences.AdminKeys.ALLOW_OTHER_WAYS_OF_EDITING_FORM;
 import static com.redrosecps.collect.android.preferences.GeneralKeys.KEY_AUTOMATIC_UPDATE;
 import static com.redrosecps.collect.android.preferences.GeneralKeys.KEY_AUTOSEND;
@@ -30,6 +22,15 @@ import static com.redrosecps.collect.android.preferences.GeneralKeys.KEY_GUIDANC
 import static com.redrosecps.collect.android.preferences.GeneralKeys.KEY_IMAGE_SIZE;
 import static com.redrosecps.collect.android.preferences.GeneralKeys.KEY_PERIODIC_FORM_UPDATES_CHECK;
 import static com.redrosecps.collect.android.preferences.PreferencesActivity.INTENT_KEY_ADMIN_MODE;
+
+import android.os.Bundle;
+import android.preference.ListPreference;
+import android.preference.Preference;
+
+import com.redrosecps.collect.android.BuildConfig;
+import com.redrosecps.collect.android.R;
+import com.redrosecps.collect.android.application.Collect;
+import com.redrosecps.collect.android.tasks.ServerPollingJob;
 
 public class FormManagementPreferences extends BasePreferenceFragment {
 
@@ -49,10 +50,14 @@ public class FormManagementPreferences extends BasePreferenceFragment {
         addPreferencesFromResource(R.xml.form_management_preferences);
 
         initListPref(KEY_PERIODIC_FORM_UPDATES_CHECK);
-        initPref(KEY_AUTOMATIC_UPDATE);  
+        initPref(KEY_AUTOMATIC_UPDATE);
         initListPref(KEY_CONSTRAINT_BEHAVIOR);
         initListPref(KEY_AUTOSEND);
         initListPref(KEY_IMAGE_SIZE);
+        if (BuildConfig.IS_FORM_SUBMISSON_ENABLED == false) {
+            findPreference(KEY_AUTOSEND).setEnabled(false);
+            findPreference("delete_send").setEnabled(false);
+        }
         initGuidancePrefs();
     }
 

@@ -160,7 +160,7 @@ public class InstanceServerUploader extends InstanceUploader {
         // complete but leave the file-to-be-uploaded with the name "submission.xml" and the plaintext
         // submission files on disk.  In this case, upload the submission.xml and all the files in
         // the directory. This means the plaintext files and the encrypted files will be sent to the
-        // server and the server will have to figure out what to do with them.
+        // server and the server will have to figure out what to do with them.GÖKHAN TODO
         File instanceFile = new File(instance.getInstanceFilePath());
         File submissionFile = new File(instanceFile.getParentFile(), "submission.xml");
         if (submissionFile.exists()) {

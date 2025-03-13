@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.redrosecps.collect.android",
+  "variantName": "coreRelease",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 3589,
+      "versionName": "3589",
+      "outputFile": "collect-coreRelease-3589.apk"
+    }
+  ],
+  "elementType": "File"
+}

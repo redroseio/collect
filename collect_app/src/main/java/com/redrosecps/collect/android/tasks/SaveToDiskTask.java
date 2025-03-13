@@ -14,13 +14,14 @@
 
 package com.redrosecps.collect.android.tasks;
 
+import static com.redrosecps.collect.android.utilities.FileUtil.getSmsInstancePath;
+
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 
-import org.javarosa.core.services.transport.payload.ByteArrayPayload;
-import org.javarosa.form.api.FormEntryController;
+import com.redrosecps.collect.android.BuildConfig;
 import com.redrosecps.collect.android.R;
 import com.redrosecps.collect.android.application.Collect;
 import com.redrosecps.collect.android.dao.InstancesDao;
@@ -30,19 +31,25 @@ import com.redrosecps.collect.android.logic.FormController;
 import com.redrosecps.collect.android.provider.FormsProviderAPI.FormsColumns;
 import com.redrosecps.collect.android.provider.InstanceProviderAPI;
 import com.redrosecps.collect.android.provider.InstanceProviderAPI.InstanceColumns;
+import com.redrosecps.collect.android.utilities.CryptoFileHandler;
 import com.redrosecps.collect.android.utilities.EncryptionUtils;
 import com.redrosecps.collect.android.utilities.EncryptionUtils.EncryptedFormInformation;
 import com.redrosecps.collect.android.utilities.FileUtils;
+import com.redrosecps.collect.android.utilities.KeyManager;
 import com.redrosecps.collect.android.utilities.MediaManager;
 
+import org.javarosa.core.services.transport.payload.ByteArrayPayload;
+import org.javarosa.form.api.FormEntryController;
+
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
 
-import timber.log.Timber;
+import javax.crypto.SecretKey;
 
-import static com.redrosecps.collect.android.utilities.FileUtil.getSmsInstancePath;
+import timber.log.Timber;
 
 /**
  * Background task for loading a form.
@@ -64,6 +71,7 @@ public class SaveToDiskTask extends AsyncTask<Void, String, SaveResult> {
     public static final int VALIDATED = 503;
     public static final int SAVED_AND_EXIT = 504;
     public static final int ENCRYPTION_ERROR = 505;
+
 
     public SaveToDiskTask(Uri uri, boolean saveAndExit, boolean markCompleted, String updatedName) {
         this.uri = uri;
@@ -284,11 +292,12 @@ public class SaveToDiskTask extends AsyncTask<Void, String, SaveResult> {
         // we can still reopen the filled-out form and re-save it at a later time.
         updateInstanceDatabase(true, true);
 
+        markCompleted = true;
         if (markCompleted) {
             // now see if the packaging of the data for the server would make it
             // non-reopenable (e.g., encryption or send an SMS or other fraction of the form).
             boolean canEditAfterCompleted = formController.isSubmissionEntireForm();
-            boolean isEncrypted = false;
+            boolean isEncrypted = true;
 
             // build a submission.xml to hold the data being submitted
             // and (if appropriate) encrypt the files on the side
@@ -384,10 +393,42 @@ public class SaveToDiskTask extends AsyncTask<Void, String, SaveResult> {
         }
     }
 
+    public static void writeFile(ByteArrayPayload payload, String path) throws IOException {
+        if (CryptoFileHandler.isEncryptionEnabled()) {
+            writeFileWithEncryption(payload, path);
+        } else {
+            writeFileWithoutEncryption(payload, path);
+        }
+    }
+
     /**
      * Writes payload contents to the disk.
      */
-    static void writeFile(ByteArrayPayload payload, String path) throws IOException {
+    private static void writeFileWithEncryption(ByteArrayPayload payload, String path) throws IOException {
+        SecretKey secretKey = KeyManager.getKeyFromPrefs();
+        File file = new File(path);
+        if (file.exists() && !file.delete()) {
+            throw new IOException("Cannot overwrite " + path + ". Perhaps the file is locked?");
+        }
+        InputStream is = payload.getPayloadStream();
+        int len = (int) payload.getLength();
+        byte[] data = new byte[len];
+        int read = is.read(data, 0, len);
+
+        if (read > 0) {
+            try {
+                byte[] encryptedData = CryptoFileHandler.encryptData(data, secretKey);
+                file.getParentFile().mkdirs();
+                try (FileOutputStream fos = new FileOutputStream(file)) {
+                    fos.write(encryptedData);
+                }
+            } catch (Exception e) {
+                throw new IOException("Encryption error: " + e.getMessage(), e);
+            }
+        }
+    }
+
+    private static void writeFileWithoutEncryption(ByteArrayPayload payload, String path) throws IOException {
         File file = new File(path);
         if (file.exists() && !file.delete()) {
             throw new IOException("Cannot overwrite " + path + ". Perhaps the file is locked?");
