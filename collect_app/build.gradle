@@ -74,7 +74,7 @@ android {
         applicationId('com.redrosecps.collect.android')
         minSdkVersion(21)
         targetSdkVersion(34)
-        compileSdk(34)
+        compileSdk(35)
         versionCode 3589 //LEGACY_BUILD_NUMBER_OFFSET + getMasterCommitCount()
         versionName "3589" //getVersionName()
         testInstrumentationRunner('androidx.test.runner.AndroidJUnitRunner')
@@ -142,6 +142,7 @@ android {
             buildConfigField 'String', "MAPBOX_ACCESS_TOKEN", '"' + mapboxToken + '"'
             buildConfigField 'boolean', "IS_FORM_SUBMISSON_ENABLED", "true"
             buildConfigField 'boolean', "IS_ENCRYPTION_ENABLED", "false"
+            buildConfigField 'boolean', "IS_SUPPORT_MULTI_FINGER_PRINT", "false"
             buildConfigField "String", "SERVER_URL", '"' +"https://aggregate.redrosecps.com/oneplatform"+ '"'
         }
         // Release build for the official ODK Collect app
@@ -157,6 +158,7 @@ android {
             buildConfigField 'String', "MAPBOX_ACCESS_TOKEN", '"' + mapboxToken + '"'
             buildConfigField 'boolean', "IS_FORM_SUBMISSON_ENABLED", "true"
             buildConfigField 'boolean', "IS_ENCRYPTION_ENABLED", "false"
+            buildConfigField 'boolean', "IS_SUPPORT_MULTI_FINGER_PRINT", "false"
             buildConfigField "String", "SERVER_URL",'"' + "https://aggregate.redrosecps.com/oneplatform"+ '"'
         }
         odkCollectDebug {
@@ -170,6 +172,7 @@ android {
             buildConfigField 'String', "MAPBOX_ACCESS_TOKEN", '"' + mapboxToken + '"'
             buildConfigField 'boolean', "IS_FORM_SUBMISSON_ENABLED", "true"
             buildConfigField 'boolean', "IS_ENCRYPTION_ENABLED", "false"
+            buildConfigField 'boolean', "IS_SUPPORT_MULTI_FINGER_PRINT", "true"
             buildConfigField "String", "SERVER_URL",'"' + "https://aggregate.redrosecps.com/oneplatform"+ '"'
         }
         debug {
@@ -183,6 +186,7 @@ android {
             buildConfigField 'boolean', "IS_FORM_SUBMISSON_ENABLED", "true"
             buildConfigField 'boolean', "IS_ENCRYPTION_ENABLED", "false"
             buildConfigField 'String', "MAPBOX_ACCESS_TOKEN", '"' + mapboxToken + '"'
+            buildConfigField 'boolean', "IS_SUPPORT_MULTI_FINGER_PRINT", "true"
             buildConfigField "String", "SERVER_URL",'"' + "https://aggregate.redrosecps.com/oneplatform"+ '"'
         }
         oxfamMaliRelease {
@@ -198,6 +202,7 @@ android {
             buildConfigField 'boolean', "IS_FORM_SUBMISSON_ENABLED", "true"
             buildConfigField 'boolean', "IS_ENCRYPTION_ENABLED", "false"
             applicationIdSuffix(".oxfammali")
+            buildConfigField 'boolean', "IS_SUPPORT_MULTI_FINGER_PRINT", "false"
             buildConfigField "String", "SERVER_URL",'"' + "https://aggregate.redrosecps.com/oxfammali2"+ '"'
         }
         oxfamMaliDebug {
@@ -212,6 +217,7 @@ android {
             buildConfigField 'boolean', "IS_FORM_SUBMISSON_ENABLED", "true"
             buildConfigField 'boolean', "IS_ENCRYPTION_ENABLED", "false"
             applicationIdSuffix(".oxfammali")
+            buildConfigField 'boolean', "IS_SUPPORT_MULTI_FINGER_PRINT", "true"
             buildConfigField "String", "SERVER_URL",'"' + "https://aggregate.redrosecps.com/oxfammali2"+ '"'
         }
         coreRelease {
@@ -226,6 +232,7 @@ android {
             buildConfigField 'boolean', "IS_FORM_SUBMISSON_ENABLED", "false"
             buildConfigField 'boolean', "IS_ENCRYPTION_ENABLED", "true"
             buildConfigField 'String', "MAPBOX_ACCESS_TOKEN", '"' + mapboxToken + '"'
+            buildConfigField 'boolean', "IS_SUPPORT_MULTI_FINGER_PRINT", "false"
             buildConfigField "String", "SERVER_URL",'"' + "https://aggregate.redrosecps.com/core-global"+ '"'
         }
         coreDebug {
@@ -239,6 +246,7 @@ android {
             buildConfigField 'boolean', "IS_FORM_SUBMISSON_ENABLED", "false"
             buildConfigField 'boolean', "IS_ENCRYPTION_ENABLED", "true"
             buildConfigField 'String', "MAPBOX_ACCESS_TOKEN", '"' + mapboxToken + '"'
+222         buildConfigField 'boolean', "IS_SUPPORT_MULTI_FINGER_PRINT", "true"
             buildConfigField "String", "SERVER_URL",'"' + "https://aggregate.redrosecps.com/core-globaldemo"+ '"'
         }
     }

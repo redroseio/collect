@@ -672,9 +672,11 @@
 	<string name="backup">swipe from\nleft for\ngoing back</string>
 	<string name="barcode_scanner_error">Sorry, Barcode Scanner is not installed!</string>
 	<string name="cancel_saving_form">Cancel</string>
-	<string name="capture_fingerprint">Scan Fingerprint</string>
+	<string name="capture_fingerprint">Scan Fingerprint With Secugen</string>
 	<string name="capture_fingerprint_ansi">Scan Fingerprint(ANSI)</string>
 	<string name="capture_fingerprint_iso">Scan Fingerprint(ISO)</string>
+	<string name="capture_fingerprint_kojak">Scan Fingerprint With Kojak</string>
+
 	<string name="capture_fingerprint_iso_compact">Scan Fingerprint(ISO_COMPACT)</string>
 	<string name="capture_fingerprint_sg400">Scan Fingerprint(SG 400)</string>
 	<string name="capture_face">Capture Face</string>

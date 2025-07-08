@@ -841,6 +841,9 @@ public class FormEntryActivity extends CollectAbstractActivity implements Animat
                             }
                             catch (IOException e)
                             {
+                                ((ODKView)getCurrentViewIfODKView()).cancelWaitingForBinaryData();
+                                createErrorDialog("Failed to save fingerprint registration image! Reason: " + e.getMessage(),
+                                        DO_NOT_EXIT);
                                 //don't care if cannot close
                             }
                         }

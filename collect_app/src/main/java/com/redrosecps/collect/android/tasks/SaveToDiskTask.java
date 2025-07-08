@@ -297,7 +297,7 @@ public class SaveToDiskTask extends AsyncTask<Void, String, SaveResult> {
             // now see if the packaging of the data for the server would make it
             // non-reopenable (e.g., encryption or send an SMS or other fraction of the form).
             boolean canEditAfterCompleted = formController.isSubmissionEntireForm();
-            boolean isEncrypted = true;
+            boolean isEncrypted = false;
 
             // build a submission.xml to hold the data being submitted
             // and (if appropriate) encrypt the files on the side

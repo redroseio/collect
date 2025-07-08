@@ -1,23 +1,13 @@
 package com.redrosecps.collect.android.widgets;
 
-import java.io.File;
-
-import org.javarosa.core.model.data.IAnswerData;
-import org.javarosa.core.model.data.StringData;
-import org.javarosa.form.api.FormEntryPrompt;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
-import android.net.Uri;
-import android.os.Build;
-import android.provider.MediaStore.Images;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
@@ -28,15 +18,10 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.room.util.StringUtil;
-
-import com.google.api.client.util.StringUtils;
 import com.redrosecps.collect.android.R;
-import com.redrosecps.collect.android.activities.FormEntryActivity;
 import com.redrosecps.collect.android.application.Collect;
 import com.redrosecps.collect.android.formentry.questions.QuestionDetails;
 import com.redrosecps.collect.android.utilities.ApplicationConstants;
@@ -44,10 +29,17 @@ import com.redrosecps.collect.android.utilities.FileUtils;
 import com.redrosecps.collect.android.utilities.MediaUtils;
 import com.redrosecps.collect.android.widgets.interfaces.BinaryWidget;
 
+import org.javarosa.core.model.data.IAnswerData;
+import org.javarosa.core.model.data.StringData;
+import org.javarosa.form.api.FormEntryPrompt;
+
+import java.io.File;
+
 public class FingerprintWidget extends QuestionWidget implements BinaryWidget {
     private final static String t = "FingerprintWidget";
 
-    private Button mCaptureButton;
+    private Button mCaptureWithSecugenButton;
+    private Button mCaptureWithKojakButton;
     private ImageView mImageView;
 
     private String mBinaryName;
@@ -63,15 +55,30 @@ public class FingerprintWidget extends QuestionWidget implements BinaryWidget {
         LinearLayout buttonLayout = createButtonLayout(context);
 
         mErrorTextView = createErrorTextView(context);
-        mCaptureButton = createCaptureButton(context, prompt.getPrompt().isReadOnly());
-        setupCaptureButtonListener(mCaptureButton, mErrorTextView, prompt.getPrompt());
+        mCaptureWithSecugenButton = createCaptureButtonForSecugen(context, prompt.getPrompt().isReadOnly());
+        mCaptureWithKojakButton = createCaptureButtonForKojak(context, prompt.getPrompt().isReadOnly());
+        setupCaptureButtonListenerForSecugen(mCaptureWithSecugenButton, mErrorTextView, prompt.getPrompt());
+        setupCaptureButtonListenerForKojak(mCaptureWithKojakButton, mErrorTextView, prompt.getPrompt());
 
-        buttonLayout.addView(mCaptureButton);
+        if(prompt.getPrompt().getFormElement().getTextID().toLowerCase().contains("all_fingerPrints".toLowerCase())){
+
+        }
+        buttonLayout.addView(mCaptureWithKojakButton);
+        buttonLayout.addView(mCaptureWithSecugenButton);
         buttonLayout.addView(mErrorTextView);
 
         if (prompt.getPrompt().isReadOnly()) {
-            mCaptureButton.setVisibility(View.GONE);
+            mCaptureWithSecugenButton.setVisibility(View.GONE);
+            mCaptureWithKojakButton.setVisibility(View.GONE);
         }
+        if(prompt.getPrompt().getAppearanceHint().toLowerCase().contains("tenfingers".toLowerCase())){
+            mCaptureWithSecugenButton.setVisibility(View.GONE);
+        }else if(prompt.getPrompt().getAppearanceHint().toLowerCase().contains("fingerprint".toLowerCase())){
+            mCaptureWithKojakButton.setVisibility(View.GONE);
+        }else{
+            mCaptureWithSecugenButton.setVisibility(View.GONE);
+        }
+
         mErrorTextView.setVisibility(View.GONE);
 
         mBinaryName = prompt.getPrompt().getAnswerText();
@@ -146,7 +153,7 @@ public class FingerprintWidget extends QuestionWidget implements BinaryWidget {
         return errorTextView;
     }
 
-    private Button createCaptureButton(Context context, boolean isReadOnly) {
+    private Button createCaptureButtonForSecugen(Context context, boolean isReadOnly) {
         Button captureButton = new Button(context);
         captureButton.setText(context.getString(R.string.capture_fingerprint));
         captureButton.setTextSize(TypedValue.COMPLEX_UNIT_DIP, getAnswerFontSize());
@@ -155,10 +162,37 @@ public class FingerprintWidget extends QuestionWidget implements BinaryWidget {
         return captureButton;
     }
 
-    private void setupCaptureButtonListener(Button button, TextView errorTextView, FormEntryPrompt prompt) {
+    private Button createCaptureButtonForKojak(Context context, boolean isReadOnly) {
+        Button captureButton = new Button(context);
+        captureButton.setText(context.getString(R.string.capture_fingerprint_kojak));
+        captureButton.setTextSize(TypedValue.COMPLEX_UNIT_DIP, getAnswerFontSize());
+        captureButton.setPadding(PADDING, PADDING, PADDING, PADDING);
+        captureButton.setEnabled(!isReadOnly);
+        return captureButton;
+    }
+
+    private void setupCaptureButtonListenerForSecugen(Button button, TextView errorTextView, FormEntryPrompt prompt) {
         button.setOnClickListener(v -> {
             errorTextView.setVisibility(View.GONE);
             Intent intent = new Intent("com.maviucak.android.redrose.SCAN_FINGERPRINT");
+            try {
+                Collect.getInstance().getFormController().setIndexWaitingForData(prompt.getIndex());
+                ((Activity) getContext()).startActivityForResult(intent, ApplicationConstants.RequestCodes.FINGERPRINT_CAPTURE);
+            } catch (ActivityNotFoundException e) {
+                Toast.makeText(
+                        getContext(),
+                        getContext().getString(R.string.activity_not_found,
+                                "Fingerprint capture (RedRose One Biometrics Installation is required!)"),
+                        Toast.LENGTH_SHORT).show();
+                Collect.getInstance().getFormController().setIndexWaitingForData(null);
+            }
+        });
+    }
+
+    private void setupCaptureButtonListenerForKojak(Button button, TextView errorTextView, FormEntryPrompt prompt) {
+        button.setOnClickListener(v -> {
+            errorTextView.setVisibility(View.GONE);
+            Intent intent = new Intent("com.maviucak.android.redrose.SCAN_FINGERPRINT_FOR_KOJAK");
             try {
                 Collect.getInstance().getFormController().setIndexWaitingForData(prompt.getIndex());
                 ((Activity) getContext()).startActivityForResult(intent, ApplicationConstants.RequestCodes.FINGERPRINT_CAPTURE);
@@ -191,7 +225,8 @@ public class FingerprintWidget extends QuestionWidget implements BinaryWidget {
         mImageView.setImageBitmap(null);
         mErrorTextView.setVisibility(View.GONE);
         // reset buttons
-        mCaptureButton.setText(getContext().getString(R.string.capture_image));
+        mCaptureWithSecugenButton.setText(getContext().getString(R.string.capture_image));
+        mCaptureWithKojakButton.setText(getContext().getString(R.string.capture_image));
     }
 
     @Override
@@ -233,7 +268,8 @@ public class FingerprintWidget extends QuestionWidget implements BinaryWidget {
 
     @Override
     public void setOnLongClickListener(OnLongClickListener l) {
-        mCaptureButton.setOnLongClickListener(l);
+        mCaptureWithSecugenButton.setOnLongClickListener(l);
+        mCaptureWithKojakButton.setOnLongClickListener(l);
         if (mImageView != null) {
             mImageView.setOnLongClickListener(l);
         }
@@ -242,7 +278,8 @@ public class FingerprintWidget extends QuestionWidget implements BinaryWidget {
     @Override
     public void cancelLongPress() {
         super.cancelLongPress();
-        mCaptureButton.cancelLongPress();
+        mCaptureWithSecugenButton.cancelLongPress();
+        mCaptureWithKojakButton.cancelLongPress();
         if (mImageView != null) {
             mImageView.cancelLongPress();
         }
