@@ -246,7 +246,7 @@ android {
             buildConfigField 'boolean', "IS_FORM_SUBMISSON_ENABLED", "false"
             buildConfigField 'boolean', "IS_ENCRYPTION_ENABLED", "true"
             buildConfigField 'String', "MAPBOX_ACCESS_TOKEN", '"' + mapboxToken + '"'
-222         buildConfigField 'boolean', "IS_SUPPORT_MULTI_FINGER_PRINT", "true"
+            buildConfigField 'boolean', "IS_SUPPORT_MULTI_FINGER_PRINT", "true"
             buildConfigField "String", "SERVER_URL",'"' + "https://aggregate.redrosecps.com/core-globaldemo"+ '"'
         }
     }
