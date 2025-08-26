@@ -37,6 +37,7 @@ import java.io.File;
 
 public class FingerprintWidget extends QuestionWidget implements BinaryWidget {
     private final static String t = "FingerprintWidget";
+    private final String appearanceHint;
 
     private Button mCaptureWithSecugenButton;
     private Button mCaptureWithKojakButton;
@@ -60,9 +61,7 @@ public class FingerprintWidget extends QuestionWidget implements BinaryWidget {
         setupCaptureButtonListenerForSecugen(mCaptureWithSecugenButton, mErrorTextView, prompt.getPrompt());
         setupCaptureButtonListenerForKojak(mCaptureWithKojakButton, mErrorTextView, prompt.getPrompt());
 
-        if(prompt.getPrompt().getFormElement().getTextID().toLowerCase().contains("all_fingerPrints".toLowerCase())){
 
-        }
         buttonLayout.addView(mCaptureWithKojakButton);
         buttonLayout.addView(mCaptureWithSecugenButton);
         buttonLayout.addView(mErrorTextView);
@@ -71,13 +70,18 @@ public class FingerprintWidget extends QuestionWidget implements BinaryWidget {
             mCaptureWithSecugenButton.setVisibility(View.GONE);
             mCaptureWithKojakButton.setVisibility(View.GONE);
         }
-        if(prompt.getPrompt().getAppearanceHint().toLowerCase().contains("tenfingers".toLowerCase())){
-            mCaptureWithSecugenButton.setVisibility(View.GONE);
-        }else if(prompt.getPrompt().getAppearanceHint().toLowerCase().contains("fingerprint".toLowerCase())){
+        appearanceHint = prompt.getPrompt().getAppearanceHint();
+        if (appearanceHint == null || appearanceHint.isEmpty()) {
+            mCaptureWithSecugenButton.setVisibility(View.VISIBLE);
             mCaptureWithKojakButton.setVisibility(View.GONE);
-        }else{
-            mCaptureWithSecugenButton.setVisibility(View.GONE);
+        } else {
+            if (appearanceHint.toLowerCase().contains("tenfingers")) {
+                mCaptureWithSecugenButton.setVisibility(View.GONE);
+            } else if (appearanceHint.toLowerCase().contains("fingerprint")) {
+                mCaptureWithKojakButton.setVisibility(View.GONE);
+            }
         }
+
 
         mErrorTextView.setVisibility(View.GONE);
 
@@ -175,6 +179,12 @@ public class FingerprintWidget extends QuestionWidget implements BinaryWidget {
         button.setOnClickListener(v -> {
             errorTextView.setVisibility(View.GONE);
             Intent intent = new Intent("com.maviucak.android.redrose.SCAN_FINGERPRINT");
+            if (appearanceHint == null || appearanceHint.isBlank()) {
+                intent.putExtra("SELECTED_TEMPLATE_FORMAT", "TEMPLATE_FORMAT_SG400");
+            } else {
+                intent.putExtra("SELECTED_TEMPLATE_FORMAT", appearanceHint);
+            }
+
             try {
                 Collect.getInstance().getFormController().setIndexWaitingForData(prompt.getIndex());
                 ((Activity) getContext()).startActivityForResult(intent, ApplicationConstants.RequestCodes.FINGERPRINT_CAPTURE);
@@ -193,6 +203,11 @@ public class FingerprintWidget extends QuestionWidget implements BinaryWidget {
         button.setOnClickListener(v -> {
             errorTextView.setVisibility(View.GONE);
             Intent intent = new Intent("com.maviucak.android.redrose.SCAN_FINGERPRINT_FOR_KOJAK");
+            if (appearanceHint == null || appearanceHint.isBlank()) {
+                intent.putExtra("SELECTED_TEMPLATE_FORMAT", "TEMPLATE_FORMAT_SG400");
+            } else {
+                intent.putExtra("SELECTED_TEMPLATE_FORMAT", appearanceHint);
+            }
             try {
                 Collect.getInstance().getFormController().setIndexWaitingForData(prompt.getIndex());
                 ((Activity) getContext()).startActivityForResult(intent, ApplicationConstants.RequestCodes.FINGERPRINT_CAPTURE);

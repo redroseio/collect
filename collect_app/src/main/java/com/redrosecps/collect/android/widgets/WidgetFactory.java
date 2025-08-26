@@ -124,9 +124,9 @@ public class WidgetFactory {
                     questionWidget = new AnnotateWidget(context, questionDetails);
                 } else if (appearance.equals(WidgetAppearanceUtils.DRAW)) {
                     questionWidget = new DrawWidget(context, questionDetails);
-                } else if (appearance.equals(WidgetAppearanceUtils.FINGERPRINT)) {
+                } else if (appearance.contains(WidgetAppearanceUtils.FINGERPRINT)) {
                     questionWidget = new FingerprintWidget(context, questionDetails);
-                } else if (appearance.equals(WidgetAppearanceUtils.TENFINGERPRINT)) {
+                } else if (appearance.contains(WidgetAppearanceUtils.TENFINGERPRINT)) {
                     questionWidget = new FingerprintWidget(context, questionDetails);
                 } else if (appearance.equals(WidgetAppearanceUtils.FACECAPTURE)) {
                     questionWidget = new FaceCaptureWidget(context, questionDetails);
