@@ -19,6 +19,8 @@ package com.redrosecps.collect.android.provider;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
+import com.redrosecps.collect.android.BuildConfig;
+
 /**
  * Contract between the forms provider and applications. Contains definitions for the supported URIs
  * and data columns.
@@ -27,7 +29,7 @@ import android.provider.BaseColumns;
  * {@link FormsColumns#JR_FORM_ID} unless multiple {@link FormsColumns#JR_VERSION}s are defined.
  */
 public final class FormsProviderAPI {
-    static final String AUTHORITY = "com.redrosecps.collect.android.provider.odk.forms";
+    static final String AUTHORITY = BuildConfig.APPLICATION_ID + ".provider.odk.forms";
 
     private FormsProviderAPI() {
     }

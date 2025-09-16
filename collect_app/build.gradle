@@ -218,7 +218,38 @@ android {
             buildConfigField 'boolean', "IS_ENCRYPTION_ENABLED", "false"
             applicationIdSuffix(".oxfammali")
             buildConfigField 'boolean', "IS_SUPPORT_MULTI_FINGER_PRINT", "true"
-            buildConfigField "String", "SERVER_URL",'"' + "https://aggregate.redrosecps.com/oxfammali2"+ '"'
+            buildConfigField "String", "SERVER_URL",'"' + "https://aggregate.redrosecps.com/oxfamkenya"+ '"'
+        }
+        oxfamKenyaRelease {
+            if (secrets.getProperty('RELEASE_STORE_FILE')) {
+                signingConfig signingConfigs.release
+            }
+            minifyEnabled(true)
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            resValue("bool", "CRASHLYTICS_ENABLED", "false")
+            resValue("string", "GOOGLE_MAPS_API_KEY", googleMapsApiKey)
+            buildConfigField 'boolean', "IS_TEST_VERSION", "false"
+            buildConfigField 'String', "MAPBOX_ACCESS_TOKEN", '"' + mapboxToken + '"'
+            buildConfigField 'boolean', "IS_FORM_SUBMISSON_ENABLED", "true"
+            buildConfigField 'boolean', "IS_ENCRYPTION_ENABLED", "false"
+            applicationIdSuffix(".oxfamkenya")
+            buildConfigField 'boolean', "IS_SUPPORT_MULTI_FINGER_PRINT", "false"
+            buildConfigField "String", "SERVER_URL",'"' + "https://aggregate.redrosecps.com/oxfamkenyademo"+ '"'
+        }
+        oxfamKenyaDebug {
+            signingConfig signingConfigs.debug
+            //oneapp uses maviucak keystore for debug releases also
+            debuggable(true)
+            testCoverageEnabled(true)
+            resValue("bool", "CRASHLYTICS_ENABLED", "false")
+            resValue("string", "GOOGLE_MAPS_API_KEY", googleMapsApiKey)
+            buildConfigField 'boolean', "IS_TEST_VERSION", "true"
+            buildConfigField 'String', "MAPBOX_ACCESS_TOKEN", '"' + mapboxToken + '"'
+            buildConfigField 'boolean', "IS_FORM_SUBMISSON_ENABLED", "true"
+            buildConfigField 'boolean', "IS_ENCRYPTION_ENABLED", "false"
+            applicationIdSuffix(".oxfamkenyadebug")
+            buildConfigField 'boolean', "IS_SUPPORT_MULTI_FINGER_PRINT", "true"
+            buildConfigField "String", "SERVER_URL",'"' + "https://aggregate.redrosecps.com/oxfamkenyademo"+ '"'
         }
         coreRelease {
             if (secrets.getProperty('RELEASE_STORE_FILE')) {
@@ -248,6 +279,7 @@ android {
             buildConfigField 'String', "MAPBOX_ACCESS_TOKEN", '"' + mapboxToken + '"'
             buildConfigField 'boolean', "IS_SUPPORT_MULTI_FINGER_PRINT", "true"
             buildConfigField "String", "SERVER_URL",'"' + "https://aggregate.redrosecps.com/core-globaldemo"+ '"'
+
         }
     }
 

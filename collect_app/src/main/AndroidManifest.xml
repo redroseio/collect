@@ -310,7 +310,7 @@ the specific language governing permissions and limitations under the License.
             android:exported="true"
             android:targetActivity=".activities.FormDownloadList">
             <intent-filter>
-                <action android:name="com.redrosecps.collect.android.FORM_DOWNLOAD" />
+                <action android:name="${applicationId}.FORM_DOWNLOAD" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="vnd.android.cursor.dir/vnd.odk.form" />
             </intent-filter>
@@ -333,7 +333,7 @@ the specific language governing permissions and limitations under the License.
             android:exported="true"
             android:targetActivity=".activities.InstanceUploaderActivity">
             <intent-filter>
-                <action android:name="com.redrosecps.collect.android.INSTANCE_UPLOAD" />
+                <action android:name="${applicationId}.INSTANCE_UPLOAD" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="vnd.android.cursor.dir/vnd.odk.instance" />
             </intent-filter>
@@ -371,7 +371,7 @@ the specific language governing permissions and limitations under the License.
             android:theme="@android:style/Theme.DeviceDefault.NoActionBar.Fullscreen"
             android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
-                <action android:name="com.redrosecps.collect.android.activities.ACTIVATE_BENEFICIARY_CARD" />
+                <action android:name="${applicationId}.activities.ACTIVATE_BENEFICIARY_CARD" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

@@ -88,6 +88,8 @@ import org.javarosa.form.api.FormEntryController;
 import org.javarosa.form.api.FormEntryPrompt;
 import org.jetbrains.annotations.NotNull;
 import org.joda.time.LocalDateTime;
+
+import com.redrosecps.collect.android.BuildConfig;
 import com.redrosecps.collect.android.R;
 import com.redrosecps.collect.android.adapters.IconMenuListAdapter;
 import com.redrosecps.collect.android.adapters.model.IconMenuItem;
@@ -2748,7 +2750,8 @@ public class FormEntryActivity extends CollectAbstractActivity implements Animat
     private void sendSavedBroadcast()
     {
         Intent i = new Intent();
-        i.setAction("com.redrosecps.collect.android.FormSaved");
+
+        i.setAction(BuildConfig.APPLICATION_ID+".FormSaved");
         this.sendBroadcast(i);
     }
 
