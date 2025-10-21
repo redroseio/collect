@@ -67,7 +67,9 @@ public class WidgetAppearanceUtils {
     public static final String NEW                      = "new";
     public static final String FRONT                    = "front";
     public static final String FINGERPRINT              = "fingerprint";
-    public static final String TENFINGERPRINT              = "tenfingers";
+    public static final String TENFINGERPRINT           = "tenfingers";
+
+    public static final String CAMERAFINGERPRINT        = "cameratenfingers";
     public static final String FACECAPTURE              = "facecapture";
 
     // Maps appearances

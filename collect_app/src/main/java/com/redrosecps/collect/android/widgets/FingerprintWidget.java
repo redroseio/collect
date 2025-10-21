@@ -27,6 +27,7 @@ import com.redrosecps.collect.android.formentry.questions.QuestionDetails;
 import com.redrosecps.collect.android.utilities.ApplicationConstants;
 import com.redrosecps.collect.android.utilities.FileUtils;
 import com.redrosecps.collect.android.utilities.MediaUtils;
+import com.redrosecps.collect.android.utilities.WidgetAppearanceUtils;
 import com.redrosecps.collect.android.widgets.interfaces.BinaryWidget;
 
 import org.javarosa.core.model.data.IAnswerData;
@@ -41,6 +42,8 @@ public class FingerprintWidget extends QuestionWidget implements BinaryWidget {
 
     private Button mCaptureWithSecugenButton;
     private Button mCaptureWithKojakButton;
+
+    private Button mCaptureWithIdentyButton;
     private ImageView mImageView;
 
     private String mBinaryName;
@@ -58,27 +61,37 @@ public class FingerprintWidget extends QuestionWidget implements BinaryWidget {
         mErrorTextView = createErrorTextView(context);
         mCaptureWithSecugenButton = createCaptureButtonForSecugen(context, prompt.getPrompt().isReadOnly());
         mCaptureWithKojakButton = createCaptureButtonForKojak(context, prompt.getPrompt().isReadOnly());
+        mCaptureWithIdentyButton = createCaptureButtonForIdenty(context, prompt.getPrompt().isReadOnly());
         setupCaptureButtonListenerForSecugen(mCaptureWithSecugenButton, mErrorTextView, prompt.getPrompt());
         setupCaptureButtonListenerForKojak(mCaptureWithKojakButton, mErrorTextView, prompt.getPrompt());
+        setupCaptureButtonListenerForIdenty(mCaptureWithIdentyButton, mErrorTextView, prompt.getPrompt());
 
 
         buttonLayout.addView(mCaptureWithKojakButton);
         buttonLayout.addView(mCaptureWithSecugenButton);
+        buttonLayout.addView(mCaptureWithIdentyButton);
         buttonLayout.addView(mErrorTextView);
 
         if (prompt.getPrompt().isReadOnly()) {
             mCaptureWithSecugenButton.setVisibility(View.GONE);
             mCaptureWithKojakButton.setVisibility(View.GONE);
+            mCaptureWithIdentyButton.setVisibility(View.GONE);
         }
         appearanceHint = prompt.getPrompt().getAppearanceHint();
         if (appearanceHint == null || appearanceHint.isEmpty()) {
             mCaptureWithSecugenButton.setVisibility(View.VISIBLE);
             mCaptureWithKojakButton.setVisibility(View.GONE);
+            mCaptureWithIdentyButton.setVisibility(View.GONE);
         } else {
-            if (appearanceHint.toLowerCase().contains("tenfingers")) {
-                mCaptureWithSecugenButton.setVisibility(View.GONE);
-            } else if (appearanceHint.toLowerCase().contains("fingerprint")) {
+            if (appearanceHint.toLowerCase().equals(WidgetAppearanceUtils.FINGERPRINT.toLowerCase())) {
                 mCaptureWithKojakButton.setVisibility(View.GONE);
+                mCaptureWithIdentyButton.setVisibility(View.GONE);
+            } else if (appearanceHint.toLowerCase().equals(WidgetAppearanceUtils.TENFINGERPRINT.toLowerCase())) {
+                mCaptureWithSecugenButton.setVisibility(View.GONE);
+                mCaptureWithIdentyButton.setVisibility(View.GONE);
+            }else if (appearanceHint.toLowerCase().equals(WidgetAppearanceUtils.CAMERAFINGERPRINT.toLowerCase())) {
+                mCaptureWithKojakButton.setVisibility(View.GONE);
+                mCaptureWithSecugenButton.setVisibility(View.GONE);
             }
         }
 
@@ -175,6 +188,15 @@ public class FingerprintWidget extends QuestionWidget implements BinaryWidget {
         return captureButton;
     }
 
+    private Button createCaptureButtonForIdenty(Context context, boolean isReadOnly) {
+        Button captureButton = new Button(context);
+        captureButton.setText(context.getString(R.string.capture_fingerprint_identy));
+        captureButton.setTextSize(TypedValue.COMPLEX_UNIT_DIP, getAnswerFontSize());
+        captureButton.setPadding(PADDING, PADDING, PADDING, PADDING);
+        captureButton.setEnabled(!isReadOnly);
+        return captureButton;
+    }
+
     private void setupCaptureButtonListenerForSecugen(Button button, TextView errorTextView, FormEntryPrompt prompt) {
         button.setOnClickListener(v -> {
             errorTextView.setVisibility(View.GONE);
@@ -222,6 +244,29 @@ public class FingerprintWidget extends QuestionWidget implements BinaryWidget {
         });
     }
 
+    private void setupCaptureButtonListenerForIdenty(Button button, TextView errorTextView, FormEntryPrompt prompt) {
+        button.setOnClickListener(v -> {
+            errorTextView.setVisibility(View.GONE);
+            Intent intent = new Intent("com.maviucak.android.redrose.SCAN_FINGERPRINT_FOR_IDENTY");
+            if (appearanceHint == null || appearanceHint.isBlank()) {
+                intent.putExtra("SELECTED_TEMPLATE_FORMAT", "TEMPLATE_FORMAT_SG400");
+            } else {
+                intent.putExtra("SELECTED_TEMPLATE_FORMAT", appearanceHint);
+            }
+            try {
+                Collect.getInstance().getFormController().setIndexWaitingForData(prompt.getIndex());
+                ((Activity) getContext()).startActivityForResult(intent, ApplicationConstants.RequestCodes.FINGERPRINT_CAPTURE);
+            } catch (ActivityNotFoundException e) {
+                Toast.makeText(
+                        getContext(),
+                        getContext().getString(R.string.activity_not_found,
+                                "Fingerprint capture (RedRose One Biometrics Installation is required!)"),
+                        Toast.LENGTH_SHORT).show();
+                Collect.getInstance().getFormController().setIndexWaitingForData(null);
+            }
+        });
+    }
+
     private void deleteMedia() {
         // get the file path and delete the file
         String name = mBinaryName;
@@ -242,6 +287,7 @@ public class FingerprintWidget extends QuestionWidget implements BinaryWidget {
         // reset buttons
         mCaptureWithSecugenButton.setText(getContext().getString(R.string.capture_image));
         mCaptureWithKojakButton.setText(getContext().getString(R.string.capture_image));
+        mCaptureWithIdentyButton.setText(getContext().getString(R.string.capture_image));
     }
 
     @Override
@@ -285,6 +331,7 @@ public class FingerprintWidget extends QuestionWidget implements BinaryWidget {
     public void setOnLongClickListener(OnLongClickListener l) {
         mCaptureWithSecugenButton.setOnLongClickListener(l);
         mCaptureWithKojakButton.setOnLongClickListener(l);
+        mCaptureWithIdentyButton.setOnLongClickListener(l);
         if (mImageView != null) {
             mImageView.setOnLongClickListener(l);
         }
@@ -295,6 +342,7 @@ public class FingerprintWidget extends QuestionWidget implements BinaryWidget {
         super.cancelLongPress();
         mCaptureWithSecugenButton.cancelLongPress();
         mCaptureWithKojakButton.cancelLongPress();
+        mCaptureWithIdentyButton.cancelLongPress();
         if (mImageView != null) {
             mImageView.cancelLongPress();
         }
