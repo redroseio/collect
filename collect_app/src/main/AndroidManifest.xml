@@ -28,6 +28,25 @@ the specific language governing permissions and limitations under the License.
         android:name="android.hardware.wifi"
         android:required="false" />
 
+    <queries>
+        <intent>
+            <action android:name="com.maviucak.android.redrose.ACTIVATE_BENEFICIARY_CARD" />
+            <category android:name="android.intent.category.DEFAULT" />
+        </intent>
+        <intent>
+            <action android:name="com.maviucak.android.redrose.SCAN_FINGERPRINT" />
+            <category android:name="android.intent.category.DEFAULT" />
+        </intent>
+        <intent>
+            <action android:name="com.maviucak.android.redrose.SCAN_FINGERPRINT_FOR_KOJAK" />
+            <category android:name="android.intent.category.DEFAULT" />
+        </intent>
+        <intent>
+            <action android:name="com.maviucak.android.redrose.SCAN_FINGERPRINT_FOR_IDENTY" />
+            <category android:name="android.intent.category.DEFAULT" />
+        </intent>
+    </queries>
+
     <!-- Dangerous permissions -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />

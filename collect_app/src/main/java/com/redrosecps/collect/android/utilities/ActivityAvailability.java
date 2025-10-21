@@ -15,9 +15,9 @@ public class ActivityAvailability {
     }
 
     public boolean isActivityAvailable(Intent intent) {
-        return context
+        return !context
                 .getPackageManager()
                 .queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
-                .size() > 0;
+                .isEmpty();
     }
 }
