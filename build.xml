@@ -144,6 +144,7 @@
 				<pathelement location="${basedir}/helpers/ant/httpcore-4.4.5.jar" />
 				<pathelement location="${basedir}/helpers/ant/httpclient-4.5.2.jar" />
 				<pathelement location="${basedir}/helpers/ant/joda-time-2.9.4.jar" />
+				<pathelement location="${basedir}/helpers/ant/jaxb-api-2.3.1.jar" />
 				<pathelement location="${basedir}/helpers/ant/android-ant-tasks.jar" />
 				<pathelement location="${basedir}/helpers/ant/bin" />
 			</classpath>
