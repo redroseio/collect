@@ -44,7 +44,14 @@ public class FingerprintWidget extends QuestionWidget implements BinaryWidget {
     private Button mCaptureWithKojakButton;
 
     private Button mCaptureWithIdentyButton;
+    private Button mCaptureWithIdentyLowQualityButton;
     private ImageView mImageView;
+
+    // Keep in sync with IdentyFingerprintActivity.EXTRA_QUALITY_MODE / EXTRA_QUALITY_THRESHOLD_OFFSET in OneApp core
+    private static final String IDENTY_EXTRA_QUALITY_MODE = "IDENTY_QUALITY_MODE";
+    private static final String IDENTY_EXTRA_QUALITY_THRESHOLD_OFFSET = "IDENTY_QUALITY_THRESHOLD_OFFSET";
+    private static final String IDENTY_QUALITY_MODE_ENROLLMENT = "ENROLLMENT";
+    private static final int IDENTY_LOW_QUALITY_THRESHOLD_OFFSET = 15;
 
     private String mBinaryName;
     private String mInstanceFolder;
@@ -62,33 +69,40 @@ public class FingerprintWidget extends QuestionWidget implements BinaryWidget {
         mCaptureWithSecugenButton = createCaptureButtonForSecugen(context, prompt.getPrompt().isReadOnly());
         mCaptureWithKojakButton = createCaptureButtonForKojak(context, prompt.getPrompt().isReadOnly());
         mCaptureWithIdentyButton = createCaptureButtonForIdenty(context, prompt.getPrompt().isReadOnly());
+        mCaptureWithIdentyLowQualityButton = createCaptureButtonForIdentyLowQuality(context, prompt.getPrompt().isReadOnly());
         setupCaptureButtonListenerForSecugen(mCaptureWithSecugenButton, mErrorTextView, prompt.getPrompt());
         setupCaptureButtonListenerForKojak(mCaptureWithKojakButton, mErrorTextView, prompt.getPrompt());
-        setupCaptureButtonListenerForIdenty(mCaptureWithIdentyButton, mErrorTextView, prompt.getPrompt());
+        setupCaptureButtonListenerForIdenty(mCaptureWithIdentyButton, mErrorTextView, prompt.getPrompt(), false);
+        setupCaptureButtonListenerForIdenty(mCaptureWithIdentyLowQualityButton, mErrorTextView, prompt.getPrompt(), true);
 
 
         buttonLayout.addView(mCaptureWithKojakButton);
         buttonLayout.addView(mCaptureWithSecugenButton);
         buttonLayout.addView(mCaptureWithIdentyButton);
+        buttonLayout.addView(mCaptureWithIdentyLowQualityButton);
         buttonLayout.addView(mErrorTextView);
 
         if (prompt.getPrompt().isReadOnly()) {
             mCaptureWithSecugenButton.setVisibility(View.GONE);
             mCaptureWithKojakButton.setVisibility(View.GONE);
             mCaptureWithIdentyButton.setVisibility(View.GONE);
+            mCaptureWithIdentyLowQualityButton.setVisibility(View.GONE);
         }
         appearanceHint = prompt.getPrompt().getAppearanceHint();
         if (appearanceHint == null || appearanceHint.isEmpty()) {
             mCaptureWithSecugenButton.setVisibility(View.VISIBLE);
             mCaptureWithKojakButton.setVisibility(View.GONE);
             mCaptureWithIdentyButton.setVisibility(View.GONE);
+            mCaptureWithIdentyLowQualityButton.setVisibility(View.GONE);
         } else {
             if (appearanceHint.toLowerCase().equals(WidgetAppearanceUtils.FINGERPRINT.toLowerCase())) {
                 mCaptureWithKojakButton.setVisibility(View.GONE);
                 mCaptureWithIdentyButton.setVisibility(View.GONE);
+                mCaptureWithIdentyLowQualityButton.setVisibility(View.GONE);
             } else if (appearanceHint.toLowerCase().equals(WidgetAppearanceUtils.TENFINGERPRINT.toLowerCase())) {
                 mCaptureWithSecugenButton.setVisibility(View.GONE);
                 mCaptureWithIdentyButton.setVisibility(View.GONE);
+                mCaptureWithIdentyLowQualityButton.setVisibility(View.GONE);
             }else if (appearanceHint.toLowerCase().equals(WidgetAppearanceUtils.CAMERAFINGERPRINT.toLowerCase())) {
                 mCaptureWithKojakButton.setVisibility(View.GONE);
                 mCaptureWithSecugenButton.setVisibility(View.GONE);
@@ -197,6 +211,16 @@ public class FingerprintWidget extends QuestionWidget implements BinaryWidget {
         return captureButton;
     }
 
+    /** Escape hatch for when the standard quality bar keeps rejecting a finger (e.g. worn thumb prints) */
+    private Button createCaptureButtonForIdentyLowQuality(Context context, boolean isReadOnly) {
+        Button captureButton = new Button(context);
+        captureButton.setText(context.getString(R.string.capture_fingerprint_identy_low_quality));
+        captureButton.setTextSize(TypedValue.COMPLEX_UNIT_DIP, getAnswerFontSize());
+        captureButton.setPadding(PADDING, PADDING, PADDING, PADDING);
+        captureButton.setEnabled(!isReadOnly);
+        return captureButton;
+    }
+
     private void setupCaptureButtonListenerForSecugen(Button button, TextView errorTextView, FormEntryPrompt prompt) {
         button.setOnClickListener(v -> {
             errorTextView.setVisibility(View.GONE);
@@ -244,7 +268,7 @@ public class FingerprintWidget extends QuestionWidget implements BinaryWidget {
         });
     }
 
-    private void setupCaptureButtonListenerForIdenty(Button button, TextView errorTextView, FormEntryPrompt prompt) {
+    private void setupCaptureButtonListenerForIdenty(Button button, TextView errorTextView, FormEntryPrompt prompt, boolean lowQuality) {
         button.setOnClickListener(v -> {
             errorTextView.setVisibility(View.GONE);
             Intent intent = new Intent("com.maviucak.android.redrose.SCAN_FINGERPRINT_FOR_IDENTY");
@@ -252,6 +276,12 @@ public class FingerprintWidget extends QuestionWidget implements BinaryWidget {
                 intent.putExtra("SELECTED_TEMPLATE_FORMAT", "TEMPLATE_FORMAT_SG400");
             } else {
                 intent.putExtra("SELECTED_TEMPLATE_FORMAT", appearanceHint);
+            }
+            if (lowQuality) {
+                // Lets a field user retry with a lower quality bar when the default enrollment settings keep rejecting a finger,
+                // without needing a OneApp rebuild/redeploy per country - see IdentyFingerprintActivity in OneApp core.
+                intent.putExtra(IDENTY_EXTRA_QUALITY_MODE, IDENTY_QUALITY_MODE_ENROLLMENT);
+                intent.putExtra(IDENTY_EXTRA_QUALITY_THRESHOLD_OFFSET, IDENTY_LOW_QUALITY_THRESHOLD_OFFSET);
             }
             try {
                 Collect.getInstance().getFormController().setIndexWaitingForData(prompt.getIndex());
@@ -288,6 +318,7 @@ public class FingerprintWidget extends QuestionWidget implements BinaryWidget {
         mCaptureWithSecugenButton.setText(getContext().getString(R.string.capture_image));
         mCaptureWithKojakButton.setText(getContext().getString(R.string.capture_image));
         mCaptureWithIdentyButton.setText(getContext().getString(R.string.capture_image));
+        mCaptureWithIdentyLowQualityButton.setText(getContext().getString(R.string.capture_image));
     }
 
     @Override
@@ -332,6 +363,7 @@ public class FingerprintWidget extends QuestionWidget implements BinaryWidget {
         mCaptureWithSecugenButton.setOnLongClickListener(l);
         mCaptureWithKojakButton.setOnLongClickListener(l);
         mCaptureWithIdentyButton.setOnLongClickListener(l);
+        mCaptureWithIdentyLowQualityButton.setOnLongClickListener(l);
         if (mImageView != null) {
             mImageView.setOnLongClickListener(l);
         }
@@ -343,6 +375,7 @@ public class FingerprintWidget extends QuestionWidget implements BinaryWidget {
         mCaptureWithSecugenButton.cancelLongPress();
         mCaptureWithKojakButton.cancelLongPress();
         mCaptureWithIdentyButton.cancelLongPress();
+        mCaptureWithIdentyLowQualityButton.cancelLongPress();
         if (mImageView != null) {
             mImageView.cancelLongPress();
         }

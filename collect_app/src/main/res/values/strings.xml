@@ -677,6 +677,7 @@
 	<string name="capture_fingerprint_iso">Scan Fingerprint(ISO)</string>
 	<string name="capture_fingerprint_kojak">Scan Fingerprint With Kojak</string>
 	<string name="capture_fingerprint_identy">Scan Fingerprint With Identy</string>
+	<string name="capture_fingerprint_identy_low_quality">Scan Fingerprint With Identy (Low Quality)</string>
 
 	<string name="capture_fingerprint_iso_compact">Scan Fingerprint(ISO_COMPACT)</string>
 	<string name="capture_fingerprint_sg400">Scan Fingerprint(SG 400)</string>
