@@ -23,6 +23,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
 import android.provider.MediaStore;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
@@ -107,7 +109,13 @@ public abstract class BaseImageWidget extends QuestionWidget implements FileWidg
             values.put(MediaStore.Images.Media.DISPLAY_NAME, newImage.getName());
             values.put(MediaStore.Images.Media.DATE_TAKEN, System.currentTimeMillis());
             values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
-            values.put(MediaStore.Images.Media.DATA, newImage.getAbsolutePath());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                // Android 10 (API 29) ve sonrası için
+                values.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES);
+            } else {
+                // Android 9 (API 28) ve öncesi için
+                values.put(MediaStore.Images.Media.DATA, newImage.getAbsolutePath());
+            }
 
             MediaManager
                     .INSTANCE

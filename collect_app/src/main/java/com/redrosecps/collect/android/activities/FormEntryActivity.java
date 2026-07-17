@@ -88,6 +88,8 @@ import org.javarosa.form.api.FormEntryController;
 import org.javarosa.form.api.FormEntryPrompt;
 import org.jetbrains.annotations.NotNull;
 import org.joda.time.LocalDateTime;
+
+import com.redrosecps.collect.android.BuildConfig;
 import com.redrosecps.collect.android.R;
 import com.redrosecps.collect.android.adapters.IconMenuListAdapter;
 import com.redrosecps.collect.android.adapters.model.IconMenuItem;
@@ -841,6 +843,9 @@ public class FormEntryActivity extends CollectAbstractActivity implements Animat
                             }
                             catch (IOException e)
                             {
+                                ((ODKView)getCurrentViewIfODKView()).cancelWaitingForBinaryData();
+                                createErrorDialog("Failed to save fingerprint registration image! Reason: " + e.getMessage(),
+                                        DO_NOT_EXIT);
                                 //don't care if cannot close
                             }
                         }
@@ -1145,7 +1150,7 @@ public class FormEntryActivity extends CollectAbstractActivity implements Animat
             try {
                 FailedConstraint constraint = formController.saveAllScreenAnswers(answers,
                         evaluateConstraints);
-                if (constraint != null) {
+                 if (constraint != null) {
                     createConstraintToast(constraint.index, constraint.status);
                     if (formController.indexIsInFieldList() && formController.getQuestionPrompts().length > 1) {
                         getCurrentViewIfODKView().highlightWidget(constraint.index);
@@ -2266,7 +2271,11 @@ public class FormEntryActivity extends CollectAbstractActivity implements Animat
         // Register to receive location provider change updates and write them to the audit log
         if (formController != null && formController.currentFormAuditsLocation()
                 && PlayServicesUtil.isGooglePlayServicesAvailable(this)) {
-            registerReceiver(locationProvidersReceiver, new IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                registerReceiver(locationProvidersReceiver, new IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION),RECEIVER_EXPORTED);
+            }else{
+                registerReceiver(locationProvidersReceiver, new IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION));
+            }
         }
 
         // User may have changed location permissions in Android settings
@@ -2741,7 +2750,8 @@ public class FormEntryActivity extends CollectAbstractActivity implements Animat
     private void sendSavedBroadcast()
     {
         Intent i = new Intent();
-        i.setAction("com.redrosecps.collect.android.FormSaved");
+
+        i.setAction(BuildConfig.APPLICATION_ID+".FormSaved");
         this.sendBroadcast(i);
     }
 

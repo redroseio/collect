@@ -253,7 +253,7 @@ public class InstanceUploaderListActivity extends InstanceListActivity implement
         instanceSyncTask.setDiskSyncListener(this);
         instanceSyncTask.execute();
 
-        sortingOptions = new int[] {
+        sortingOptions = new int[]{
                 R.string.sort_by_name_asc, R.string.sort_by_name_desc,
                 R.string.sort_by_date_asc, R.string.sort_by_date_desc
         };
@@ -298,8 +298,11 @@ public class InstanceUploaderListActivity extends InstanceListActivity implement
         // The default priority is 0. Positive values will be before
         // the default, lower values will be after it.
         filter.setPriority(1);
-
-        registerReceiver(smsForegroundReceiver, filter);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(smsForegroundReceiver, filter, RECEIVER_EXPORTED);
+        } else {
+            registerReceiver(smsForegroundReceiver, filter);
+        }
         setupUploadButtons();
     }
 

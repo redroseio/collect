@@ -4,12 +4,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.apache.commons.io.IOUtils;
+
+import com.redrosecps.collect.android.BuildConfig;
 import com.redrosecps.collect.android.http.openrosa.HttpCredentialsInterface;
 import com.redrosecps.collect.android.http.openrosa.HttpGetResult;
 import com.redrosecps.collect.android.http.openrosa.HttpHeadResult;
 import com.redrosecps.collect.android.http.openrosa.HttpPostResult;
 import com.redrosecps.collect.android.http.openrosa.OpenRosaHttpInterface;
 import com.redrosecps.collect.android.http.openrosa.OpenRosaServerClient;
+import com.redrosecps.collect.android.utilities.CryptoFileHandler;
 import com.redrosecps.collect.android.utilities.FileUtils;
 
 import java.io.ByteArrayInputStream;
@@ -150,12 +153,19 @@ public class OkHttpConnection implements OpenRosaHttpInterface {
             lastFileIndex = fileIndex;
             first = false;
             long byteCount = 0L;
-
-            RequestBody requestBody = RequestBody.create(MediaType.parse(HTTP_CONTENT_TYPE_TEXT_XML), submissionFile);
+            RequestBody requestBody = null;
+            if (CryptoFileHandler.isEncryptionEnabled()){
+                // **Şifresiz haliyle yolla**
+                byte[] decryptedData = CryptoFileHandler.readAndDecryptFile(submissionFile.getAbsolutePath());
+                requestBody = RequestBody.create(MediaType.parse(HTTP_CONTENT_TYPE_TEXT_XML), decryptedData);
+            }else{
+                requestBody = RequestBody.create(MediaType.parse(HTTP_CONTENT_TYPE_TEXT_XML), submissionFile);
+            }
 
             MultipartBody.Builder multipartBuilder = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
                     .addPart(MultipartBody.Part.createFormData("xml_submission_file", submissionFile.getName(), requestBody));
+
 
             Timber.i("added xml_submission_file: %s", submissionFile.getName());
             byteCount += submissionFile.length();
@@ -165,7 +175,16 @@ public class OkHttpConnection implements OpenRosaHttpInterface {
 
                 String contentType = fileToContentTypeMapper.map(file.getName());
 
-                RequestBody fileRequestBody = RequestBody.create(MediaType.parse(contentType), file);
+                RequestBody fileRequestBody = null;
+
+                if (CryptoFileHandler.isEncryptionEnabled()) {
+                    // **Her dosya için şifre çöz**
+                    byte[] decryptedFileData = CryptoFileHandler.readAndDecryptFile(file.getAbsolutePath());
+                    fileRequestBody = RequestBody.create(MediaType.parse(contentType), decryptedFileData);
+                }else{
+                    fileRequestBody = RequestBody.create(MediaType.parse(contentType), file);
+                }
+
                 multipartBuilder.addPart(MultipartBody.Part.createFormData(file.getName(), file.getName(), fileRequestBody));
 
                 byteCount += file.length();

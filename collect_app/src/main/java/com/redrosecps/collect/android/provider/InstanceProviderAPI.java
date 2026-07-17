@@ -19,8 +19,10 @@ package com.redrosecps.collect.android.provider;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
+import com.redrosecps.collect.android.BuildConfig;
+
 public final class InstanceProviderAPI {
-    public static final String AUTHORITY = "com.redrosecps.collect.android.provider.odk.instances";
+    public static final String AUTHORITY = BuildConfig.APPLICATION_ID + ".provider.odk.instances";
 
     // This class cannot be instantiated
     private InstanceProviderAPI() {

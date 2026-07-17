@@ -14,11 +14,13 @@
 
 package com.redrosecps.collect.android.tasks;
 
+import android.content.Context;
+import android.provider.Settings;
+
 import com.redrosecps.collect.android.R;
 import com.redrosecps.collect.android.application.Collect;
 import com.redrosecps.collect.android.dto.Instance;
 import com.redrosecps.collect.android.http.openrosa.OpenRosaHttpInterface;
-import com.redrosecps.collect.android.logic.PropertyManager;
 import com.redrosecps.collect.android.upload.InstanceServerUploader;
 import com.redrosecps.collect.android.upload.UploadAuthRequestedException;
 import com.redrosecps.collect.android.upload.UploadException;
@@ -58,8 +60,12 @@ public class InstanceServerUploaderTask extends InstanceUploaderTask {
         InstanceServerUploader uploader = new InstanceServerUploader(httpInterface, webCredentialsUtils, new HashMap<>());
         List<Instance> instancesToUpload = uploader.getInstancesFromIds(instanceIdsToUpload);
 
-        String deviceId = new PropertyManager(Collect.getInstance().getApplicationContext())
-                    .getSingularProperty(PropertyManager.withUri(PropertyManager.PROPMGR_DEVICE_ID));
+
+        String deviceId = getSafeDeviceId(Collect.getInstance().getApplicationContext());
+
+        if (deviceId == null || deviceId.trim().isEmpty()) {
+            deviceId = "unknown";
+        }
 
         for (int i = 0; i < instancesToUpload.size(); i++) {
             if (isCancelled()) {
@@ -86,8 +92,20 @@ public class InstanceServerUploaderTask extends InstanceUploaderTask {
                         e.getDisplayMessage());
             }
         }
-        
+
         return outcome;
+    }
+
+    private static String getSafeDeviceId(Context ctx) {
+        try {
+            String androidId = Settings.Secure.getString(
+                    ctx.getContentResolver(),
+                    Settings.Secure.ANDROID_ID
+            );
+            return androidId != null ? androidId : "unknown";
+        } catch (Exception e) {
+            return "unknown";
+        }
     }
 
     @Override

@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
 apply from: '../config/quality.gradle'
 apply from: '../config/jacoco.gradle'
 
@@ -70,22 +69,60 @@ def googleMapsApiKey = secrets.getProperty('GOOGLE_MAPS_API_KEY', '')
 def mapboxToken = secrets.getProperty('MAPBOX_ACCESS_TOKEN', '')
 
 android {
-    compileSdkVersion(28)
-
+    namespace 'com.redrosecps.collect.android'
     defaultConfig {
         applicationId('com.redrosecps.collect.android')
-        minSdkVersion(16)
-        targetSdkVersion(28)
-        versionCode 3583 //LEGACY_BUILD_NUMBER_OFFSET + getMasterCommitCount()
-        versionName "3583" //getVersionName()
+        minSdkVersion(21)
+        targetSdkVersion(34)    
+        compileSdk(36)
+        versionCode 3591 //LEGACY_BUILD_NUMBER_OFFSET + getMasterCommitCount()
+        versionName "3591" //getVersionName()
         testInstrumentationRunner('androidx.test.runner.AndroidJUnitRunner')
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
         archivesBaseName = 'collect'
     }
 
+    android {
+        buildFeatures {
+            buildConfig = true
+        }
+    }
+
+    tasks.withType(JavaCompile).configureEach{
+        options.fork = true
+        options.forkOptions.jvmArgs +=[
+                '--add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED',
+                '--add-exports=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED',
+                '--add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED']
+    }
+
     signingConfigs {
+        maviucakDebug {
+            if (secrets.getProperty('RELEASE_STORE_FILE')) {
+                storeFile file(secrets.getProperty('RELEASE_STORE_FILE'))
+                storePassword secrets.getProperty('RELEASE_STORE_PASSWORD')
+                keyAlias secrets.getProperty('RELEASE_KEY_ALIAS')
+                keyPassword secrets.getProperty('RELEASE_KEY_PASSWORD')
+            }
+        }
         release {
+            if (secrets.getProperty('RELEASE_STORE_FILE')) {
+                storeFile file(secrets.getProperty('RELEASE_STORE_FILE'))
+                storePassword secrets.getProperty('RELEASE_STORE_PASSWORD')
+                keyAlias secrets.getProperty('RELEASE_KEY_ALIAS')
+                keyPassword secrets.getProperty('RELEASE_KEY_PASSWORD')
+            }
+        }
+        oxfammalirelease {
+            if (secrets.getProperty('RELEASE_STORE_FILE')) {
+                storeFile file(secrets.getProperty('RELEASE_STORE_FILE'))
+                storePassword secrets.getProperty('RELEASE_STORE_PASSWORD')
+                keyAlias secrets.getProperty('RELEASE_KEY_ALIAS')
+                keyPassword secrets.getProperty('RELEASE_KEY_PASSWORD')
+            }
+        }
+        coreRelease {
             if (secrets.getProperty('RELEASE_STORE_FILE')) {
                 storeFile file(secrets.getProperty('RELEASE_STORE_FILE'))
                 storePassword secrets.getProperty('RELEASE_STORE_PASSWORD')
@@ -109,7 +146,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
             resValue("bool", "CRASHLYTICS_ENABLED", "false")
             resValue("string", "GOOGLE_MAPS_API_KEY", googleMapsApiKey)
+            buildConfigField 'boolean', "IS_TEST_VERSION", "false"
             buildConfigField 'String', "MAPBOX_ACCESS_TOKEN", '"' + mapboxToken + '"'
+            buildConfigField 'boolean', "IS_FORM_SUBMISSON_ENABLED", "true"
+            buildConfigField 'boolean', "IS_ENCRYPTION_ENABLED", "false"
+            buildConfigField 'boolean', "IS_SUPPORT_MULTI_FINGER_PRINT", "false"
+            buildConfigField "String", "SERVER_URL", '"' +"https://aggregate.redrosecps.com/oneplatform"+ '"'
         }
         // Release build for the official ODK Collect app
         odkCollectRelease {
@@ -120,15 +162,132 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
             resValue("bool", "CRASHLYTICS_ENABLED", "true")
             resValue("string", "GOOGLE_MAPS_API_KEY", googleMapsApiKey)
+            buildConfigField 'boolean', "IS_TEST_VERSION", "false"
             buildConfigField 'String', "MAPBOX_ACCESS_TOKEN", '"' + mapboxToken + '"'
+            buildConfigField 'boolean', "IS_FORM_SUBMISSON_ENABLED", "true"
+            buildConfigField 'boolean', "IS_ENCRYPTION_ENABLED", "false"
+            buildConfigField 'boolean', "IS_SUPPORT_MULTI_FINGER_PRINT", "false"
+            buildConfigField "String", "SERVER_URL",'"' + "https://aggregate.redrosecps.com/oneplatform"+ '"'
         }
-        debug {
-            signingConfig signingConfigs.release //oneapp uses maviucak keystore for debug releases also
+        odkCollectDebug {
+            signingConfig signingConfigs.maviucakDebug
+            //oneapp uses maviucak keystore for debug releases also
             debuggable(true)
             testCoverageEnabled(true)
             resValue("bool", "CRASHLYTICS_ENABLED", "false")
             resValue("string", "GOOGLE_MAPS_API_KEY", googleMapsApiKey)
+            buildConfigField 'boolean', "IS_TEST_VERSION", "true"
             buildConfigField 'String', "MAPBOX_ACCESS_TOKEN", '"' + mapboxToken + '"'
+            buildConfigField 'boolean', "IS_FORM_SUBMISSON_ENABLED", "true"
+            buildConfigField 'boolean', "IS_ENCRYPTION_ENABLED", "false"
+            buildConfigField 'boolean', "IS_SUPPORT_MULTI_FINGER_PRINT", "true"
+            buildConfigField "String", "SERVER_URL",'"' + "https://aggregate.redrosecps.com/oneplatform"+ '"'
+        }
+        debug {
+            signingConfig signingConfigs.maviucakDebug
+            //oneapp uses maviucak keystore for debug releases also
+            debuggable(true)
+            testCoverageEnabled(true)
+            resValue("bool", "CRASHLYTICS_ENABLED", "false")
+            resValue("string", "GOOGLE_MAPS_API_KEY", googleMapsApiKey)
+            buildConfigField 'boolean', "IS_TEST_VERSION", "true"
+            buildConfigField 'boolean', "IS_FORM_SUBMISSON_ENABLED", "true"
+            buildConfigField 'boolean', "IS_ENCRYPTION_ENABLED", "false"
+            buildConfigField 'String', "MAPBOX_ACCESS_TOKEN", '"' + mapboxToken + '"'
+            buildConfigField 'boolean', "IS_SUPPORT_MULTI_FINGER_PRINT", "true"
+            buildConfigField "String", "SERVER_URL",'"' + "https://aggregate.redrosecps.com/oneplatform"+ '"'
+        }
+        oxfamMaliRelease {
+            if (secrets.getProperty('RELEASE_STORE_FILE')) {
+                signingConfig signingConfigs.release
+            }
+            minifyEnabled(true)
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            resValue("bool", "CRASHLYTICS_ENABLED", "false")
+            resValue("string", "GOOGLE_MAPS_API_KEY", googleMapsApiKey)
+            buildConfigField 'boolean', "IS_TEST_VERSION", "false"
+            buildConfigField 'String', "MAPBOX_ACCESS_TOKEN", '"' + mapboxToken + '"'
+            buildConfigField 'boolean', "IS_FORM_SUBMISSON_ENABLED", "true"
+            buildConfigField 'boolean', "IS_ENCRYPTION_ENABLED", "false"
+            applicationIdSuffix(".oxfammali")
+            buildConfigField 'boolean', "IS_SUPPORT_MULTI_FINGER_PRINT", "false"
+            buildConfigField "String", "SERVER_URL",'"' + "https://aggregate.redrosecps.com/oxfammali2"+ '"'
+        }
+        oxfamMaliDebug {
+            signingConfig signingConfigs.maviucakDebug
+            //oneapp uses maviucak keystore for debug releases also
+            debuggable(true)
+            testCoverageEnabled(true)
+            resValue("bool", "CRASHLYTICS_ENABLED", "false")
+            resValue("string", "GOOGLE_MAPS_API_KEY", googleMapsApiKey)
+            buildConfigField 'boolean', "IS_TEST_VERSION", "true"
+            buildConfigField 'String', "MAPBOX_ACCESS_TOKEN", '"' + mapboxToken + '"'
+            buildConfigField 'boolean', "IS_FORM_SUBMISSON_ENABLED", "true"
+            buildConfigField 'boolean', "IS_ENCRYPTION_ENABLED", "false"
+            applicationIdSuffix(".oxfammali")
+            buildConfigField 'boolean', "IS_SUPPORT_MULTI_FINGER_PRINT", "true"
+            buildConfigField "String", "SERVER_URL",'"' + "https://aggregate.redrosecps.com/oxfamkenya"+ '"'
+        }
+        oxfamKenyaRelease {
+            if (secrets.getProperty('RELEASE_STORE_FILE')) {
+                signingConfig signingConfigs.release
+            }
+            minifyEnabled(true)
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            resValue("bool", "CRASHLYTICS_ENABLED", "false")
+            resValue("string", "GOOGLE_MAPS_API_KEY", googleMapsApiKey)
+            buildConfigField 'boolean', "IS_TEST_VERSION", "false"
+            buildConfigField 'String', "MAPBOX_ACCESS_TOKEN", '"' + mapboxToken + '"'
+            buildConfigField 'boolean', "IS_FORM_SUBMISSON_ENABLED", "true"
+            buildConfigField 'boolean', "IS_ENCRYPTION_ENABLED", "false"
+            applicationIdSuffix(".oxfamkenya")
+            buildConfigField 'boolean', "IS_SUPPORT_MULTI_FINGER_PRINT", "false"
+            buildConfigField "String", "SERVER_URL",'"' + "https://aggregate.redrosecps.com/oxfamkenyademo"+ '"'
+        }
+        oxfamKenyaDebug {
+            signingConfig signingConfigs.maviucakDebug
+            //oneapp uses maviucak keystore for debug releases also
+            debuggable(true)
+            testCoverageEnabled(true)
+            resValue("bool", "CRASHLYTICS_ENABLED", "false")
+            resValue("string", "GOOGLE_MAPS_API_KEY", googleMapsApiKey)
+            buildConfigField 'boolean', "IS_TEST_VERSION", "true"
+            buildConfigField 'String', "MAPBOX_ACCESS_TOKEN", '"' + mapboxToken + '"'
+            buildConfigField 'boolean', "IS_FORM_SUBMISSON_ENABLED", "true"
+            buildConfigField 'boolean', "IS_ENCRYPTION_ENABLED", "false"
+            applicationIdSuffix(".oxfamkenyadebug")
+            buildConfigField 'boolean', "IS_SUPPORT_MULTI_FINGER_PRINT", "true"
+            buildConfigField "String", "SERVER_URL",'"' + "https://aggregate.redrosecps.com/oxfamkenyademo"+ '"'
+        }
+        coreRelease {
+            if (secrets.getProperty('RELEASE_STORE_FILE')) {
+                signingConfig signingConfigs.release
+            }
+            minifyEnabled(true)
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            resValue("bool", "CRASHLYTICS_ENABLED", "false")
+            resValue("string", "GOOGLE_MAPS_API_KEY", googleMapsApiKey)
+            buildConfigField 'boolean', "IS_TEST_VERSION", "false"
+            buildConfigField 'boolean', "IS_FORM_SUBMISSON_ENABLED", "false"
+            buildConfigField 'boolean', "IS_ENCRYPTION_ENABLED", "true"
+            buildConfigField 'String', "MAPBOX_ACCESS_TOKEN", '"' + mapboxToken + '"'
+            buildConfigField 'boolean', "IS_SUPPORT_MULTI_FINGER_PRINT", "false"
+            buildConfigField "String", "SERVER_URL",'"' + "https://aggregate.redrosecps.com/core-global"+ '"'
+        }
+        coreDebug {
+            signingConfig signingConfigs.maviucakDebug
+            //oneapp uses maviucak keystore for debug releases also
+            debuggable(true)
+            testCoverageEnabled(true)
+            resValue("bool", "CRASHLYTICS_ENABLED", "false")
+            resValue("string", "GOOGLE_MAPS_API_KEY", googleMapsApiKey)
+            buildConfigField 'boolean', "IS_TEST_VERSION", "true"
+            buildConfigField 'boolean', "IS_FORM_SUBMISSON_ENABLED", "false"
+            buildConfigField 'boolean', "IS_ENCRYPTION_ENABLED", "true"
+            buildConfigField 'String', "MAPBOX_ACCESS_TOKEN", '"' + mapboxToken + '"'
+            buildConfigField 'boolean', "IS_SUPPORT_MULTI_FINGER_PRINT", "true"
+            buildConfigField "String", "SERVER_URL",'"' + "https://aggregate.redrosecps.com/core-globaldemo"+ '"'
+
         }
     }
 
@@ -166,12 +325,9 @@ android {
     }
 
     compileOptions {
+        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    dexOptions {
-        javaMaxHeapSize '2048M'
     }
 
     testOptions {
@@ -185,7 +341,7 @@ android {
             }
         }
     }
-    buildToolsVersion = '28.0.3'
+    //buildToolsVersion = '28.0.3'
 }
 
 configurations.all {
@@ -194,16 +350,20 @@ configurations.all {
         cacheChangingModulesFor(0, 'seconds')
 
         force('com.google.code.findbugs:jsr305:1.3.9')
+        force('com.getkeepsafe.relinker:relinker:1.4.2') // 1.3.1 (required by mapbox) doesn't exist on Maven Central
     }
     transitive = true
 }
 
 dependencies {
+
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
     // To make ODK Collect is installable on all devices even though the Mapbox
     // native library is missing for some ABIs, we include an .aar dependency
     // named "nbi-stubs", which causes there to be at least one .so library
     // present for every ABI (armeabi, armeabi-v7a, arm64-v8a, x86, x86_64).
-    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+    //implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+    implementation project(path : ':nbistubs', configuration: 'default')
 
     implementation 'androidx.legacy:legacy-support-v13:1.0.0'
     //noinspection GradleDependency
@@ -225,21 +385,22 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics:17.2.1'
     implementation "com.crashlytics.sdk.android:crashlytics:2.10.1"
 
-    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:8.4.0'
+    //implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:8.4.0'
+    //implementation(name: 'mapbox-android-accounts-0.2.0', ext: 'aar')
     implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-annotation-v7:0.6.0'
 
     implementation("com.google.guava:guava:28.1-android")
 
     implementation "com.squareup.okhttp3:okhttp:${rootProject.okhttp3Version}"
-    implementation 'com.burgstaller:okhttp-digest:1.18' //newer versions require minSdkVersion >= 21
+    implementation 'io.github.rburgst:okhttp-digest:1.21' // migrated from com.burgstaller (JCenter-only)
 
     implementation 'com.github.mohamadian:PersianJodaTime:1.2'
     implementation 'com.github.chanmratekoko:myanmar-calendar:1.0.6.RC3'
     implementation 'bikramsambat:bikram-sambat:1.1.0'
     implementation "com.evernote:android-job:1.4.2"
-    implementation "com.rarepebble:colorpicker:3.0.1"
+    implementation 'com.github.martin-stone:hsv-alpha-color-picker-android:3.1.0'
     implementation "commons-io:commons-io:2.6"
-    implementation "net.sf.opencsv:opencsv:2.4"
+    implementation "net.sf.opencsv:opencsv:2.3" // 2.4 was never published to Maven Central
     implementation("org.opendatakit:opendatakit-javarosa:2.17.0") {
         exclude group: 'joda-time'
         exclude group: 'org.slf4j'
@@ -270,12 +431,12 @@ dependencies {
     implementation "net.danlew:android.joda:2.10.3"
 
     // Real LeakCanary for debug builds only: notifications, analysis, etc
-    debugImplementation "com.squareup.leakcanary:leakcanary-android:${rootProject.leakyCanaryVersion}"
+    //debugImplementation "com.squareup.leakcanary:leakcanary-android:${rootProject.leakyCanaryVersion}"
     // No-Op version of LeakCanary for release builds: no notifications, no analysis, nothing
-    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:${rootProject.leakyCanaryVersion}"
-    testImplementation "com.squareup.leakcanary:leakcanary-android-no-op:${rootProject.leakyCanaryVersion}"
-    androidTestImplementation "com.squareup.leakcanary:leakcanary-android-no-op:${rootProject.leakyCanaryVersion}"
-    odkCollectReleaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:${rootProject.leakyCanaryVersion}"
+    //releaseImplementation "com.squareup.leakcanary:leakcanary-android:${rootProject.leakyCanaryVersion}"
+   // testImplementation "com.squareup.leakcanary:leakcanary-android:${rootProject.leakyCanaryVersion}"
+    //androidTestImplementation "com.squareup.leakcanary:leakcanary-android:${rootProject.leakyCanaryVersion}"
+    //odkCollectReleaseImplementation "com.squareup.leakcanary:leakcanary-android:${rootProject.leakyCanaryVersion}"
 
     // Android Architecture Components:
     //noinspection GradleDependency
@@ -299,13 +460,11 @@ dependencies {
     implementation "com.jakewharton.rxrelay2:rxrelay:2.1.1"
 
     // WorkManager for specifying deferrable, asynchronous tasks
-    implementation("android.arch.work:work-runtime:1.0.1") {
+    implementation("androidx.work:work-runtime:2.9.0") {
         exclude group: 'com.google.guava', module: 'listenablefuture'
     }
-    // Optional JobDispatcher support so devices with Play Services do better than AlarmManager
-    implementation("android.arch.work:work-firebase:1.0.0-alpha11") {
-        exclude group: 'com.google.guava', module: 'listenablefuture'
-    }
+    // Removed android.arch.work:work-firebase:1.0.0-alpha11 — fully deprecated,
+    // firebase-jobdispatcher transitive dep no longer available, and redundant with work-runtime:2.9.0 on minSdk>=21
 
     // Makes binding to Views easy:
     implementation "com.jakewharton:butterknife:10.2.0"
@@ -314,9 +473,6 @@ dependencies {
     // Annotations understood by FindBugs
     compileOnly 'com.google.code.findbugs:annotations:3.0.1'
     compileOnly 'com.google.code.findbugs:jsr305:3.0.2'
-
-    // Used to generate documentation screenshots.
-    androidTestImplementation "tools.fastlane:screengrab:1.1.0" //updating would require minSdkVersion >=18
 
     // Testing-only dependencies
     testImplementation "junit:junit:4.13-beta-3"

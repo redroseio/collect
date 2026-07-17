@@ -69,7 +69,7 @@ public class SmsNotificationReceiver extends BroadcastReceiver {
 
         Intent intent = new Intent(context, InstanceUploaderListActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
-                intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
 
         return new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setContentTitle(smsSubmission.getDisplayName())
@@ -90,7 +90,7 @@ public class SmsNotificationReceiver extends BroadcastReceiver {
     private Notification buildSummary() {
         Intent intent = new Intent(context, InstanceUploaderListActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
-                intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
 
         return new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setContentTitle(context.getString(R.string.sms_submissions_notif_title))

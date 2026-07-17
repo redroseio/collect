@@ -90,18 +90,17 @@ import static com.redrosecps.collect.android.tasks.sms.SmsSender.SMS_SEND_ACTION
 public class Collect extends Application {
 
     // Storage paths
-    public static final String ODK_ROOT = Environment.getExternalStorageDirectory()
-            + File.separator + "rrcollect";
-    public static final String FORMS_PATH = ODK_ROOT + File.separator + "forms";
-    public static final String INSTANCES_PATH = ODK_ROOT + File.separator + "instances";
-    public static final String CACHE_PATH = ODK_ROOT + File.separator + ".cache";
-    public static final String METADATA_PATH = ODK_ROOT + File.separator + "metadata";
-    public static final String TMPFILE_PATH = CACHE_PATH + File.separator + "tmp.jpg";
-    public static final String TMPDRAWFILE_PATH = CACHE_PATH + File.separator + "tmpDraw.jpg";
+    public static String ODK_ROOT = null;
+    public static String FORMS_PATH = ODK_ROOT + File.separator + "forms";
+    public static String INSTANCES_PATH = ODK_ROOT + File.separator + "instances";
+    public static String CACHE_PATH = ODK_ROOT + File.separator + ".cache";
+    public static String METADATA_PATH = ODK_ROOT + File.separator + "metadata";
+    public static String TMPFILE_PATH = CACHE_PATH + File.separator + "tmp.jpg";
+    public static String TMPDRAWFILE_PATH = CACHE_PATH + File.separator + "tmpDraw.jpg";
     public static final String DEFAULT_FONTSIZE = "21";
     public static final int DEFAULT_FONTSIZE_INT = 21;
-    public static final String OFFLINE_LAYERS = ODK_ROOT + File.separator + "layers";
-    public static final String SETTINGS = ODK_ROOT + File.separator + "settings";
+    public static String OFFLINE_LAYERS = ODK_ROOT + File.separator + "layers";
+    public static String SETTINGS = ODK_ROOT + File.separator + "settings";
 
     public static final int CLICK_DEBOUNCE_MS = 1000;
 
@@ -120,6 +119,9 @@ public class Collect extends Application {
         return singleton;
     }
 
+    public static Context context;
+
+
     public static int getQuestionFontsize() {
         // For testing:
         Collect instance = Collect.getInstance();
@@ -136,11 +138,43 @@ public class Collect extends Application {
      * @throws RuntimeException if there is no SDCard or the directory exists as a non directory
      */
     public static void createODKDirs() throws RuntimeException {
-        String cardstatus = Environment.getExternalStorageState();
+        //ODK_ROOT = context.getExternalFilesDir(null).getAbsolutePath();
+        /*String cardstatus = Environment.getExternalStorageState();
         if (!cardstatus.equals(Environment.MEDIA_MOUNTED)) {
             throw new RuntimeException(
                     Collect.getInstance().getString(R.string.sdcard_unmounted, cardstatus));
+        }*/
+
+        String[] dirs = {
+                ODK_ROOT, FORMS_PATH, INSTANCES_PATH, CACHE_PATH, METADATA_PATH, OFFLINE_LAYERS
+        };
+
+        for (String dirName : dirs) {
+            File dir = new File(dirName);
+            if (!dir.exists()) {
+                if (!dir.mkdirs()) {
+                    String message = getInstance().getString(R.string.cannot_create_directory, dirName);
+                    Timber.w(message);
+                    throw new RuntimeException(message);
+                }
+            } else {
+                if (!dir.isDirectory()) {
+                    String message = getInstance().getString(R.string.not_a_directory, dirName);
+                    Timber.w(message);
+                    throw new RuntimeException(message);
+                }
+            }
         }
+    }
+
+
+    public static void createODKDirs(Context context) throws RuntimeException {
+        ODK_ROOT = context.getExternalFilesDir(null).getAbsolutePath();
+        /*String cardstatus = context.getExternalFilesDir(null);
+        if (!cardstatus.equals(Environment.MEDIA_MOUNTED)) {
+            throw new RuntimeException(
+                    Collect.getInstance().getString(R.string.sdcard_unmounted, cardstatus));
+        }*/
 
         String[] dirs = {
                 ODK_ROOT, FORMS_PATH, INSTANCES_PATH, CACHE_PATH, METADATA_PATH, OFFLINE_LAYERS
@@ -211,7 +245,7 @@ public class Collect extends Application {
     /**
      * Get a User-Agent string that provides the platform details followed by the application ID
      * and application version name: {@code Dalvik/<version> (platform info) com.redrosecps.collect.android/v<version>}.
-     *
+     * <p>
      * This deviates from the recommended format as described in https://github.com/opendatakit/collect/issues/3253.
      */
     public String getUserAgentString() {
@@ -242,15 +276,22 @@ public class Collect extends Application {
     public void onCreate() {
         super.onCreate();
         singleton = this;
+        context = getApplicationContext();
+
         firebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         installTls12();
         setupDagger();
 
         NotificationUtils.createNotificationChannel(singleton);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(new SmsSentBroadcastReceiver(), new IntentFilter(SMS_SEND_ACTION), RECEIVER_EXPORTED);
+            registerReceiver(new SmsNotificationReceiver(), new IntentFilter(SMS_NOTIFICATION_ACTION), RECEIVER_EXPORTED);
+        } else {
+            registerReceiver(new SmsSentBroadcastReceiver(), new IntentFilter(SMS_SEND_ACTION));
+            registerReceiver(new SmsNotificationReceiver(), new IntentFilter(SMS_NOTIFICATION_ACTION));
+        }
 
-        registerReceiver(new SmsSentBroadcastReceiver(), new IntentFilter(SMS_SEND_ACTION));
-        registerReceiver(new SmsNotificationReceiver(), new IntentFilter(SMS_NOTIFICATION_ACTION));
 
         try {
             JobManager
@@ -283,7 +324,7 @@ public class Collect extends Application {
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            RestrictionsManager restrictionsMgr = (RestrictionsManager)getApplicationContext()
+            RestrictionsManager restrictionsMgr = (RestrictionsManager) getApplicationContext()
                     .getSystemService(Context.RESTRICTIONS_SERVICE);
             Toast.makeText(getApplicationContext(), "Restrictions supported", Toast.LENGTH_SHORT).show();
             Bundle appRestrictions = restrictionsMgr.getApplicationRestrictions();
@@ -293,8 +334,7 @@ public class Collect extends Application {
                     Toast.makeText(getApplicationContext(), "Found appRestrictions but an empty set. Has restrictions provider? Ans:"
                             + restrictionsMgr.hasRestrictionsProvider(), Toast.LENGTH_LONG).show();
 
-                }
-                else {
+                } else {
 
                     Toast.makeText(getApplicationContext(),
                             "Found appRestrictions and it has some elements in it (viola!) Has restrictions provider? Ans:"
@@ -459,7 +499,8 @@ public class Collect extends Application {
 
     /**
      * Gets a unique, privacy-preserving identifier for a form based on its id and version.
-     * @param formId id of a form
+     *
+     * @param formId      id of a form
      * @param formVersion version of a form
      * @return md5 hash of the form title, a space, the form ID
      */

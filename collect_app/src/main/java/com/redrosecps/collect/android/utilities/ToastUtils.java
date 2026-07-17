@@ -51,12 +51,12 @@ public class ToastUtils {
 
     private static void showToastInMiddle(String message, int duration) {
         Toast toast = Toast.makeText(Collect.getInstance(), message, duration);
-        ViewGroup group = (ViewGroup) toast.getView();
+        /*ViewGroup group = (ViewGroup) toast.getView();
         TextView messageTextView = (TextView) group.getChildAt(0);
         messageTextView.setTextSize(21);
         messageTextView.setGravity(Gravity.CENTER);
 
-        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.setGravity(Gravity.CENTER, 0, 0);*/
         toast.show();
     }
 }

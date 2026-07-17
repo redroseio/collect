@@ -14,6 +14,10 @@
 
 package com.redrosecps.collect.android.activities;
 
+import static com.redrosecps.collect.android.preferences.GeneralKeys.KEY_AUTOSEND;
+import static com.redrosecps.collect.android.preferences.GeneralKeys.KEY_DELETE_AFTER_SEND;
+import static com.redrosecps.collect.android.preferences.GeneralKeys.KEY_SPLASH_PATH;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,6 +26,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -29,12 +34,15 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.redrosecps.collect.android.BuildConfig;
 import com.redrosecps.collect.android.R;
 import com.redrosecps.collect.android.application.Collect;
 import com.redrosecps.collect.android.listeners.PermissionListener;
 import com.redrosecps.collect.android.preferences.GeneralKeys;
 import com.redrosecps.collect.android.preferences.GeneralSharedPreferences;
+import com.redrosecps.collect.android.utilities.CryptoFileHandler;
 import com.redrosecps.collect.android.utilities.DialogUtils;
+import com.redrosecps.collect.android.utilities.KeyManager;
 import com.redrosecps.collect.android.utilities.PermissionUtils;
 
 import java.io.File;
@@ -42,9 +50,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import timber.log.Timber;
+import javax.crypto.SecretKey;
 
-import static com.redrosecps.collect.android.preferences.GeneralKeys.KEY_SPLASH_PATH;
+import timber.log.Timber;
 
 public class SplashScreenActivity extends Activity {
 
@@ -58,13 +66,23 @@ public class SplashScreenActivity extends Activity {
         super.onCreate(savedInstanceState);
         // this splash screen should be a blank slate
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        Collect.ODK_ROOT = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath() + File.separator + "rrcollect";
+        Collect.FORMS_PATH = Collect.ODK_ROOT + File.separator + "forms";
+        Collect.INSTANCES_PATH = Collect.ODK_ROOT + File.separator + "instances";
+        Collect.CACHE_PATH = Collect.ODK_ROOT + File.separator + ".cache";
+        Collect.TMPFILE_PATH = Collect.CACHE_PATH + File.separator + "tmp.jpg";
+        Collect.TMPDRAWFILE_PATH = Collect.CACHE_PATH + File.separator + "tmpDraw.jpg";
+        Collect.METADATA_PATH = Collect.ODK_ROOT + File.separator + "metadata";
+        Collect.OFFLINE_LAYERS = Collect.ODK_ROOT + File.separator + "layers";
+        Collect.SETTINGS = Collect.ODK_ROOT + File.separator + "settings";
+
 
         new PermissionUtils().requestStoragePermissions(this, new PermissionListener() {
             @Override
             public void granted() {
                 // must be at the beginning of any activity that can be called from an external intent
                 try {
-                    Collect.createODKDirs();
+                    Collect.createODKDirs(SplashScreenActivity.this);
                 } catch (RuntimeException e) {
                     DialogUtils.showDialog(DialogUtils.createErrorDialog(SplashScreenActivity.this,
                             e.getMessage(), EXIT), SplashScreenActivity.this);
@@ -80,6 +98,8 @@ public class SplashScreenActivity extends Activity {
                 finish();
             }
         });
+
+
     }
 
     private void init() {
@@ -112,9 +132,25 @@ public class SplashScreenActivity extends Activity {
                 < packageInfo.versionCode) {
             editor.putLong(GeneralKeys.KEY_LAST_VERSION, packageInfo.versionCode);
             editor.apply();
+            if (BuildConfig.IS_FORM_SUBMISSON_ENABLED == false) {
+                GeneralSharedPreferences.getInstance().save(KEY_AUTOSEND, "wifi_and_cellular");
+                GeneralSharedPreferences.getInstance().save(KEY_DELETE_AFTER_SEND, true);
+            }
 
             firstRun = true;
         }
+
+        if (CryptoFileHandler.isEncryptionEnabled()) {
+            SecretKey secretKey = KeyManager.getKeyFromPrefs();
+            if (secretKey == null) {
+                try {
+                    KeyManager.generateAndStoreKey();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+
 
         // do all the first run things
         if (firstRun || showSplash) {

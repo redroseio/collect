@@ -19,6 +19,7 @@ import android.net.Uri;
 import android.preference.PreferenceManager;
 import androidx.annotation.NonNull;
 
+import com.redrosecps.collect.android.BuildConfig;
 import com.redrosecps.collect.android.R;
 import com.redrosecps.collect.android.application.Collect;
 import com.redrosecps.collect.android.dto.Instance;
@@ -159,7 +160,7 @@ public class InstanceServerUploader extends InstanceUploader {
         // complete but leave the file-to-be-uploaded with the name "submission.xml" and the plaintext
         // submission files on disk.  In this case, upload the submission.xml and all the files in
         // the directory. This means the plaintext files and the encrypted files will be sent to the
-        // server and the server will have to figure out what to do with them.
+        // server and the server will have to figure out what to do with them.GÖKHAN TODO
         File instanceFile = new File(instance.getInstanceFilePath());
         File submissionFile = new File(instanceFile.getParentFile(), "submission.xml");
         if (submissionFile.exists()) {
@@ -292,7 +293,7 @@ public class InstanceServerUploader extends InstanceUploader {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(
                 Collect.getInstance());
         String serverBase = settings.getString(GeneralKeys.KEY_SERVER_URL,
-                app.getString(R.string.default_server_url));
+                BuildConfig.SERVER_URL);
 
         if (serverBase.endsWith(URL_PATH_SEP)) {
             serverBase = serverBase.substring(0, serverBase.length() - 1);

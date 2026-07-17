@@ -25,6 +25,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
@@ -95,7 +96,12 @@ public class OsmDroidMapFragment extends Fragment implements MapFragment,
 
     @Override public Intent registerReceiver(BroadcastReceiver receiver, IntentFilter filter) {
         Context context = getActivity();
-        return context != null ? context.registerReceiver(receiver, filter) : null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            return context != null ? context.registerReceiver(receiver, filter, context.RECEIVER_EXPORTED) : null;
+        }else{
+            return context != null ? context.registerReceiver(receiver, filter) : null;
+
+        }
     }
 
     @Override public void unregisterReceiver(BroadcastReceiver receiver) {

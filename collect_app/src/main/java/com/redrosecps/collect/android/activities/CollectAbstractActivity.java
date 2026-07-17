@@ -51,7 +51,7 @@ public abstract class CollectAbstractActivity extends AppCompatActivity {
          * are able to handle permission checks and requests by themselves.
          */
         if (!areStoragePermissionsGranted(this) && !isEntryPointActivity(this)) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Theme_AppCompat_Light_Dialog);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this, androidx.appcompat.R.style.Theme_AppCompat_Light_Dialog);
 
             builder.setTitle(R.string.storage_runtime_permission_denied_title)
                     .setMessage(R.string.storage_runtime_permission_denied_desc)

@@ -19,3 +19,23 @@
 -keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
 -dontwarn org.codehaus.mojo.animal_sniffer.*
 -dontwarn okhttp3.internal.platform.ConscryptPlatform
+
+-dontwarn org.xmlpull.v1.**
+-dontwarn org.kxml2.io.**
+-dontwarn android.content.res.**
+-dontwarn org.slf4j.impl.StaticLoggerBinder
+
+-keep class org.xmlpull.** { *; }
+-keepclassmembers class org.xmlpull.** { *; }
+
+-keep public class * extends com.redrosecps.collect.android.application.Collect
+
+-keepclassmembers class * extends com.redrosecps.collect.android.application.Collect{
+ public <init>(android.content.Context);
+}
+
+-keep class net.danlew.android.joda.R$raw { *; }
+
+-keepclassmembers class *.R$ {
+*;
+}
