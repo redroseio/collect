@@ -158,6 +158,7 @@ import com.redrosecps.collect.android.widgets.QuestionWidget;
 import com.redrosecps.collect.android.widgets.RangeWidget;
 import com.redrosecps.collect.android.widgets.StringWidget;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -806,9 +807,46 @@ public class FormEntryActivity extends CollectAbstractActivity implements Animat
                 break;
             case RequestCodes.FINGERPRINT_CAPTURE:
             {
-                Object externalValue;
-                if (intent == null || intent.getExtras() == null
-                        || (externalValue = intent.getExtras().get("registrationImage")) == null)
+                // Large captures (e.g. identy's composite PNG, which can be several MB) travel as a
+                // FileProvider content:// URI instead of raw Intent extra bytes, to avoid the ~1MB
+                // Binder IPC limit. Secugen/Kojak still send raw bytes directly, so fall back to that
+                // if no URI extra is present.
+                String imageUriString = intent != null && intent.getExtras() != null
+                        ? intent.getExtras().getString("registrationImageUri") : null;
+                byte[] imageBytes = null;
+
+                if (imageUriString != null)
+                {
+                    try (InputStream uriStream = getContentResolver().openInputStream(Uri.parse(imageUriString)))
+                    {
+                        if (uriStream != null)
+                        {
+                            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                            byte[] chunk = new byte[8192];
+                            int n;
+                            while ((n = uriStream.read(chunk)) != -1)
+                            {
+                                buffer.write(chunk, 0, n);
+                            }
+                            imageBytes = buffer.toByteArray();
+                        }
+                    }
+                    catch (IOException e)
+                    {
+                        Timber.e(e, "Failed to read fingerprint registration image from %s", imageUriString);
+                    }
+                }
+                else
+                {
+                    Object externalValue = intent != null && intent.getExtras() != null
+                            ? intent.getExtras().get("registrationImage") : null;
+                    if (externalValue instanceof byte[])
+                    {
+                        imageBytes = (byte[]) externalValue;
+                    }
+                }
+
+                if (imageBytes == null)
                 {
                     ((ODKView)getCurrentViewIfODKView()).cancelWaitingForBinaryData();
                     createErrorDialog("Failed to grab fingerprint registration image! "
@@ -822,7 +860,7 @@ public class FormEntryActivity extends CollectAbstractActivity implements Animat
                     try
                     {
                         out = new FileOutputStream(s1);
-                        out.write((byte[])externalValue);
+                        out.write(imageBytes);
                         File nf1 = new File(s1);
                         ((ODKView)getCurrentViewIfODKView()).setBinaryData(nf1);
                         saveAnswersForCurrentScreen(DO_NOT_EVALUATE_CONSTRAINTS);
